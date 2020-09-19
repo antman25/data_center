@@ -1,0 +1,5 @@
+global:
+  storageClass: fast-disks
+persistence:
+  mountPath: /mnt/data/postgresql  
+  storageClass: fast-disks

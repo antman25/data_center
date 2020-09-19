@@ -1,0 +1,5 @@
+#!/bin/sh
+kubectl apply -f storage_consul0.yml
+kubectl apply -f storage_consul1.yml
+kubectl apply -f storage_consul2.yml
+kubectl apply -f storage_postgreqsql.yml
