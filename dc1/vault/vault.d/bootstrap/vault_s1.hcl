@@ -1,7 +1,8 @@
 ui = true
+disable_mlock = true
 
 storage "raft" {
-  path    = "data"
+  path    = "/var/lib/vault"
   node_id = "vault-s1"
 }
 
