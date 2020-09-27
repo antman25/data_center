@@ -1,1 +1,0 @@
-consul tls ca create

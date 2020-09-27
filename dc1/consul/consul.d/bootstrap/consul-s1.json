@@ -44,6 +44,12 @@
         "server" : 8300
     },
     "connect": {
-        "enabled" : false
+        "enabled" : false,
+        "ca_config {
+        address = "http://localhost:8200"
+        token = "..."
+        root_pki_path = "connect-root"
+        intermediate_pki_path = "connect-intermediate"
+    }
     }
 }
