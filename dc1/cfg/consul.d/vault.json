@@ -1,0 +1,8 @@
+{
+	"service": {
+		"name": "vault",
+		"tags": ["urlprefix-vault.service.consul/"],
+		"address": "10.0.0.142",
+		"port": 8200
+		}
+}
