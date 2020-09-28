@@ -16,3 +16,5 @@ echo "Creating the intermediate CSR..."
 openssl req -config ./intermediate_openssl.cnf -new -sha256 \
       -key /root/ca/intermediate/private/intermediate.key.pem \
       -out /root/ca/intermediate/csr/intermediate.csr.pem
+
+cp /root/ca/intermediate/private/intermediate.key.pem /etc/certs

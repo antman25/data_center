@@ -1,5 +1,6 @@
 ui = true
 disable_mlock = true
+log_level = "DEBUG"
 
 storage "raft" {
   path    = "/var/lib/vault"

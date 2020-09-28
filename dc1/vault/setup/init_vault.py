@@ -38,7 +38,6 @@ def unsealVault(client, keys):
             else:
                 print("Vault is unsealed")
                 break
- 
 
 
 def main():
@@ -54,10 +53,12 @@ def main():
             init = json.loads(data)
         keys = init['keys']
         root_token = init['root_token']
+    client.token = root_token
+    print('Vault initialize status: %s' % client.sys.is_initialized())
     for key in keys:
         print("Unseal key: %s" % key)
     print("Root Token: %s" % root_token)
-
+    
 
 if __name__ == '__main__':
     main()
