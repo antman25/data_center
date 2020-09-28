@@ -3,5 +3,5 @@
 echo "++++ Removing old data"
 sudo rm -rf /var/lib/vault/*
 echo "++++ Starting vault"
-sudo -u vault vault-ent server -config=vault.d/bootstrap/vault_s1.hcl
+sudo -u vault vault server -config=vault.d/bootstrap/vault_s1.hcl
 
