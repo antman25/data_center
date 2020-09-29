@@ -99,6 +99,7 @@ def main():
         acl_token = createMACL(client, management_token, name, path)
         print("Created %s ACL ID: %s" % (name, acl_token))
     #listACL(client,management_token)
+    #client = consul.Consul(token=token)
     
 
 if __name__ == '__main__':
