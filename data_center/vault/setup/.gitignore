@@ -1,3 +1,3 @@
 *.pem
-init.json
-ca_info.json
+*.json
+
