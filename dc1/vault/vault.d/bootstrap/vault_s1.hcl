@@ -2,11 +2,10 @@ ui = true
 disable_mlock = true
 log_level = "DEBUG"
 
-storage "raft" {
-  path    = "/var/lib/vault"
-  node_id = "vault-s1"
+storage "consul" {
+  address = "127.0.0.1:8500"
+  path    = "vault"
 }
-
 
 listener "tcp" {
   address     = "0.0.0.0:8200"

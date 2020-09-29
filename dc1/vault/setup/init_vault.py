@@ -53,6 +53,7 @@ def main():
             init = json.loads(data)
         keys = init['keys']
         root_token = init['root_token']
+    unsealVault(client,keys)
     client.token = root_token
     print('Vault initialize status: %s' % client.sys.is_initialized())
     for key in keys:
