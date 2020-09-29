@@ -11,17 +11,13 @@
     "ui": true,
     "log_level": "DEBUG",
     "enable_syslog": true,
-    "verify_incoming": true,
-    "verify_outgoing": true,
-    "encrypt_verify_incoming": true,
-    "encrypt_verify_outgoing": true,
-    "verify_server_hostname": true,
-    "encrypt": "VtYaKgCxmcCnwLUqBu++COlnPFUZBgpRFP1QR4I8aX0=",
-    "ca_file": "/etc/certs/ca-chain.cert.pem",
-    "cert_file": "/etc/certs/consul.service.consul.cert.pem",
-    "key_file": "/etc/certs/consul.service.consul.key.pem",
+    "verify_incoming": false,
+    "verify_outgoing": false,
+    "encrypt_verify_incoming": false,
+    "encrypt_verify_outgoing": false,
+    "verify_server_hostname": false,
     "auto_encrypt": {
-        "allow_tls": true
+        "allow_tls": false
     },
     "auto_config" : {
         "enabled" : false
