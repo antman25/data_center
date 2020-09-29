@@ -1,17 +1,28 @@
 #!/usr/bin/python3
 
 import consul
-bootstrap_token = 'e79a8787-827e-13b1-c487-aec201a6be10'
+import json
+
 def main():
     c = consul.Consul()
+    bootstrap_data = None
     try:
         print("Attempting bootstrap the ACLs")
-        bootstrap_response = c.acl.bootstrap()
-        print("Bootstrap Response: %s" % bootstrap_response)
-        management_key = bootstrap_response[
+        bootstrap_data = c.acl.bootstrap()
+        print("Bootstrap Response: %s" % bootstrap_data)
+        with open('bootstrap.json', 'w') as f:
+            f.write(json.dumps(bootstrap_data, sort_keys=True,indent=4))
 
-    except:
-        print("No bootstrap necessary"
+    except Exception as ex:
+        print(ex)
+        print("Unabled to bootstrap - loading from cache")
+        with open('bootstrap.json','r') as f:
+            bootstrap_data = json.loads(f.read())
+        #print(bootstrap_data)
+    management_key = bootstrap_data['SecretID']
+
+    print("ACL Management Bootstrap Key: %s" % management_key)
+
 
 if __name__ == '__main__':
     main()
