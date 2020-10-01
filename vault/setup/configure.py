@@ -32,6 +32,26 @@ def unsealVault(client, keys):
                 print("Vault is unsealed")
                 break
 
+def loadRootCA(client):
+    bundle = [ '/etc/certs/intermediate_ca.decrypted-key.pem', '/etc/certs/intermediate_ca.cert.pem']
+    bundle_data = ""
+    for path in bundle:
+        print("Processing Path %s" % path)
+        with open(path,'r') as f:
+            bundle_data += f.read()
+    savePEM(bundle_data,'bundle.pem')
+    print("Loading Root CA Content...")
+    submit_ca_information_response = client.secrets.pki.submit_ca_information(bundle_data,mount_point=int_pki_path)
+    print("Got Response: %s" % submit_ca_information_response)
+
+def generateRootCA(client):
+    generate_root_response = client.secrets.pki.generate_root(type='internal',common_name='antman root ca',mount_point=int_pki_path)
+    print("Generate root response: %s" % generate_root_response)
+    saveJson(generate_root_response, 'root_ca_info.json')
+    savePEM(generate_root_response['data']['issuing_ca'], 'root_ca.issue.pem')
+    savePEM(generate_root_response['data']['certificate'], 'root_ca.cert.pem')
+    #savePEM(generate_root_response['data']['private_key'], 'root_ca.key.pem')
+    return generate_root_response
 
 def configurePKI(client):
     print("Configuring PKI engine")
@@ -43,14 +63,15 @@ def configurePKI(client):
         print("Enbling Internal PKI secret engine")
         resp = client.sys.enable_secrets_engine(backend_type='pki', path=int_pki_path,description='Inernal PKI',max_lease_ttl="43800h")
         print("Got Response: %s" % resp)
+
     print("Creating ca_intermediate role")
-    resp = client.secrets.pki.create_or_update_role(name="ca_intermediate",
+    resp = client.secrets.pki.create_or_update_role(name="testrole",
                                                     extra_params={  'ttl': '72h',
                                                                     'allow_localhost': 'false'
                                                                  },
                                                     mount_point=int_pki_path)
     print("Got Response: %s" % resp)
-    print("Generating Root CA")
+    #print("Generating Root CA")
 
     #cert_list = client.secrets.pki.list_certificates(mount_point=int_pki_path)
     #print ("Cert List: %s" % cert_list)
@@ -59,28 +80,17 @@ def configurePKI(client):
     print("Got resp ***%s***" % resp)
     print ("Checking for existing CA Cert...")
     ca_cert = client.secrets.pki.read_ca_certificate(mount_point=int_pki_path)
-    if len(ca_cert) == 0:
-        print("No existing Root CA - Creating...")
-        '''
-        generate_root_response = client.secrets.pki.generate_root(type='exported',common_name='antman root ca',mount_point=int_pki_path)
-
-        saveJson(generate_root_response, 'root_ca_info.json')
-        savePEM(generate_root_response['data']['issuing_ca'], 'root_ca.issue.pem')
-        savePEM(generate_root_response['data']['certificate'], 'root_ca.cert.pem')
-        savePEM(generate_root_response['data']['private_key'], 'root_ca.key.pem')
-        '''
-        bundle = [ 'root_ca.issue.pem', 'root_ca.cert.pem', 'root_ca.key.pem']
-        bundle_data = []
-        for path in bundle:
-            with open(path,'r') as f:
-                bundle_data.append(f.read())
-        bundle_str = '\n'.join(bundle_data)
-        savePEM(bundle_str,'bundle.pem')
-        print("Loading Root CA Content...")
-        submit_ca_information_response = client.secrets.pki.submit_ca_information(bundle_str,mount_point=int_pki_path)
-        print("Got Response: %s" % submit_ca_information_response)
-    else:
+    print ("CA CERT = '%s'" % ca_cert)
+    if len(ca_cert) > 0:
         print("Root CA Exists")
+        #delete_root_response = client.secrets.pki.delete_root(mount_point=int_pki_path)
+        #print ("Delete CA Response: %s" % delete_root_response)
+    else:
+        print("Generating New Root CA")
+        generate_root_response = generateRootCA(client)
+        print("Root CA Request: %s" % generate_root_response)
+
+    '''
     print("Setting CRL URL")
     set_urls_response = client.secrets.pki.set_urls( { 'issuing_certificates': ['http://127.0.0.1:8200/v1/pki/ca'],
                                                        'crl_distribution_points': ['http://127.0.0.1:8200/v1/pki/crl'] },
@@ -90,7 +100,7 @@ def configurePKI(client):
     print("Setting CRL Config")
     set_crl_configuration_response = client.secrets.pki.set_crl_configuration(expiry='72h',disable=False,mount_point=int_pki_path)
     print("Got Response: %s" % set_crl_configuration_response)
-
+    '''
 
 
     print("Generating Intermediate CA CSR Cert...")
