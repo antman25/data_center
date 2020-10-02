@@ -3,8 +3,8 @@ import hvac
 import json
 
 vault_url = 'http://localhost:8200'
-int_pki_path = 'pki_int/'
-ldap_path = 'ldap/'
+int_ca_pki_path = 'pki_intermediate/'
+root_ca_pki_path = 'pki_root/'
 
 def getClient(url):
     client = hvac.Client(url=url)
@@ -41,29 +41,39 @@ def loadRootCA(client):
             bundle_data += f.read()
     savePEM(bundle_data,'bundle.pem')
     print("Loading Root CA Content...")
-    submit_ca_information_response = client.secrets.pki.submit_ca_information(bundle_data,mount_point=int_pki_path)
+    submit_ca_information_response = client.secrets.pki.submit_ca_information(bundle_data,mount_point=root_ca_pki_path)
     print("Got Response: %s" % submit_ca_information_response)
 
 def generateRootCA(client):
-    generate_root_response = client.secrets.pki.generate_root(type='internal',common_name='antman root ca',mount_point=int_pki_path)
+    generate_root_response = client.secrets.pki.generate_root(type='internal',common_name='antman root ca',mount_point=root_ca_pki_path)
     print("Generate root response: %s" % generate_root_response)
     saveJson(generate_root_response, 'root_ca_info.json')
-    savePEM(generate_root_response['data']['issuing_ca'], 'root_ca.issue.pem')
+    #savePEM(generate_root_response['data']['issuing_ca'], 'root_ca.issue.pem')
     savePEM(generate_root_response['data']['certificate'], 'root_ca.cert.pem')
     #savePEM(generate_root_response['data']['private_key'], 'root_ca.key.pem')
     return generate_root_response
 
+def mountPKI(client):
+    mounted_engines = list(client.sys.list_mounted_secrets_engines().keys())
+    if root_ca_pki_path in mounted_engines:
+        print("Root CA PKI already mounted!")
+    else:
+        print("Enabling Root CA PKI Engine")
+        resp = client.sys.enable_secrets_engine(backend_type='pki', path=root_ca_pki_path,description='Root CA PKI Testing',max_lease_ttl="43800h")
+
+    if int_ca_pki_path in mounted_engines:
+        print("Intermediate CA PKI already mounted!")
+    else:
+        print("Enabling Intermediate CA PKI Engine")
+        resp = client.sys.enable_secrets_engine(backend_type='pki', path=int_ca_pki_path,description='Intermediate CA PKI Testing',max_lease_ttl="21400h")
+        #print("Got Response: %s" % resp)
+
 def configurePKI(client):
     print("Configuring PKI engine")
-    mounted_engines = list(client.sys.list_mounted_secrets_engines().keys())
+    mountPKI(client)
     #print(mounted_engines)
-    if int_pki_path in mounted_engines:
-        print("Internal PKI already mounted!")
-    else:
-        print("Enbling Internal PKI secret engine")
-        resp = client.sys.enable_secrets_engine(backend_type='pki', path=int_pki_path,description='Inernal PKI',max_lease_ttl="43800h")
-        print("Got Response: %s" % resp)
 
+    '''
     print("Creating ca_intermediate role")
     resp = client.secrets.pki.create_or_update_role(name="testrole",
                                                     extra_params={  'ttl': '72h',
@@ -72,15 +82,16 @@ def configurePKI(client):
                                                     mount_point=int_pki_path)
     print("Got Response: %s" % resp)
     #print("Generating Root CA")
+    '''
 
     #cert_list = client.secrets.pki.list_certificates(mount_point=int_pki_path)
     #print ("Cert List: %s" % cert_list)
     #print("Getting CA Chain PEM")
-    resp = client.secrets.pki.read_ca_certificate_chain(mount_point=int_pki_path)
-    print("Got resp ***%s***" % resp)
+    resp = client.secrets.pki.read_ca_certificate_chain(mount_point=root_ca_pki_path)
+    #print("CA CERT CHAIN resp ***%s***" % resp)
     print ("Checking for existing CA Cert...")
-    ca_cert = client.secrets.pki.read_ca_certificate(mount_point=int_pki_path)
-    print ("CA CERT = '%s'" % ca_cert)
+    ca_cert = client.secrets.pki.read_ca_certificate(mount_point=root_ca_pki_path)
+    #print ("READ CA CERT = '%s'" % ca_cert)
     if len(ca_cert) > 0:
         print("Root CA Exists")
         #delete_root_response = client.secrets.pki.delete_root(mount_point=int_pki_path)
@@ -90,50 +101,43 @@ def configurePKI(client):
         generate_root_response = generateRootCA(client)
         print("Root CA Request: %s" % generate_root_response)
 
-    '''
-    print("Setting CRL URL")
+
+    print("Setting CRL / Issuer URL")
     set_urls_response = client.secrets.pki.set_urls( { 'issuing_certificates': ['http://127.0.0.1:8200/v1/pki/ca'],
                                                        'crl_distribution_points': ['http://127.0.0.1:8200/v1/pki/crl'] },
-                                                      mount_point=int_pki_path)
+                                                      mount_point=root_ca_pki_path)
     print("Got Response: %s" % set_urls_response)
 
     print("Setting CRL Config")
-    set_crl_configuration_response = client.secrets.pki.set_crl_configuration(expiry='72h',disable=False,mount_point=int_pki_path)
+    set_crl_configuration_response = client.secrets.pki.set_crl_configuration(expiry='72h',disable=False,mount_point=root_ca_pki_path)
     print("Got Response: %s" % set_crl_configuration_response)
-    '''
+
+    resp = client.secrets.pki.read_ca_certificate_chain(mount_point=int_ca_pki_path)
+    #print("INTERMEDIATE CA CERT CHAIN resp ***%s***" % resp)
+    print ("Checking for existing INTERMEDIATE CA Cert...")
+    ca_cert = client.secrets.pki.read_ca_certificate(mount_point=int_ca_pki_path)
+    #print ("READ INTERMEDIATECA CERT = '%s'" % ca_cert)
+    if len(ca_cert) == 0:
+        print("Generating Intermediate CA CSR Cert...")
+        generate_intermediate_response = client.secrets.pki.generate_intermediate(type='exported', common_name='antman intermediate ca',mount_point=int_ca_pki_path)
+        saveJson(generate_intermediate_response, 'intermediate_ca_info.json')
+        #print ("Got Response: %s" % generate_intermediate_response)
+        print("Saving CSR/Private Key to disk...")
+        savePEM(generate_intermediate_response['data']['csr'], 'int_ca.csr.pem')
+        savePEM(generate_intermediate_response['data']['private_key'], 'int_ca.key.pem')
+
+        csr = generate_intermediate_response['data']['csr']
+        print("Attempting to sign intermediate CA")
+        sign_intermediate_response = client.secrets.pki.sign_intermediate(csr=csr,common_name='antman intermediate ca test',mount_point=root_ca_pki_path)
+        print ("Got Response: %s" % sign_intermediate_response)
+        intermediate_ca_cert = sign_intermediate_response['data']['certificate']
+        issuing_ca_cert = sign_intermediate_response['data']['issuing_ca']
+        savePEM(intermediate_ca_cert, 'int_ca.cert.pem')
+        set_signed_intermediate_response = client.secrets.pki.set_signed_intermediate(intermediate_ca_cert,mount_point=int_ca_pki_path)
+    else:
+        print("Root INTERMEDIATE CA Exists")
 
 
-    print("Generating Intermediate CA CSR Cert...")
-    generate_intermediate_response = client.secrets.pki.generate_intermediate(type='exported', common_name='antman intermediate ca',mount_point=int_pki_path)
-    saveJson(generate_intermediate_response, 'intermediate_ca_info.json')
-    #print ("Got Response: %s" % generate_intermediate_response)
-    print("Saving CSR/Private Key to disk...")
-    savePEM(generate_intermediate_response['data']['csr'], 'int_ca.csr.pem')
-    savePEM(generate_intermediate_response['data']['private_key'], 'int_ca.key.pem')
-
-    csr = generate_intermediate_response['data']['csr']
-    print("Attempting to sign intermediate CA")
-    sign_intermediate_response = client.secrets.pki.sign_intermediate(csr=csr,common_name='example.com',mount_point=int_pki_path)
-    print ("Got Response: %s" % sign_intermediate_response)
-
-    #sign_certificate_response = self.client.secrets.pki.sign_certificate(name='myrole', csr='...', common_name='example.com')
-
-    #generate_certificate_response = client.secrets.pki.generate_certificate(name='ca_intermediate', common_name='vault.service.consul',mount_point=int_pki_path)
-    #print ("Got Response: %s" % generate_certificate_response)
-
-    #read_ca_certificate_response = client.secrets.pki.read_ca_certificate()
-    #print(read_ca_certificate_response)
-    #generate_certificate_response = self.client.secrets.pki.generate_certificate(name='myrole',common_name='test.example.com')
-    #print("Certificate Response: %s" % generate_certificate_response)
-    #ca_info = build_cert_bundle(bundle)
-    #print("CA Cert Bundle: %s" % ca_info)
-    #print("Submitting CA Key")
-    #submit_ca_information_response = client.secrets.pki.submit_ca_information(ca_info)
-    #print(submit_ca_information_response)
-    #for eng in mounted_engines:
-    #    print(eng)
-    #client.sys.enable_secrets_engine(backend_type='pki', path='int_pki',description='Inernal PKI',max_lease_ttl="43800h")
- 
 
 
 def main():

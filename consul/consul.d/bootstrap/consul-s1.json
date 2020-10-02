@@ -16,6 +16,7 @@
     "encrypt_verify_incoming": false,
     "encrypt_verify_outgoing": false,
     "verify_server_hostname": false,
+    "recursors" : [ "8.8.8.8" ],
     "auto_encrypt": {
         "allow_tls": false
     },
