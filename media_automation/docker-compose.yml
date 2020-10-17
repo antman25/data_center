@@ -2,7 +2,7 @@ version: '2.1'
 services:
  transmission-openvpn:
     volumes:
-        - /srv/dev-disk-by-label-media/downloads/:/data
+        - /mnt/media/downloads/:/data
         - /etc/localtime:/etc/localtime:ro
     environment:
         - PUID=1000
@@ -13,8 +13,8 @@ services:
         - NORDVPN_COUNTRY=US
         - NORDVPN_CATEGORY=legacy_p2p
         - NORDVPN_PROTOCOL=udp
-        - OPENVPN_USERNAME=wqxThYK8YJt6mBWdnhzXrnyM
-        - OPENVPN_PASSWORD=WtvbSQgBrtWTqLeTX5tSj62Z
+        - OPENVPN_USERNAME=UsKT8Nf6WuLkvA9zEAL6Z71k
+        - OPENVPN_PASSWORD=6LukpZoExmizFLP48zaDgpqn
         - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
         - WEBPROXY_ENABLED=false
         - LOCAL_NETWORK=192.168.8.0/24
@@ -47,8 +47,8 @@ services:
         - AUTO_UPDATE=true #optional
         - RUN_OPTS=#optional
     volumes:
-        - /srv/dev-disk-by-label-data/appdata/jackett:/config
-        - /srv/dev-disk-by-label-data/downloads/watch:/downloads
+        - /mnt/media/appdata/jackett:/config
+        - /mnt/media/downloads/watch:/downloads
     restart: unless-stopped
 
  radarr:
@@ -61,9 +61,9 @@ services:
         - TZ=America/New_York
         - UMASK_SET=022 #optional
     volumes:
-        - /srv/dev-disk-by-label-data/appdata/radarr:/config
-        - /srv/dev-disk-by-label-data/media/movies:/movies
-        - /srv/dev-disk-by-label-data/downloads/completed:/downloads
+        - /mnt/media/appdata/radarr:/config
+        - /mnt/media/media/movies:/movies
+        - /mnt/media/downloads/completed:/downloads
     restart: unless-stopped
 
  sonarr:
@@ -76,9 +76,9 @@ services:
         - TZ=America/New_York
         - UMASK_SET=022 #optional
     volumes:
-        - /srv/dev-disk-by-label-data/appdata/sonarr:/config
-        - /srv/dev-disk-by-label-data/media/tv:/tv
-        - /srv/dev-disk-by-label-data/downloads/completed:/downloads
+        - /mnt/media/appdata/sonarr:/config
+        - /mnt/media/media/tv:/tv
+        - /mnt/media/downloads/completed:/downloads
     restart: unless-stopped
 
  lidarr:
@@ -91,9 +91,9 @@ services:
         - TZ=America/New_York
         - UMASK_SET=022 #optional
     volumes:
-        - /srv/dev-disk-by-label-data/appdata/lidarr:/config
-        - /srv/dev-disk-by-label-data/media/music:/music
-        - /srv/dev-disk-by-label-data/downloads/completed:/downloads
+        - /mnt/media/appdata/lidarr:/config
+        - /mnt/media/media/music:/music
+        - /mnt/media/downloads/completed:/downloads
     restart: unless-stopped
 
  lazylibrarian:
@@ -106,9 +106,9 @@ services:
          - TZ=America/New_York
         #- DOCKER_MODS=linuxserver/calibre-web:calibre #optional
     volumes:
-        - /srv/dev-disk-by-label-data/appdata/lazylibrarian:/config
-        - /srv/dev-disk-by-label-data/downloads/completed:/downloads
-        - /srv/dev-disk-by-label-data/media/ebooks:/books
+        - /mnt/media/appdata/lazylibrarian:/config
+        - /mnt/media/downloads/completed:/downloads
+        - /mnt/media/media/ebooks:/books
     restart: unless-stopped
 
 
