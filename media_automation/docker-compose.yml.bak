@@ -17,7 +17,7 @@ services:
         - OPENVPN_PASSWORD=6LukpZoExmizFLP48zaDgpqn
         - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
         - WEBPROXY_ENABLED=false
-        - LOCAL_NETWORK=172.18.0/16
+        - LOCAL_NETWORK=172.17.0/16
         - TRANSMISSION_SCRAPE_PAUSED_TORRENTS_ENABLED=false
         - DNS=8.8.8.8,8.8.4.4
     cap_add:
@@ -47,7 +47,7 @@ services:
         - AUTO_UPDATE=true #optional
         - RUN_OPTS=#optional
     volumes:
-        - /mnt/media/appdata/jackett:/config
+        - /home/antman/media_automation/appdata/jackett:/config
         - /mnt/media/downloads/watch:/downloads
     restart: unless-stopped
 
@@ -61,7 +61,7 @@ services:
         - TZ=America/Denver
         - UMASK_SET=022 #optional
     volumes:
-        - /mnt/media/appdata/radarr:/config
+        - /home/antman/media_automation/appdata/radarr:/config
         - /mnt/media/media/movies:/movies
         - /mnt/media/downloads/completed:/downloads
     restart: unless-stopped
@@ -76,7 +76,7 @@ services:
         - TZ=America/Denver
         - UMASK_SET=022 #optional
     volumes:
-        - /mnt/media/appdata/sonarr:/config
+        - /home/antman/media_automation/appdata/sonarr:/config
         - /mnt/media/media/tv:/tv
         - /mnt/media/downloads/completed:/downloads
     restart: unless-stopped
@@ -91,7 +91,7 @@ services:
         - TZ=America/Denver
         - UMASK_SET=022 #optional
     volumes:
-        - /mnt/media/appdata/lidarr:/config
+        - /home/antman/media_automation/appdata/lidarr:/config
         - /mnt/media/media/music:/music
         - /mnt/media/downloads/completed:/downloads
     restart: unless-stopped
@@ -106,7 +106,7 @@ services:
          - TZ=America/Denver
         #- DOCKER_MODS=linuxserver/calibre-web:calibre #optional
     volumes:
-        - /mnt/media/appdata/lazylibrarian:/config
+        - /home/antman/media_automation/appdata/lazylibrarian:/config
         - /mnt/media/downloads/completed:/downloads
         - /mnt/media/media/ebooks:/books
     restart: unless-stopped
@@ -132,7 +132,7 @@ services:
       - 32414:32414/udp
       - 32469:32469
     volumes:
-      - /mnt/media/appdata/plex:/config
+      - /home/antman/media_automation/appdata/plex:/config
       - /mnt/media/media/tv:/tv
       - /mnt/media/media/movies:/movies
       - /mnt/media/media/music:/music
