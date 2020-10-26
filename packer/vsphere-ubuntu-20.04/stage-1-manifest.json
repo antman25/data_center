@@ -3,12 +3,12 @@
     {
       "name": "vsphere-iso",
       "builder_type": "vsphere-iso",
-      "build_time": 1603662079,
+      "build_time": 1603672440,
       "files": null,
       "artifact_id": "Ubuntu-2004-Template",
-      "packer_run_uuid": "545587fc-38e9-ca43-e0f9-1f19a8b1105c",
+      "packer_run_uuid": "f3dcb1c9-cbf1-399d-c8f6-71dac19bea6c",
       "custom_data": null
     }
   ],
-  "last_run_uuid": "545587fc-38e9-ca43-e0f9-1f19a8b1105c"
+  "last_run_uuid": "f3dcb1c9-cbf1-399d-c8f6-71dac19bea6c"
 }
