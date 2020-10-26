@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+    aptcacher:
+        image: "yeticraft/docker-apt-cacher-ng"
+        container_name: aptcacher
+        restart: unless-stopped
+        build: ./
+        ports:
+            - "3142:3142"
+        volumes:
+            - /mnt/scratch/appdata/aptcacher-cache:/var/cache/apt-cacher-ng
+
+volumes:
+    aptcacher-cache:
