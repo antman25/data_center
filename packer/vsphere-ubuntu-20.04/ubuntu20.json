@@ -74,6 +74,10 @@
 		"type" : "manifest",
 		"output" : "stage-1-manifest.json"
 	}
-  ]
+  ],
+   "export": {
+    "force": true,
+    "output_directory": "./output_vsphere"
+  }
 }
 

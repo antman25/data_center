@@ -1,0 +1,12 @@
+#https://github.com/maxmasetti/docker-compose-registry
+
+#git clone https://github.com/maxmasetti/docker-compose-registry.git registry
+
+#/etc/docker/daemon.json:
+#{
+#  "registry-mirrors": ["http://<my-docker-mirror-host-ip>:5000"]
+#}
+
+#
+#service docker stop
+#service docker sart
