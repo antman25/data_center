@@ -13,11 +13,11 @@ services:
         - NORDVPN_COUNTRY=US
         - NORDVPN_CATEGORY=legacy_p2p
         - NORDVPN_PROTOCOL=udp
-        - OPENVPN_USERNAME=UsKT8Nf6WuLkvA9zEAL6Z71k
-        - OPENVPN_PASSWORD=6LukpZoExmizFLP48zaDgpqn
+        - OPENVPN_USERNAME=${NORDVPN_USERNAME}
+        - OPENVPN_PASSWORD=${NORDVPN_PASSWORD}
         - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
         - WEBPROXY_ENABLED=false
-        - LOCAL_NETWORK=172.18.0/16
+        - LOCAL_NETWORK=10.0.0.0/8
         - TRANSMISSION_SCRAPE_PAUSED_TORRENTS_ENABLED=false
         - DNS=8.8.8.8,8.8.4.4
     cap_add:
@@ -111,30 +111,4 @@ services:
         - /mnt/media/media/ebooks:/books
     restart: unless-stopped
 
- plex:
-    image: linuxserver/plex
-    container_name: plex
-    environment:
-      - PUID=1000
-      - PGID=100
-      - VERSION=docker
-      - UMASK_SET=022 #optional
-      - PLEX_CLAIM= #optional
-      - LOCAL_NETWORK=172.17.0/16
-    ports:
-      - 32400:32400
-      - 1900:1900
-      - 3005:3005    
-      - 5353:5353
-      - 32410:32410
-      - 32412:32412/udp
-      - 32413:32413/udp
-      - 32414:32414/udp
-      - 32469:32469
-    volumes:
-      - /mnt/media/appdata/plex:/config
-      - /mnt/media/media/tv:/tv
-      - /mnt/media/media/movies:/movies
-      - /mnt/media/media/music:/music
-    restart: unless-stopped
-
+ 
