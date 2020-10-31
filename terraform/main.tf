@@ -38,6 +38,7 @@ datastore_id = data.vsphere_datastore.datastore.id
 num_cpus = var.vm-cpu
 memory = var.vm-ram
 guest_id = var.vm-guest-id
+wait_for_guest_net_timeout = -1
 network_interface {
   network_id = data.vsphere_network.network.id
 }
@@ -56,7 +57,7 @@ clone {
     }
     
     network_interface {
-        ipv4_address = "10.0.0.7${count.index}"
+        ipv4_address = "10.0.0.${70 + count.index}"
         ipv4_netmask = 24
     }
   }

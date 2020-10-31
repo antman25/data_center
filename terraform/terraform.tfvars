@@ -1,10 +1,10 @@
 # VMware VMs configuration #
-vm-count = "4"
+vm-count = "1"
 vm-name = "servertest"
-vm-template-name = "Ubuntu-2004-Template"
+vm-template-name = "CentOS8-Template"
 vm-cpu = "2"
-vm-ram = "2048"
-vm-guest-id = "ubuntu64Guest"
+vm-ram = "4096"
+vm-guest-id = "centos8_64Guest"
 # VMware vSphere configuration #
 # VMware vCenter IP/FQDN
 vsphere-vcenter = "10.0.0.200"
