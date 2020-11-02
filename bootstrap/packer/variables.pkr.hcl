@@ -18,12 +18,9 @@ variable "vm_disk_size" {
   default = 10240
   sensitive = false
 }
-variable "iso_url" {
+variable "boot_wait" {
   type =  string
-  sensitive = false
-}
-variable "iso_checksum" {
-  type =  string
+  default = "15s"
   sensitive = false
 }
 variable "cluster" {
@@ -40,6 +37,15 @@ variable "datastore" {
 }
 variable "folder" {
   type =  string
+  sensitive = false
+}
+variable "iso_checksum" {
+  type =  string
+  sensitive = false
+}
+variable "iso_checksum_type" {
+  type =  string
+  default = "md5"
   sensitive = false
 }
 variable "iso_datastore" {
@@ -64,7 +70,7 @@ variable "vsphere_user" {
 }
 variable "vsphere_password" {
   type =  string
-  sensitive = false
+  sensitive = true
 }
 variable "ssh_username" {
   type =  string

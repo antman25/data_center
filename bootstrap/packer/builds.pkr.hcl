@@ -40,6 +40,6 @@ build {
     scripts         = ["scripts/cleanup.sh"]
   }
   post-processor "manifest" {
-    output = "stage-1-manifest.json"
+    output = "stage01-manifest.json"
   }
 }
