@@ -1,3 +1,0 @@
-sudo apt-get install nfs-common -y
-sudo apt-get install docker-compose
-sudo apt-get install net-tools
