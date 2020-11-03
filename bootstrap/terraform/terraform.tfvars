@@ -7,11 +7,11 @@ vm-ram = "4096"
 vm-guest-id = "centos8_64Guest"
 # VMware vSphere configuration #
 # VMware vCenter IP/FQDN
-vsphere-vcenter = "10.0.0.200"
+vsphere-vcenter = ""
 # VMware vSphere username used to deploy the infrastructure
-vsphere-user = "administrator@antlinux.local"
+vsphere-user = ""
 # VMware vSphere password used to deploy the infrastructure
-vsphere-password = "qwe123QWE!@#"
+vsphere-password = ""
 # Skip the verification of the vCenter SSL certificate (true/false)
 vsphere-unverified-ssl = "true"
 # vSphere datacenter name where the infrastructure will be deployed 
