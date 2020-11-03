@@ -16,8 +16,8 @@ locals { timestamp = regex_replace(timestamp(), "[- TZ:]", "") }
 #"sudo rm /usr/local/bin/hashicorp.tar.gz"
 #
 build {
-  name = "step01"
-  sources = ["source.vsphere-iso.centos8-template"]
+  name = "install_os"
+  sources = ["source.vsphere-iso.centos8-iso"]
 
 
   #could not parse template for following block: "template: generated:2:37: executing \"generated\" at <.Vars>: can't evaluate field Vars in type struct { HTTPIP string; HTTPPort string }"
@@ -41,5 +41,22 @@ build {
   }
   post-processor "manifest" {
     output = "stage01-manifest.json"
+  }
+}
+
+build {
+  name = "template"
+  sources = [
+    "source.vsphere-clone.centos8-template"
+  ]
+  provisioner "shell" {
+    execute_command = "echo 'packer'|{{.Vars}} sudo -S -E bash '{{.Path}}'"
+    inline          = [ "sudo yum -y install yum-utils",
+                        "sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo",
+                        "sudo yum -y install docker-ce docker-ce-cli containerd.io",
+                      ]
+  }
+  post-processor "manifest" {
+    output = "stage02-manifest.json"
   }
 }

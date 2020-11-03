@@ -1,3 +1,8 @@
+variable "vm_name_iso" {
+  type =  string
+  default = "CentOS8-ISO-Template"
+  sensitive = false
+}
 variable "vm_name" {
   type =  string
   default = "CentOS8-Template"
