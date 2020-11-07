@@ -28,6 +28,7 @@ build {
                         "dnf -y install nfs-utils nfs4-acl-tools",
                         "alternatives --set python /usr/bin/python3",
                         "pip3 install ansible"
+
                     ]
   }
   provisioner "ansible-local" {
@@ -45,18 +46,42 @@ build {
 }
 
 build {
-  name = "template"
+  name = "stage02"
   sources = [
-    "source.vsphere-clone.centos8-template"
+    "source.vsphere-clone.centos8-stage02"
   ]
   provisioner "shell" {
     execute_command = "echo 'packer'|{{.Vars}} sudo -S -E bash '{{.Path}}'"
     inline          = [ "sudo yum -y install yum-utils",
                         "sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo",
                         "sudo yum -y install docker-ce docker-ce-cli containerd.io",
+                        "sudo systemctl enable docker",
+                        "sudo curl -L http://10.0.0.164/scratch/downloads/utilities/docker-compose/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose",
+                        "sudo chmod +x /usr/local/bin/docker-compose",
                       ]
   }
   post-processor "manifest" {
     output = "stage02-manifest.json"
+  }
+}
+
+build {
+  name = "stage03"
+  sources = [
+    "source.vsphere-clone.centos8-stage02"
+  ]
+  provisioner "shell" {
+    execute_command = "echo 'packer'|{{.Vars}} sudo -S -E bash '{{.Path}}'"
+    inline          = [ "sudo curl -L http://10.0.0.164/scratch/downloads/hashicorp/hashicorp_linux_bin_all.tar.gz -o /usr/local/bin/hashicorp.tar.gz",
+                        "cd /usr/local/bin/; sudo tar zxvf hashicorp.tar.gz",
+                        "sudo rm /usr/local/bin/hashicorp.tar.gz"
+
+                      ]
+  }
+  provisioner "ansible-local" {
+    playbook_file = "scripts/hashicorp.yml"
+  }
+  post-processor "manifest" {
+    output = "stage03-manifest.json"
   }
 }

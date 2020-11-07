@@ -17,8 +17,6 @@ source "vsphere-iso" "centos8-iso" {
   insecure_connection  = "true"
   iso_checksum         = "${var.iso_checksum_type}:${var.iso_checksum}"
   iso_urls             = ["[antlun] ${var.iso_path}",
-                          "[antlun] ISO Images/centos/CentOS-8.2.2004-x86_64-dvd1.iso",
-                          "http://10.0.0.164/scratch/downloads/iso/CentOS-8.2.2004-x86_64-dvd1/CentOS-8.2.2004-x86_64-dvd1.iso"
                          ]
   network_adapters {
     network      = "${var.network}"
@@ -38,7 +36,7 @@ source "vsphere-iso" "centos8-iso" {
   vm_name        = "${var.vm_name_iso}"
 }
 
-source "vsphere-clone" "centos8-template" {
+source "vsphere-clone" "centos8-stage02" {
   convert_to_template  = "true"
   create_snapshot      = "true"
   datacenter           = "${var.datacenter}"
@@ -46,6 +44,28 @@ source "vsphere-clone" "centos8-template" {
   cluster              = "${var.cluster}"
   folder               = "${var.folder}"
   template             = "${var.vm_name_iso}"
+
+  vcenter_server = "${var.vsphere_server}"
+  username       = "${var.vsphere_user}"
+  password         = "${var.vsphere_password}"
+  vm_name        = "CentOS8-Stage02"
+
+  ssh_timeout      = "30m"
+  ssh_username     = "${var.ssh_username}"
+  ssh_password     = "${var.ssh_password}"
+
+
+  insecure_connection = "true"
+}
+
+source "vsphere-clone" "centos8-stage03" {
+  convert_to_template  = "true"
+  create_snapshot      = "true"
+  datacenter           = "${var.datacenter}"
+  datastore            = "${var.datastore}"
+  cluster              = "${var.cluster}"
+  folder               = "${var.folder}"
+  template             = "CentOS8-Stage02"
 
   vcenter_server = "${var.vsphere_server}"
   username       = "${var.vsphere_user}"

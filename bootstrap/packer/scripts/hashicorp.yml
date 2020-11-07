@@ -1,0 +1,10 @@
+---
+- name: "Hashicorp.yml"
+  hosts: localhost
+  gather_facts: yes
+  become: yes
+  tasks:
+    - name: Checkout data_center git repo
+      git:
+        repo: https://github.com/antman25/data_center.git
+        dest: /tmp/data_center
