@@ -68,7 +68,7 @@ build {
 build {
   name = "stage03"
   sources = [
-    "source.vsphere-clone.centos8-stage02"
+    "source.vsphere-clone.centos8-stage03"
   ]
   provisioner "shell" {
     execute_command = "echo 'packer'|{{.Vars}} sudo -S -E bash '{{.Path}}'"
