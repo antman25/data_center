@@ -16,14 +16,15 @@ locals { timestamp = regex_replace(timestamp(), "[- TZ:]", "") }
 #"sudo rm /usr/local/bin/hashicorp.tar.gz"
 #
 build {
-  name = "install_os"
-  sources = ["source.vsphere-iso.centos8-iso"]
+  name = "stage01"
+  sources = ["source.vsphere-iso.centos8-stage01"]
 
 
   #could not parse template for following block: "template: generated:2:37: executing \"generated\" at <.Vars>: can't evaluate field Vars in type struct { HTTPIP string; HTTPPort string }"
   provisioner "shell" {
     execute_command = "echo 'packer'|{{.Vars}} sudo -S -E bash '{{.Path}}'"
-    inline          = [ "dnf -y update",
+    inline          = [ "echo 'proxy=http://10.0.0.240:3128' >> /etc/dnf/dnf.conf",
+                        "dnf -y update",
                         "dnf -y install python3",
                         "dnf -y install nfs-utils nfs4-acl-tools",
                         "alternatives --set python /usr/bin/python3",

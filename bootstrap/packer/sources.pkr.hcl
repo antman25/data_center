@@ -1,4 +1,4 @@
-source "vsphere-iso" "centos8-iso" {
+source "vsphere-iso" "centos8-stage01" {
   CPUs                 = "${var.vm_cpu_num}"
   RAM                  = "${var.vm_mem_size}"
   RAM_reserve_all      = true
@@ -24,16 +24,17 @@ source "vsphere-iso" "centos8-iso" {
   }
   password         = "${var.vsphere_password}"
   shutdown_command = "echo 'packer '|sudo -S /sbin/halt -h -p"
+  ssh_username     = "${var.ssh_username}"
   ssh_password     = "${var.ssh_password}"
   ssh_timeout      = "30m"
-  ssh_username     = "${var.ssh_username}"
+
   storage {
     disk_size             = "${var.vm_disk_size}"
     disk_thin_provisioned = true
   }
   username       = "${var.vsphere_user}"
   vcenter_server = "${var.vsphere_server}"
-  vm_name        = "${var.vm_name_iso}"
+  vm_name        = "CentOS8-Stage01"
 }
 
 source "vsphere-clone" "centos8-stage02" {
@@ -43,7 +44,7 @@ source "vsphere-clone" "centos8-stage02" {
   datastore            = "${var.datastore}"
   cluster              = "${var.cluster}"
   folder               = "${var.folder}"
-  template             = "${var.vm_name_iso}"
+  template             = "CentOS8-Stage01"
 
   vcenter_server = "${var.vsphere_server}"
   username       = "${var.vsphere_user}"
@@ -69,7 +70,7 @@ source "vsphere-clone" "centos8-stage03" {
 
   vcenter_server = "${var.vsphere_server}"
   username       = "${var.vsphere_user}"
-  password         = "${var.vsphere_password}"
+  password       = "${var.vsphere_password}"
   vm_name        = "${var.vm_name}"
 
   ssh_timeout      = "30m"
