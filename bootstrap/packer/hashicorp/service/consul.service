@@ -1,0 +1,9 @@
+[Unit]
+Description = BootstrapDC - Consul Server
+After = network.target
+
+[Service]
+ExecStart = /usr/local/bin/consul
+
+[Install]
+WantedBy = multi-user.target

@@ -1,0 +1,9 @@
+[Unit]
+Description = BootstrapDC - Vault Server
+After = network.target
+
+[Service]
+ExecStart = /usr/local/bin/vault server -dev
+
+[Install]
+WantedBy = multi-user.target

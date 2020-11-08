@@ -57,7 +57,7 @@ clone {
     }
     
     network_interface {
-        ipv4_address = "10.0.0.${70 + count.index}"
+        ipv4_address = "10.0.0.${50 + count.index}"
         ipv4_netmask = 24
     }
   }
