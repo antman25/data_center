@@ -61,7 +61,7 @@ source "vsphere-clone" "centos8-stage02" {
 
 source "vsphere-clone" "centos8-stage03" {
   convert_to_template  = "true"
-  create_snapshot      = "true"
+  create_snapshot      = "false"
   datacenter           = "${var.datacenter}"
   datastore            = "${var.datastore}"
   cluster              = "${var.cluster}"

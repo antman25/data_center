@@ -21,7 +21,7 @@ client {
   # https://github.com/hashicorp/nomad/issues/1282
   network_speed = 100
   servers = ["10.0.0.50:4647"]
-  network_interface = "enp0s8"
+  network_interface = "ens192"
   # https://www.nomadproject.io/docs/drivers/docker.html#volumes
   # https://github.com/hashicorp/nomad/issues/5562
   options = {
