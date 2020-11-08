@@ -154,44 +154,44 @@
     ansible.posix.firewalld:
       port: 8300/tcp
       permanent: yes
-      state: allow
+      state: enabled
   - name: Allow port 8301 Serf LAN
     ansible.posix.firewalld:
       port: 8301/tcp
       permanent: yes
-      state: allow
+      state: enabled
   - name: Allow port 8302 Serf WAN
     ansible.posix.firewalld:
       port: 8302/tcp
       permanent: yes
-      state: allow
+      state: enabled
   - name: Allow port 8500 UI
     ansible.posix.firewalld:
       port: 8500/tcp
       permanent: yes
-      state: allow
+      state: enabled
   - name: Allow port 8501 UI (SSL)
     ansible.posix.firewalld:
       port: 8501/tcp
       permanent: yes
-      state: allow
+      state: enabled
   - name: Allow port 8502 GRPC
     ansible.posix.firewalld:
       port: 8502/tcp
       permanent: yes
-      state: allow
+      state: enabled
   - name: Allow port 8600 DNS
     ansible.posix.firewalld:
       port: 8600/tcp
       permanent: yes
-      state: allow
+      state: enabled
   - name: Allow port 53 Real DNS
     ansible.posix.firewalld:
       port: 53/tcp
       permanent: yes
-      state: allow
+      state: enabled
   - name: Allow port 53 Real DNS
     ansible.posix.firewalld:
       port: 53/udp
       permanent: yes
-      state: allow
+      state: enabled

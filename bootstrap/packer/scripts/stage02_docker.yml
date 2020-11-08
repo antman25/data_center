@@ -1,0 +1,25 @@
+---
+- name: "vault.yml"
+  hosts: localhost
+  gather_facts: yes
+  become: yes
+  tasks:
+  - name: Add Docker Repo
+    yum_repository:
+      name: epel
+      description: docker.io repo
+      baseurl: https://download.docker.com/linux/centos/docker-ce.repo
+  - name: Install packages (RedHat)
+    dnf:
+      name: "{{ packages }}"
+      state: latest
+    vars:
+      packages:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+    when: ansible_os_family == "RedHat"
+  - name: Enable service docker
+    service:
+      name: docker
+      enabled: yes

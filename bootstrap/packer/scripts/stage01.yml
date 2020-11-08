@@ -76,6 +76,11 @@
       - tcpdump
       - vim
       - wget
+      - nano
+      - net-tools
+      - nfs-utils
+      - nfs4-acl-tools
+      - yum-utils
     when: ansible_os_family == "RedHat"
 
   - name: Install dependencies for VirtualBox Guest Additions (RedHat)
