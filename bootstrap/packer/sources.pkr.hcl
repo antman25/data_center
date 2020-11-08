@@ -6,8 +6,8 @@ source "vsphere-iso" "centos8-stage01" {
   boot_order           = "disk,cdrom"
   boot_wait            = "${var.boot_wait}"
   cluster              = "${var.cluster}"
-  convert_to_template  = "true"
-  create_snapshot      = "true"
+  convert_to_template  = "false"
+  create_snapshot      = "false"
   datacenter           = "${var.datacenter}"
   datastore            = "${var.datastore}"
   disk_controller_type = ["pvscsi"]
@@ -38,8 +38,8 @@ source "vsphere-iso" "centos8-stage01" {
 }
 
 source "vsphere-clone" "centos8-stage02" {
-  convert_to_template  = "true"
-  create_snapshot      = "true"
+  convert_to_template  = "false"
+  create_snapshot      = "false"
   datacenter           = "${var.datacenter}"
   datastore            = "${var.datastore}"
   cluster              = "${var.cluster}"
