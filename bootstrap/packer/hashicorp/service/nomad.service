@@ -1,0 +1,12 @@
+[Unit]
+Description = BootstrapDC - Consul Server
+After = network.target
+
+[Service]
+Type=simple
+User=consul
+Group=consul
+ExecStart = /usr/local/bin/nomad agent -config=/etc/nomad/server.hcl -dev-connect
+
+[Install]
+WantedBy = multi-user.target
