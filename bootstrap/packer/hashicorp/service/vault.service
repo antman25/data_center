@@ -6,7 +6,7 @@ After = network.target
 Type=simple
 User=vault
 Group=vault
-ExecStart = /usr/local/bin/vault server -dev
+ExecStart = /usr/local/bin/vault server -config=/etc/vault/server.hcl
 
 [Install]
 WantedBy = multi-user.target

@@ -58,7 +58,7 @@ auto_config {
 }
 
 connect {
-  enabled = true
+  enabled = false
 }
 
 auto_encrypt {
