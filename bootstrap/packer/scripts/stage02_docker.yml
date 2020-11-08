@@ -31,6 +31,20 @@
       - docker-ce-cli
       - containerd.io
     when: ansible_os_family == "RedHat"
+  - name: Create /etc/docker config dir
+    file:
+      path: /etc/docker
+      state: directory
+      owner: root
+      group: root
+      mode: '0755'
+  - name: Copy daemon.json file to /etc/docker
+    copy:
+      src: /tmp/data_center/bootstrap/packer/docker/daemon.json
+      dest: /etc/docker
+      owner: root
+      group: root
+      mode: '0644'
   - name: Enable service docker
     service:
       name: docker
