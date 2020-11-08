@@ -3,6 +3,9 @@ Description = BootstrapDC - Vault Server
 After = network.target
 
 [Service]
+Type=simple
+User=vault
+Group=vault
 ExecStart = /usr/local/bin/vault server -dev
 
 [Install]
