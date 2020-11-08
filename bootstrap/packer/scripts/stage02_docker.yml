@@ -4,11 +4,23 @@
   gather_facts: yes
   become: yes
   tasks:
-  - name: Add Docker Repo
-    yum_repository:
-      name: epel
-      description: docker.io repo
-      baseurl: https://download.docker.com/linux/centos/docker-ce.repo
+  - name: Remove docker if installed from CentOS repo
+    yum:
+      name:
+        - docker
+        - docker-client
+        - docker-client-latest
+        - docker-common
+        - docker-latest
+        - docker-latest-logrotate
+        - docker-logrotate
+        - docker-engine
+      state: removed
+  - name: Add Docker repo
+      get_url:
+        url: https://download.docker.com/linux/centos/docker-ce.repo
+        dest: /etc/yum.repos.d/docer-ce.repo
+      become: yes
   - name: Install packages (RedHat)
     dnf:
       name: "{{ packages }}"
