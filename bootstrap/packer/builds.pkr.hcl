@@ -71,8 +71,8 @@ build {
   ]
   provisioner "shell" {
     execute_command = "echo 'packer'|{{.Vars}} sudo -S -E bash '{{.Path}}'"
-    inline          = [ "sudo curl -L http://10.0.0.164/scratch/downloads/hashicorp/hashicorp_linux_bin_all.tar.gz -o /usr/local/bin/hashicorp.tar.gz",
-                        "cd /usr/local/bin/; sudo tar zxvf hashicorp.tar.gz",
+    inline          = [ "sudo curl -L http://10.0.0.164/scratch/downloads/hashicorp/hashicorp_linux_bin-1.0.tar.gz -o /usr/local/bin/hashicorp.tar.gz",
+                        "cd /usr/local/bin/; sudo tar zxvf /usr/local/bin/hashicorp.tar.gz",
                         "sudo rm /usr/local/bin/hashicorp.tar.gz"
                       ]
   }
