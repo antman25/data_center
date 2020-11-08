@@ -133,14 +133,14 @@
     when:
       - ansible_os_family == "RedHat"
       - ansible_virtualization_type == "VMware"
-  - name: Creates vault dir
+  - name: Creates scratch mount dir
     file:
       path: /mnt/scratch
       state: directory
       owner: root
       group: root
       mode: '0777'
-  - name: Mount an NFS volume
+  - name: Mount scratch mount dir
     ansible.posix.mount:
       src: 10.0.0.164:/data/scratch
       path: /mnt/scratch
