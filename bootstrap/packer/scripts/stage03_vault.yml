@@ -4,6 +4,10 @@
   gather_facts: yes
   become: yes
   tasks:
+  - name: Get config files
+    git:
+      repo: https://github.com/antman25/data_center.git
+      dest: /tmp/data_center
   - name: Create vault group
     group:
       name: vault
