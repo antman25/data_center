@@ -52,7 +52,7 @@ clone {
     timeout = 0
     
     linux_options {
-      host_name = "node-${count.index + 1}"
+      host_name = "bootstrap-${count.index + 1}"
       domain = var.vm_domain
     }
     

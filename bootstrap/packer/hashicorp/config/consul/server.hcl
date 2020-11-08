@@ -1,4 +1,5 @@
 server = true
+bootstrap = true
 server_name = "consul.service.consul"
 ui = true
 
