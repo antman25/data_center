@@ -1,5 +1,5 @@
 ---
-- name: "Stage03 - Vault"
+- name: "Stage03 - Nomad"
   hosts: localhost
   gather_facts: yes
   become: yes

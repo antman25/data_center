@@ -6,7 +6,7 @@ After = network.target
 Type=simple
 User=consul
 Group=consul
-ExecStart = /usr/local/bin/nomad agent -config=/etc/nomad/server.hcl -dev-connect
+ExecStart = /usr/local/bin/nomad agent -config=/etc/nomad/server.hcl
 
 [Install]
 WantedBy = multi-user.target
