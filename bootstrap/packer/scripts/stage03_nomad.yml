@@ -37,8 +37,8 @@
     file:
       path: /etc/nomad.d
       state: directory
-      owner: vault
-      group: vault
+      owner: nomad
+      group: nomad
       mode: '0700'
   - name: Creates nomad data dir
     file:

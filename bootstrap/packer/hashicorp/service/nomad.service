@@ -4,8 +4,8 @@ After = network.target
 
 [Service]
 Type=simple
-User=consul
-Group=consul
+User=nomad
+Group=nomad
 ExecStart = /usr/local/bin/nomad agent -config=/etc/nomad/server.hcl
 
 [Install]
