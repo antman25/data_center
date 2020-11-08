@@ -1,5 +1,5 @@
 ---
-- name: "stage02_common.yml"
+- name: "Stage03 - Hashicorp Common"
   hosts: localhost
   gather_facts: yes
   become: yes

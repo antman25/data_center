@@ -1,5 +1,5 @@
 ---
-- name: "vault.yml"
+- name: "Stage03 - Vault"
   hosts: localhost
   gather_facts: yes
   become: yes

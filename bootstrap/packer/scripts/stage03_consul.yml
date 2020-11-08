@@ -1,5 +1,5 @@
 ---
-- name: "Consul.yml"
+- name: "Stage03 - Consul"
   hosts: localhost
   gather_facts: yes
   become: yes
