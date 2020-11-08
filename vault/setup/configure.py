@@ -2,7 +2,7 @@
 import hvac
 import json
 
-vault_url = 'http://localhost:8200'
+vault_url = 'http://10.0.0.50:8200'
 int_ca_pki_path = 'pki_intermediate/'
 root_ca_pki_path = 'pki_root/'
 
