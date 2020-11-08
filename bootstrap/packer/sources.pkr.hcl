@@ -16,7 +16,7 @@ source "vsphere-iso" "centos8-stage01" {
   http_directory       = "http"
   insecure_connection  = "true"
   iso_checksum         = "${var.iso_checksum_type}:${var.iso_checksum}"
-  iso_urls             = ["[antlun] ${var.iso_path}",
+  iso_urls             = ["[${var.iso_datastore}] ${var.iso_path}",
                          ]
   network_adapters {
     network      = "${var.network}"

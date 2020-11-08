@@ -81,6 +81,7 @@
       - nfs-utils
       - nfs4-acl-tools
       - yum-utils
+      - jq
     when: ansible_os_family == "RedHat"
 
   - name: Install dependencies for VirtualBox Guest Additions (RedHat)
@@ -132,3 +133,17 @@
     when:
       - ansible_os_family == "RedHat"
       - ansible_virtualization_type == "VMware"
+  - name: Creates vault dir
+    file:
+      path: /mnt/scratch
+      state: directory
+      owner: root
+      group: root
+      mode: '0777'
+  - name: Mount an NFS volume
+    ansible.posix.mount:
+      src: 10.0.0.164:/data/scratch
+      path: /mnt/scratch
+      opts: rw,sync,hard,intr
+      state: mounted
+      fstype: nfs
