@@ -38,6 +38,10 @@
       owner: root
       group: root
       mode: '0755'
+  - name: Get config files
+    git:
+      repo: https://github.com/antman25/data_center.git
+      dest: /tmp/data_center
   - name: Copy daemon.json file to /etc/docker
     copy:
       src: /tmp/data_center/bootstrap/packer/docker/daemon.json
