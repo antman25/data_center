@@ -10,6 +10,15 @@ job "ldap" {
         network_mode = "bridge"
       }
 
+      network {
+        mode = "bridge"
+
+        port "ldap" {
+          static = 389
+          to     = 389
+        }
+      }
+
       resources {
         cpu    = 500
         memory = 512
