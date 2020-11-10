@@ -25,5 +25,11 @@
     vars:
       packages:
         - containernetworking-plugins
-
     when: ansible_os_family == "RedHat"
+  - name: Copy cni.sh file to /etc/profile.d
+    copy:
+      src: /tmp/data_center/bootstrap/packer/hashicorp/profile.d/cni.sh
+      dest: /etc/profile.d
+      owner: root
+      group: root
+      mode: '0644'

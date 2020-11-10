@@ -39,6 +39,8 @@ num_cpus = var.vm_cpu
 memory = var.vm_ram
 guest_id = var.vm_guest_id
 wait_for_guest_net_timeout = -1
+wait_for_guest_net_routable = false
+
 network_interface {
   network_id = data.vsphere_network.network.id
 }
@@ -60,6 +62,9 @@ clone {
         ipv4_address = "10.0.0.${50 + count.index}"
         ipv4_netmask = 24
     }
+
+    ipv4_gateway = "10.0.0.1"
+    dns_server_list = ["8.8.8.8", "75.75.75.75"]
   }
  }
 }
