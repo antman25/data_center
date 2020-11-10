@@ -49,6 +49,13 @@
       owner: root
       group: root
       mode: '0644'
+  - name: Copy daemon.json file to /etc/docker
+    copy:
+      src: /tmp/data_center/bootstrap/packer/docker/docker_limit.slice
+      dest: /etc/systemd/system/
+      owner: root
+      group: root
+      mode: '0644'
   - name: Enable service docker
     service:
       name: docker

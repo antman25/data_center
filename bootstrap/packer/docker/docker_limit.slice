@@ -1,0 +1,12 @@
+# https://www.freedesktop.org/software/systemd/man/systemd.resource-control.html
+# /etc/systemd/system/docker_limit.slice
+[Unit]
+Description=Slice that limits docker resources
+Before=slices.target
+
+[Slice]
+CPUAccounting=true
+CPUQuota=90%
+MemoryAccounting=true
+MemoryHigh=3G
+MemoryMax=3.2G
