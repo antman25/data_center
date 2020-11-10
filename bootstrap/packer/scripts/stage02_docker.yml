@@ -60,3 +60,7 @@
     service:
       name: docker
       enabled: yes
+  - name: Enable docker_limit slice
+    service:
+      name: docker_limit.slice
+      enabled: yes
