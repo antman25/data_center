@@ -82,6 +82,7 @@
       - nfs4-acl-tools
       - yum-utils
       - jq
+      - bind-utils
     when: ansible_os_family == "RedHat"
 
   - name: Install dependencies for VirtualBox Guest Additions (RedHat)
