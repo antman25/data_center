@@ -1,83 +1,37 @@
-// https://www.nomadproject.io/guides/integrations/consul-connect/index.html
-job "countdash" {
+job "ldap" {
   datacenters = ["BootstrapDC"]
+  group "ldap" {
 
-  group "api" {
-    network {
-      mode = "bridge"
-    }
-
-    service {
-      name = "count-api"
-      port = "9001"
-
-      connect {
-        sidecar_service {}
-        sidecar_task {
-          resources {
-            cpu = 600
-            memory = 600
-            network {
-              mbits = 1
-            }
-          }
-        }
-      }
-    }
-
-    task "web" {
+    task "ldap" {
       driver = "docker"
 
       config {
-        image = "hashicorpnomad/counter-api:v1"
+        image = "rroemhild/test-openldap"
+        network_mode = "bridge"
       }
-    }
-  }
 
-  group "dashboard" {
-    network {
-      mode = "bridge"
-
-      port "http" {
-        static = 9002
-        to     = 9002
+      resources {
+        cpu    = 500
+        memory = 512
+        network {
+          mbits = 10
+        }
       }
-    }
 
-    service {
-      name = "count-dashboard"
-      port = "9002"
-      tags = ["urlprefix-/count-dashboard", "urlprefix-/count-dash"]
+      service {
+        name = "ldap"
+        port = 389
+        address_mode = "driver"
+        check {
+          name     = "host-ldap-check"
+          type     = "tcp"
+          interval = "10s"
+          timeout  = "2s"
+          port     = 389
 
-      connect {
-        sidecar_service {
-          proxy {
-            upstreams {
-              destination_name = "count-api"
-              local_bind_port  = 8880
-            }
-          }
+          address_mode = "driver"
         }
       }
     }
-
-    task "dashboard" {
-      driver = "docker"
-
-      env {
-        COUNTING_SERVICE_URL = "http://${NOMAD_UPSTREAM_ADDR_count_api}"
-      }
-
-      config {
-        image = "hashicorpnomad/counter-dashboard:v1"
-      }
-    }
   }
-
-  update {
-    max_parallel = 1
-    min_healthy_time = "10s"
-    healthy_deadline = "20s"
-  }
-
 }
