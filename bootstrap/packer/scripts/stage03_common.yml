@@ -33,25 +33,3 @@
       owner: root
       group: root
       mode: '0644'
-  - name: Forward port 53 (tcp) to port 8600 for consul DNS
-    iptables:
-      table: nat
-      chain: OUTPUT
-      protocol: tcp
-      match: tcp
-      destination_port: 53
-      jump: REDIRECT
-      to_ports: '8600'
-      comment: Redirect web traffic to port 8600
-    become: yes
-  - name: Forward port 53 (udp) to port 8600 for consul DNS
-    iptables:
-      table: nat
-      chain: OUTPUT
-      protocol: udp
-      match: udp
-      destination_port: 53
-      jump: REDIRECT
-      to_ports: 8600
-      comment: Redirect web traffic to port 8600
-    become: yes
