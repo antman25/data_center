@@ -64,7 +64,7 @@ clone {
     }
 
     ipv4_gateway = "10.0.0.1"
-    dns_server_list = ["8.8.8.8", "75.75.75.75"]
+    dns_server_list = ["10.0.0.${50 + count.index}"]
   }
  }
 }
