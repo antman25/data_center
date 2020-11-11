@@ -27,6 +27,11 @@ client {
   options = {
     "docker.volumes.enabled" = true
   }
+
+  host_volume "scratch" {
+    path = "/mnt/scratch/test"
+    read_only = false
+  }
 }
 
 plugin "raw_exec" {

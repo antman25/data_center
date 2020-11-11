@@ -2,6 +2,8 @@ job "ldap" {
   datacenters = ["BootstrapDC"]
   group "ldap" {
 
+
+
     task "ldap" {
       driver = "docker"
 

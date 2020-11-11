@@ -2,17 +2,17 @@ job "plex" {
   datacenters = ["BootstrapDC"]
   group "plex" {
 
-    volume "media" {
+    volume "scratchtest" {
       type = "host"
       read_only = true
-      source = "/mnt/scratch/test"
+      source = "scratch"
     }
 
     task "plex" {
       driver = "docker"
 
       volume_mount {
-        volume      = "media"
+        volume      = "scratchtest"
         destination = "/config"
       }
 
@@ -24,9 +24,6 @@ job "plex" {
       resources {
         cpu    = 2000
         memory = 2048
-        network {
-          mbits = 1000
-        }
       }
 
       env {
