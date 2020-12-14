@@ -1,4 +1,4 @@
-job "plex" {
+job "media_automation" {
   datacenters = ["BootstrapDC"]
   group "plex" {
 
