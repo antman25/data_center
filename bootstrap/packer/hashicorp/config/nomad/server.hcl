@@ -28,8 +28,18 @@ client {
     "docker.volumes.enabled" = true
   }
 
-  host_volume "scratch" {
+  host_volume "scratch_volume" {
     path = "/mnt/scratch/test"
+    read_only = false
+  }
+
+  host_volume "test_volume" {
+    path = "/mnt/scratch/test"
+    read_only = false
+  }
+
+  host_volume "media_volume" {
+    path = "/mnt/media"
     read_only = false
   }
 }
