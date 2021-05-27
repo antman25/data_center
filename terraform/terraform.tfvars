@@ -11,7 +11,7 @@ vsphere-vcenter = "10.0.0.200"
 # VMware vSphere username used to deploy the infrastructure
 vsphere-user = "administrator@antlinux.local"
 # VMware vSphere password used to deploy the infrastructure
-vsphere-password = "qwe123QWE!@#"
+vsphere-password = "asdfasdfasdf"
 # Skip the verification of the vCenter SSL certificate (true/false)
 vsphere-unverified-ssl = "true"
 # vSphere datacenter name where the infrastructure will be deployed 
