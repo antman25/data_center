@@ -61,9 +61,9 @@ services:
         - TZ=America/Denver
         - UMASK_SET=022 #optional
     volumes:
-        - /mnt/media/appdata/radarr:/config
+        - /var/lib/media_automation/radarr:/config
         - /mnt/media/media/movies:/movies
-        - /mnt/media/downloads/completed:/downloads
+        - /mnt/media/downloads/completed:/data/completed
     restart: unless-stopped
 
  sonarr:
@@ -76,7 +76,7 @@ services:
         - TZ=America/Denver
         - UMASK_SET=022 #optional
     volumes:
-        - /mnt/media/appdata/sonarr:/config
+        - /var/lib/media_automation/sonarr:/config
         - /mnt/media/media/tv:/tv
         - /mnt/media/downloads/completed:/downloads
     restart: unless-stopped
@@ -91,7 +91,7 @@ services:
         - TZ=America/Denver
         - UMASK_SET=022 #optional
     volumes:
-        - /mnt/media/appdata/lidarr:/config
+        - /var/lib/media_automation/lidarr:/config
         - /mnt/media/media/music:/music
         - /mnt/media/downloads/completed:/downloads
     restart: unless-stopped
