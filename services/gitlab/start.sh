@@ -1,7 +1,7 @@
 export GITLAB_HOME=/mnt/scratch/volumes/gitlab
 sudo docker run --detach \
-  --hostname 73.153.148.85 \
-  --publish 30443:443 --publish 30080:80 --publish 30022:22 \
+  --hostname 172.17.0.2 \
+  --publish 30443:443 --publish 80:80 --publish 30022:22 \
   --name gitlab \
   --restart always \
   --volume $GITLAB_HOME/config:/etc/gitlab \
