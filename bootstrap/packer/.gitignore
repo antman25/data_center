@@ -1,2 +1,3 @@
 packer_cache/*
 *manifest.json
+user_vars/
