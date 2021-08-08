@@ -10,7 +10,9 @@ build {
     inline          = [ "dnf -y update",
                         "dnf -y install python3",
                         "alternatives --set python /usr/bin/python3",
-                        "pip3 install ansible"
+			"yum -y install epel-release",
+			"yum -y install ansible",
+			"ansible-galaxy collection install ansible.posix"
                     ]
   }
   provisioner "ansible-local" {
