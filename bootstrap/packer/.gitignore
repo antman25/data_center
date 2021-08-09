@@ -1,3 +1,4 @@
 packer_cache/*
 *manifest.json
 user_vars/
+output_vsphere/*

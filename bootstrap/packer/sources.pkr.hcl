@@ -6,7 +6,7 @@ source "vsphere-iso" "centos8-stage01" {
   boot_order           = "disk,cdrom"
   boot_wait            = "${var.boot_wait}"
   cluster              = "${var.cluster}"
-  convert_to_template  = "false"
+  convert_to_template  = "true"
   create_snapshot      = "false"
   datacenter           = "${var.datacenter}"
   datastore            = "${var.datastore}"
@@ -16,8 +16,12 @@ source "vsphere-iso" "centos8-stage01" {
   http_directory       = "http"
   insecure_connection  = "true"
   iso_checksum         = "${var.iso_checksum_type}:${var.iso_checksum}"
-  iso_urls             = ["[${var.iso_datastore}] ${var.iso_path}",
-                         ]
+  #iso_urls             = ["[${var.iso_datastore}] ${var.iso_path}"
+  #                       ]
+  #iso_url	       = "file:///mnt/scratch/downloads/iso/CentOS-8.2.2004-x86_64-dvd1/CentOS-8.2.2004-x86_64-dvd1.iso"
+
+  iso_paths            = [ "[${var.iso_datastore}] ${var.iso_path}" ]
+  iso_target_path      = "packer_test_cache"
   network_adapters {
     network      = "${var.network}"
     network_card = "vmxnet3"
@@ -35,6 +39,16 @@ source "vsphere-iso" "centos8-stage01" {
   username       = "${var.vsphere_user}"
   vcenter_server = "${var.vsphere_server}"
   vm_name        = "CentOS8-Stage01"
+
+  export {
+    force = true
+    output_directory = "./output_vsphere"
+  }
+
+  #content_library_destination {
+  #   library = "pipeline_lib"
+  #   ovf = true
+  #}
 }
 
 source "vsphere-clone" "centos8-stage02" {

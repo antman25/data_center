@@ -44,7 +44,7 @@ variable "datastore" {
 }
 variable "folder" {
   type =  string
-  default = "Templates"
+  default = "Templates/pipeline"
   sensitive = false
 }
 variable "iso_checksum" {
