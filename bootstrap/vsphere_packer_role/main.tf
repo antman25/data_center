@@ -1,4 +1,4 @@
-variable vsphere_user {
+ variable vsphere_user {
   type = string
 }
 
@@ -24,16 +24,18 @@ data "vsphere_datacenter" "dc" {
   name = "ant-dc"
 }
 
-data "vsphere_role" "role1" {
-  label = "Datastore consumer (sample)"
-}
+#data "vsphere_role" "role1" {
+#  label = "Datastore consumer (sample)"
+#}
 
-resource vsphere_role "role1" {
+resource vsphere_role "packer_role" {
   name = "packer_test_role"
   role_privileges = [	
 			"Datastore.AllocateSpace",
 			"Datastore.Browse",
 			"Datastore.FileManagement",
+
+			"Folder.Create",
 
 			"Network.Assign",
 
@@ -48,12 +50,10 @@ resource vsphere_role "role1" {
 			"VirtualMachine.Config.Resource",
 			"VirtualMachine.Config.Settings",
 
-
 			"VirtualMachine.Inventory.Create",
 			"VirtualMachine.Inventory.Register",
 			"VirtualMachine.Inventory.Delete",
-			"VirtualMachine.Inventory.Unregister",
-				
+			"VirtualMachine.Inventory.Unregister",				
 
 			"VirtualMachine.Interact.ConsoleInteract",
 			"VirtualMachine.Interact.DeviceConnection",
@@ -63,31 +63,21 @@ resource vsphere_role "role1" {
 			"VirtualMachine.Interact.SetCDMedia",
 			"VirtualMachine.Interact.SetFloppyMedia",
 
-
-
 			"VirtualMachine.Provisioning.MarkAsTemplate",
 
 			"VirtualMachine.State.CreateSnapshot"
 		]
 }
 
-/*variable "hosts" {
-  default = [
-    "10.0.0.111",
-    "10.0.0.222"
-  ]
-}*/
+#data "vsphere_role" "packer_test_role" {
+#  label = "packer automation testing"
+#}
+
 
 data "vsphere_host" "host" {
   name          = "10.0.0.111"
   datacenter_id = "${data.vsphere_datacenter.dc.id}"
 }
-
-/*(data "vsphere_host" "esxi_hosts" {
-  count         = "${length(var.hosts)}"
-  name          = "${var.hosts[count.index]}"
-  datacenter_id = "${data.vsphere_datacenter.dc.id}"
-}*/
 
 resource "vsphere_nas_datastore" "datastore" {
   name            = "terraform-test"
@@ -99,14 +89,35 @@ resource "vsphere_nas_datastore" "datastore" {
 }
 
 
-resource "vsphere_entity_permissions" p1 {
+resource "vsphere_entity_permissions" datastore_perm {
   entity_id = vsphere_nas_datastore.datastore.id
   entity_type = "Datastore"
   permissions {
-    user_or_group = "antlinux.local\\pipeline"
-    propagate = false
-    is_group = true
-    role_id = vsphere_role.role1.id
+    user_or_group = "antlinux.local\\packer_role_test"
+    propagate = true
+    is_group = false
+    role_id = vsphere_role.packer_role.id
   }
 }
 
+resource "vsphere_entity_permissions" host_perm {
+  entity_id = data.vsphere_host.host.id
+  entity_type = "HostSystem"
+  permissions {
+    user_or_group = "antlinux.local\\packer_role_test"
+    propagate = false
+    is_group = false
+    role_id = vsphere_role.packer_role.id
+  }
+}
+
+resource "vsphere_entity_permissions" datacenter_perm {
+  entity_id = data.vsphere_datacenter.dc.id
+  entity_type = "Datacenter"
+  permissions {
+    user_or_group = "antlinux.local\\packer_role_test"
+    propagate = true
+    is_group = false
+    role_id = vsphere_role.packer_role.id
+  }
+}
