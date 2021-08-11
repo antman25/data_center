@@ -24,6 +24,10 @@ data "vsphere_datacenter" "dc" {
   name = "ant-dc"
 }
 
+data "vsphere_compute_cluster" "compute_cluster" {
+  name          = "PrimaryCluster"
+  datacenter_id = data.vsphere_datacenter.dc.id
+}
 #data "vsphere_role" "role1" {
 #  label = "Datastore consumer (sample)"
 #}
@@ -36,6 +40,8 @@ resource vsphere_role "packer_role" {
 			"Datastore.FileManagement",
 
 			"Folder.Create",
+			"Folder.Delete",
+			"Folder.Rename",
 
 			"Network.Assign",
 
@@ -79,6 +85,8 @@ data "vsphere_host" "host" {
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
+
+
 resource "vsphere_nas_datastore" "datastore" {
   name            = "terraform-test"
   host_system_ids = [data.vsphere_host.host.id]
@@ -94,6 +102,21 @@ resource "vsphere_folder" "pipeline_base_folder" {
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
+/*resource "vsphere_host_virtual_switch" "switch" {
+  name           = "pipeline_switch"
+  host_system_id = data.vsphere_host.host.id
+
+  network_adapters = ["vmnic0", "vmnic1"]
+
+  active_nics  = ["vmnic0"]
+  standby_nics = ["vmnic1"]
+}*/
+
+
+data "vsphere_network" "switch" {
+  name           = "VM Network"
+  datacenter_id = data.vsphere_datacenter.dc.id
+}
 
 resource "vsphere_entity_permissions" datastore_perm {
   entity_id = vsphere_nas_datastore.datastore.id
@@ -138,3 +161,27 @@ resource "vsphere_entity_permissions" folder_perm {
     role_id = vsphere_role.packer_role.id
   }
 }
+
+resource "vsphere_entity_permissions" network_perm {
+  entity_id = data.vsphere_network.switch.id
+  entity_type = "Network"
+  permissions {
+    user_or_group = "antlinux.local\\packer_role_test"
+    propagate = false
+    is_group = false
+    role_id = vsphere_role.packer_role.id
+  }
+}
+
+resource "vsphere_entity_permissions" cluster_perm {
+  entity_id = data.vsphere_compute_cluster.compute_cluster.id
+  entity_type = "ClusterComputeResource"
+  permissions {
+    user_or_group = "antlinux.local\\packer_role_test"
+    propagate = false
+    is_group = false
+    role_id = vsphere_role.packer_role.id
+  }
+}
+
+
