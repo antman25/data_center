@@ -12,9 +12,14 @@ build {
                         "alternatives --set python /usr/bin/python3",
 			"yum -y install epel-release",
 			"yum -y install ansible",
-			"ansible-galaxy collection install ansible.posix"
                     ]
   }
+
+  provisioner "shell" {
+    inline = ["ansible-galaxy collection install ansible.posix"]
+  }
+ 
+
   provisioner "ansible-local" {
     playbook_file = "scripts/stage01_baseos.yml"
   }

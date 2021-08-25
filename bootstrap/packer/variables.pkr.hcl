@@ -20,7 +20,7 @@ variable "vm_mem_size" {
 }
 variable "vm_disk_size" {
   type =  number
-  default = 10240
+  default = 20240
   sensitive = false
 }
 variable "boot_wait" {

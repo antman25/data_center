@@ -6,7 +6,7 @@ source "vsphere-iso" "centos8-stage01" {
   boot_order           = "disk,cdrom"
   boot_wait            = "${var.boot_wait}"
   cluster              = "${var.cluster}"
-  convert_to_template  = "true"
+  convert_to_template  = "false"
   create_snapshot      = "false"
   datacenter           = "${var.datacenter}"
   datastore            = "${var.datastore}"
@@ -48,6 +48,7 @@ source "vsphere-iso" "centos8-stage01" {
   #content_library_destination {
   #   library = "pipeline_lib"
   #   ovf = true
+  #   destroy = true
   #}
 }
 
