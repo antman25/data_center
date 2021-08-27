@@ -1,0 +1,9 @@
+vsphere_datacenter="ant-dc"
+vm_datastore="terraform-test"
+vm_network="VM Network"
+vsphere_user="administrator@antlinux.local"
+vsphere_vcenter="10.0.0.200"
+vsphere_template_folder="pipeline/base_template"
+vsphere_cluster="PrimaryCluster"
+vm_count=5
+vm_ram=4096
