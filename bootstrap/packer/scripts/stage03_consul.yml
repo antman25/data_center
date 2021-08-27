@@ -117,7 +117,7 @@
       backup: yes
   - name: deploy resolv.conf template
     template:
-      src: templates/resolv.conf.j2
+      src: /tmp/data_center/bootstrap/packer/scripts/templates/resolv.conf.j2
       dest: /etc/resolv.conf
       owner: root
       group: root
