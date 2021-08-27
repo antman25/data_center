@@ -115,12 +115,6 @@
       group: root
       mode: 0644
       backup: yes
-    notify:
-      - reload NetworkManager
-  - name: reload NetworkManager
-    service:
-      name: NetworkManager
-      state: reloaded
   - name: deploy resolv.conf template
     template:
       src: templates/resolv.conf.j2
@@ -129,8 +123,6 @@
       group: root
       mode: 0644
       backup: yes
-    notify:
-      - reload NetworkManager
   - name: reload NetworkManager
     service:
       name: NetworkManager
