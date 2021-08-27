@@ -142,6 +142,13 @@
       owner: root
       group: root
       mode: '0777'
+  - name: Mount media mount dir
+    ansible.posix.mount:
+      src: 10.0.0.164:/data/media
+      path: /mnt/media
+      opts: rw,sync,hard,intr
+      state: mounted
+      fstype: nfs
   - name: Creates scratch mount dir
     file:
       path: /mnt/scratch
@@ -149,6 +156,13 @@
       owner: root
       group: root
       mode: '0777'
+  - name: Mount scratch mount dir
+    ansible.posix.mount:
+      src: 10.0.0.164:/data/scratch
+      path: /mnt/scratch
+      opts: rw,sync,hard,intr
+      state: mounted
+      fstype: nfs
   - name: Disable swap permanently, persist reboots
     replace:
       path: /etc/fstab
