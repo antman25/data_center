@@ -1,0 +1,4 @@
+---
+systemd_dir: /etc/systemd/system
+ansible_user: packer
+master_ip: k3s-master.antlinux.local

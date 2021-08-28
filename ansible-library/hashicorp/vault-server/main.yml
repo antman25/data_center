@@ -1,0 +1,70 @@
+---
+- name: "Stage03 - Vault"
+  hosts: localhost
+  gather_facts: yes
+  become: yes
+  tasks:
+  - name: Get config files
+    git:
+      repo: https://github.com/antman25/data_center.git
+      dest: /tmp/data_center
+  - name: Create vault group
+    group:
+      name: vault
+      state: present
+  - name: Create vault user
+    user:
+      name: vault
+      shell: /sbin/nologin
+      group: vault
+      groups: vault
+      append: yes
+  - name: Creates vault dir
+    file:
+      path: /etc/vault
+      state: directory
+      owner: vault
+      group: vault
+      mode: '0700'
+  - name: Copy vault server config
+    copy:
+      src: /tmp/data_center/bootstrap/packer/hashicorp/config/vault/server.hcl
+      dest: /etc/vault
+      owner: vault
+      group: vault
+      mode: '0600'
+  - name: Creates vault.d config
+    file:
+      path: /etc/vault.d
+      state: directory
+      owner: vault
+      group: vault
+      mode: '0700'
+  - name: Creates vault data dir
+    file:
+      path: /var/lib/vault
+      state: directory
+      owner: vault
+      group: vault
+      mode: '0700'
+  - name: Copy file with owner and permissions
+    copy:
+      src: /tmp/data_center/bootstrap/packer/hashicorp/service/vault.service
+      dest: /etc/systemd/system
+      owner: root
+      group: root
+      mode: '0644'
+  - name: Enable service vault
+    service:
+      name: vault.service
+      enabled: yes
+  - name: Allow port 8200 vault server
+    ansible.posix.firewalld:
+      port: 8200/tcp
+      permanent: yes
+      state: enabled
+  - name: Allow port 8201 vault server
+    ansible.posix.firewalld:
+      port: 8201/tcp
+      permanent: yes
+      state: enabled

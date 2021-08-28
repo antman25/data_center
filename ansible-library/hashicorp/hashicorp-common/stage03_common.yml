@@ -1,0 +1,35 @@
+---
+- name: "Stage03 - Hashicorp Common"
+  hosts: localhost
+  gather_facts: yes
+  become: yes
+  tasks:
+  - name: Get data_center bootstrap config files
+    git:
+      repo: https://github.com/antman25/data_center.git
+      dest: /tmp/data_center
+  - name: Download hashicorp binaries
+    get_url:
+      url: http://10.0.0.164/scratch/downloads/hashicorp/hashicorp_linux_bin-1.0.tar.gz
+      dest: /tmp
+    register: bin_files
+  - name: Unpacking hashicorp binaries
+    unarchive:
+      src: /tmp/hashicorp_linux_bin-1.0.tar.gz
+      dest: /usr/local/bin/
+      copy: no
+  - name: Install packages (RedHat)
+    dnf:
+      name: "{{ packages }}"
+      state: latest
+    vars:
+      packages:
+        - containernetworking-plugins
+    when: ansible_os_family == "RedHat"
+  - name: Copy cni.sh file to /etc/profile.d
+    copy:
+      src: /tmp/data_center/bootstrap/packer/hashicorp/profile.d/cni.sh
+      dest: /etc/profile.d
+      owner: root
+      group: root
+      mode: '0644'
