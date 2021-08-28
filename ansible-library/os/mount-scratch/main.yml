@@ -1,0 +1,20 @@
+---
+- name: "Configure scratch mount"
+  hosts: localhost
+  gather_facts: yes
+  become: yes
+  tasks:
+  - name: Creates scratch mount dir
+    file:
+      path: /mnt/scratch
+      state: directory
+      owner: root
+      group: root
+      mode: '0777'
+  - name: Mount scratch mount dir
+    ansible.posix.mount:
+      src: 10.0.0.164:/data/scratch
+      path: /mnt/scratch
+      opts: rw,sync,hard,intr
+      state: mounted
+      fstype: nfs
