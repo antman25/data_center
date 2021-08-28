@@ -1,5 +1,5 @@
 ---
-- name: "Setup.yml"
+- name: "Base OS setup"
   hosts: localhost
   gather_facts: yes
   become: yes
@@ -135,37 +135,3 @@
     when:
       - ansible_os_family == "RedHat"
       - ansible_virtualization_type == "VMware"
-  - name: Creates media mount dir
-    file:
-      path: /mnt/media
-      state: directory
-      owner: root
-      group: root
-      mode: '0777'
-  - name: Mount media mount dir
-    ansible.posix.mount:
-      src: 10.0.0.164:/data/media
-      path: /mnt/media
-      opts: rw,sync,hard,intr
-      state: mounted
-      fstype: nfs
-  - name: Creates scratch mount dir
-    file:
-      path: /mnt/scratch
-      state: directory
-      owner: root
-      group: root
-      mode: '0777'
-  - name: Mount scratch mount dir
-    ansible.posix.mount:
-      src: 10.0.0.164:/data/scratch
-      path: /mnt/scratch
-      opts: rw,sync,hard,intr
-      state: mounted
-      fstype: nfs
-  - name: Disable swap permanently, persist reboots
-    replace:
-      path: /etc/fstab
-      regexp: '^(\s*)([^#\n]+\s+)(\w+\s+)swap(\s+.*)$'
-      replace: '#\1\2\3swap\4'
-      backup: yes
