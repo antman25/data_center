@@ -1,0 +1,66 @@
+---
+- name: "Docker setup"
+  hosts: localhost
+  gather_facts: yes
+  become: yes
+  tasks:
+  - name: Remove docker if installed from CentOS repo
+    yum:
+      name:
+      - docker
+      - docker-client
+      - docker-client-latest
+      - docker-common
+      - docker-latest
+      - docker-latest-logrotate
+      - docker-logrotate
+      - docker-engine
+      state: removed
+  - name: Add Docker repo
+    get_url:
+      url: https://download.docker.com/linux/centos/docker-ce.repo
+      dest: /etc/yum.repos.d/docer-ce.repo
+    become: yes
+  - name: Install packages (RedHat)
+    dnf:
+      name: "{{ packages }}"
+      state: latest
+    vars:
+      packages:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+    when: ansible_os_family == "RedHat"
+  - name: Create /etc/docker config dir
+    file:
+      path: /etc/docker
+      state: directory
+      owner: root
+      group: root
+      mode: '0755'
+  - name: Get config files
+    git:
+      repo: https://github.com/antman25/data_center.git
+      dest: /tmp/data_center
+  - name: Copy daemon.json file to /etc/docker
+    copy:
+      src: /tmp/data_center/bootstrap/packer/docker/daemon.json
+      dest: /etc/docker
+      owner: root
+      group: root
+      mode: '0644'
+  - name: Copy daemon.json file to /etc/docker
+    copy:
+      src: /tmp/data_center/bootstrap/packer/docker/docker_limit.slice
+      dest: /etc/systemd/system/
+      owner: root
+      group: root
+      mode: '0644'
+  - name: Enable service docker
+    service:
+      name: docker
+      enabled: yes
+  - name: Enable docker_limit slice
+    service:
+      name: docker_limit.slice
+      enabled: yes

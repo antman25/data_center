@@ -1,0 +1,136 @@
+---
+- name: "Stage03 - Consul"
+  hosts: localhost
+  gather_facts: yes
+  become: yes
+  tasks:
+  - name: Get config files
+    git:
+      repo: https://github.com/antman25/data_center.git
+      dest: /tmp/data_center
+  - name: Create consul group
+    group:
+      name: consul
+      state: present
+  - name: Create consul user
+    user:
+      name: consul
+      shell: /sbin/nologin
+      group: consul
+      groups: consul
+      append: yes
+  - name: Creates /etc/consul config dir
+    file:
+      path: /etc/consul
+      state: directory
+      owner: consul
+      group: consul
+      mode: '0700'
+  - name: Copy server.hcl server config to /etc/consul
+    copy:
+      src: /tmp/data_center/bootstrap/packer/hashicorp/config/consul/server.hcl
+      dest: /etc/consul
+      owner: consul
+      group: consul
+      mode: '0600'
+  - name: Create /etc/consul.d config dir
+    file:
+      path: /etc/consul.d
+      state: directory
+      owner: consul
+      group: consul
+      mode: '0700'
+  - name: Create /var/lib/consul data dir
+    file:
+      path: /var/lib/consul
+      state: directory
+      owner: consul
+      group: consul
+      mode: '0700'
+  - name: Copy consul.service file to /etc/systemd/system
+    copy:
+      src: /tmp/data_center/bootstrap/packer/hashicorp/service/consul.service
+      dest: /etc/systemd/system
+      owner: root
+      group: root
+      mode: '0644'
+  - name: Enable service consul
+    service:
+      name: consul.service
+      enabled: yes
+  - name: Allow port 8300 consul server
+    ansible.posix.firewalld:
+      port: 8300/tcp
+      permanent: yes
+      state: enabled
+  - name: Allow port 8301 Serf LAN
+    ansible.posix.firewalld:
+      port: 8301/tcp
+      permanent: yes
+      state: enabled
+  - name: Allow port 8302 Serf WAN
+    ansible.posix.firewalld:
+      port: 8302/tcp
+      permanent: yes
+      state: enabled
+  - name: Allow port 8500 UI
+    ansible.posix.firewalld:
+      port: 8500/tcp
+      permanent: yes
+      state: enabled
+  - name: Allow port 8501 UI (SSL)
+    ansible.posix.firewalld:
+      port: 8501/tcp
+      permanent: yes
+      state: enabled
+  - name: Allow port 8502 GRPC
+    ansible.posix.firewalld:
+      port: 8502/tcp
+      permanent: yes
+      state: enabled
+  - name: Allow port 8600 DNS
+    ansible.posix.firewalld:
+      port: 8600/tcp
+      permanent: yes
+      state: enabled
+  - name: Allow port 53 Real DNS
+    ansible.posix.firewalld:
+      port: 53/tcp
+      permanent: yes
+      state: enabled
+  - name: Allow port 53 Real DNS
+    ansible.posix.firewalld:
+      port: 53/udp
+      permanent: yes
+      state: enabled
+  - name: make sure line 'dns=none' is set in /etc/NetworkManager/NetworkManager.conf
+    ini_file:
+      path: /etc/NetworkManager/NetworkManager.conf
+      state: present
+      no_extra_spaces: yes
+      section: main
+      option: dns
+      value: none
+      owner: root
+      group: root
+      mode: 0644
+      backup: yes
+  - name: deploy resolv.conf template
+    template:
+      src: /tmp/data_center/bootstrap/packer/scripts/templates/resolv.conf.j2
+      dest: /etc/resolv.conf
+      owner: root
+      group: root
+      mode: 0644
+      backup: yes
+  - name: reload NetworkManager
+    service:
+      name: NetworkManager
+      state: reloaded
+  - name: Forward requests for port 53 (tcp) to port 8600 (tcp)
+    shell: firewall-cmd --permanent --direct --add-rule ipv4 nat OUTPUT 0 -d 127.0.0.1/32 -p tcp -m tcp --dport 53 -j REDIRECT --to-ports 8600
+  - name: Forward requests for port 53 (udp) to port 8600 (udp)
+    shell: firewall-cmd --permanent --direct --add-rule ipv4 nat OUTPUT 0 -d 127.0.0.1/32 -p udp -m udp --dport 53 -j REDIRECT --to-ports 8600
+  - name: Reload firewall
+    shell: firewall-cmd --reload
+
