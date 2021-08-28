@@ -64,7 +64,8 @@ clone {
     }
 
     ipv4_gateway = "10.0.0.1"
-    dns_server_list = ["10.0.0.${50 + count.index}"]
+    dns_server_list = ["127.0.0.1"]
+    dns_suffix_list = ["antlinux.local"]
   }
  }
 }
