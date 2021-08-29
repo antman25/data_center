@@ -4,6 +4,5 @@
   "experimental" : true,
   "insecure-registries": [
     "10.0.0.222:8081"
-  ],
-  "disable-legacy-registry": true
+  ]
 }
