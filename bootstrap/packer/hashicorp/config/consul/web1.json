@@ -1,0 +1,11 @@
+{
+  "id": "web1",
+  "name": "web",
+  "port": 80,
+  "check": {
+    "name": "ping check",
+    "args": ["ping", "-c1", "learn.hashicorp.com"],
+    "interval": "30s",
+    "status": "passing"
+  }
+}
