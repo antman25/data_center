@@ -3,6 +3,9 @@
   "metrics-addr" : "0.0.0.0:9323",
   "experimental" : true,
   "insecure-registries": [
-    "10.0.0.222:8081"
+    "10.0.0.222:8443",
+    "nexus.antlinux.local:8443",
+    "10.0.0.222:9443",
+    "nexus.antlinux.local:9443"
   ]
 }
