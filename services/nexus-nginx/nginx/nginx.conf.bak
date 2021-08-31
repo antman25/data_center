@@ -50,18 +50,17 @@ http {
     server_name             nexus.antlinux.local;
     error_log               /var/log/nginx/error.log debug;
 
-    location ~ ^/(v1|v2)/ {
-      rewrite ^/(.*)$ http://127.0.0.1:8081/repository/docker-dev.local/$1 last;
-    }
-
     location ~ ^/(v1|v2)/(.*) {
       proxy_set_header Host $host:$server_port;
       proxy_set_header X-Real-IP $remote_addr;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
       proxy_set_header X-Forwarded-Proto "https";
-      proxy_pass http://127.0.0.1:8081/repository/docker-dev/$1;
+      proxy_pass http://127.0.0.1:8081/repository/$1;
     }
 
+    location ~ ^/(v1|v2)/ {
+      rewrite ^/(.*)$ http://127.0.0.1:8081/repository/docker-dev.local/$1 last;
+    }
     
     
     location / {

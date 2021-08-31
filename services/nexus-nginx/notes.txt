@@ -1,0 +1,5 @@
+curl -u packer:packer -X GET http://nexus.antlinux.local:8081/repository/docker-dev/v2/_catalog --verbose
+^\/(v1|v2)\/(\w+)\/(.*)
+$1 = v2
+$2 = repo
+$3 = rest
