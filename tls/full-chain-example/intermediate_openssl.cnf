@@ -16,8 +16,8 @@ serial            = $dir/serial
 RANDFILE          = $dir/private/.rand
 
 # The root key and root certificate.
-private_key       = $dir/private/intermediate.key.pem
-certificate       = $dir/certs/intermediate.cert.pem
+private_key       = $dir/private/intermediate_ca.key.pem
+certificate       = $dir/certs/intermediate_ca.cert.pem
 
 # For certificate revocation lists.
 crlnumber         = $dir/crlnumber
@@ -118,6 +118,11 @@ subjectKeyIdentifier = hash
 authorityKeyIdentifier = keyid,issuer:always
 keyUsage = critical, digitalSignature, keyEncipherment
 extendedKeyUsage = serverAuth
+subjectAltName = @alt_names
+
+[ alt_names ]
+DNS.1   = nexus.antlinux.local
+
 
 [ crl_ext ]
 # Extension for CRLs (`man x509v3_config`).
