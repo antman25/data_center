@@ -1,5 +1,10 @@
 node()
 {
+
+	stage('Download Repo')
+	{
+		checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/antman25/data_center.git']]])
+	}
 	stage('Stage 1 Test')
 	{
 		echo('blah')
