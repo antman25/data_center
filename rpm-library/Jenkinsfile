@@ -11,7 +11,7 @@ node()
 	}
 	stage('Stage 1 Test')
 	{
-		echo('blah')
+		sh("${WORKSPACE}/rpm-library/rpmbuild/build.sh")
 	} 
 	stage('Stage 2 Test')
 	{
