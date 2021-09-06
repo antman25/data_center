@@ -92,7 +92,7 @@ resource "vsphere_nas_datastore" "datastore" {
   host_system_ids = [data.vsphere_host.host.id]
 
   type         = "NFS"
-  remote_hosts = ["10.0.0.164"]
+  remote_hosts = ["10.0.0.165"]
   remote_path  = "/data/scratch/datastore"
 }
 

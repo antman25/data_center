@@ -1,2 +1,2 @@
 #!/bin/bash
-docker run --privileged --network host --name nexus-nginx nexus-nginx:latest 
+docker run -d --privileged --network host --name nexus-nginx nexus-nginx:latest 

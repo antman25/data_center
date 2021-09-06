@@ -84,6 +84,7 @@
       - jq
       - bind-utils
       - traceroute
+      - maven
     when: ansible_os_family == "RedHat"
 
   - name: Install dependencies for VirtualBox Guest Additions (RedHat)
