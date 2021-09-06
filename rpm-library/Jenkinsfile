@@ -5,6 +5,10 @@ node()
 	{
 		checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/antman25/data_center.git']]])
 	}
+	stage('Env Dump')
+	{
+		sh ('env | sort')
+	}
 	stage('Stage 1 Test')
 	{
 		echo('blah')
