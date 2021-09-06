@@ -1,0 +1,12 @@
+node()
+{
+	stage('Stage 1 Test')
+	{
+		echo('blah')
+	} 
+	stage('Stage 2 Test')
+	{
+		echo('asdf')
+	}
+}
+
