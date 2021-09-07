@@ -1,4 +1,6 @@
 cat /root/ca/certs/ca.cert.pem /root/ca/intermediate/certs/intermediate_ca.cert.pem  > /root/ca/intermediate/certs/ca-chain.cert.pem
+cat /root/ca/certs/ca.cert.pem /root/ca/intermediate/certs/intermediate_ca.cert.pem /root/ca/intermediate/private/intermediate_ca.decrypted-key.pem > /root/ca/intermediate/certs/int-full-chain.pem
+
 chmod 444 /root/ca/intermediate/certs/ca-chain.cert.pem
 
 cat  /root/ca/intermediate/private/intermediate_ca.key.pem \

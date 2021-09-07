@@ -39,7 +39,7 @@ variable "datacenter" {
 }
 variable "datastore" {
   type =  string
-  default = "terraform-test"
+  default = "antlun"
   sensitive = false
 }
 variable "folder" {
