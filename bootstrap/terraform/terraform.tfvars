@@ -1,5 +1,5 @@
 # VMware VMs configuration #
-vm_count = "1"
+vm_count = "2"
 vm_name = "BootStrapDC"
 vm_template_name = "CentOS8-Template"
 vm_cpu = "2"
