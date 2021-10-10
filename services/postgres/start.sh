@@ -1,3 +1,4 @@
+docker rm -f postgres
 docker run -d \
     --name gitlab-postgres \
     -e POSTGRES_PASSWORD=password \
