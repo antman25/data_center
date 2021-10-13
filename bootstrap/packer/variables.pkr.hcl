@@ -69,7 +69,7 @@ variable "iso_path" {
 }
 variable "network" {
   type =  string
-  default = "VM Network"
+  default = "PrivateNetwork"
   sensitive = false
 }
 variable "vsphere_server" {
