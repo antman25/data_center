@@ -1,0 +1,5 @@
+vault write ad/config binddn=$AD_USERNAME bindpass=$AD_PASSWORD url=ldaps://antlinux.local userdn='dc=antlinux,dc=local' insecure_tls=true ttl=5m max_ttl=10m length=16
+
+vault write ad/roles/my-application service_account_name="test2@antlinux.local" ttl=3m
+vault read ad/creds/my-application
+
