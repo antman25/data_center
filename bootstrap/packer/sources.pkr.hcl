@@ -12,7 +12,7 @@ source "vsphere-iso" "centos8-stage01" {
   datastore            = "${var.datastore}"
   disk_controller_type = ["pvscsi"]
   folder               = "${var.folder}"
-  guest_os_type        = "centos8_64Guest"
+  guest_os_type        = "centos64Guest"
   http_directory       = "http"
   insecure_connection  = "true"
   iso_checksum         = "${var.iso_checksum_type}:${var.iso_checksum}"
@@ -39,11 +39,11 @@ source "vsphere-iso" "centos8-stage01" {
   username       = "${var.vsphere_user}"
   vcenter_server = "${var.vsphere_server}"
   vm_name        = "CentOS8-Stage01"
-
-  export {
-    force = true
-    output_directory = "./output_vsphere"
-  }
+  resource_pool  = "cluster"
+  #export {
+  #  force = true
+  #  output_directory = "./output_vsphere"
+  #}
 
   #content_library_destination {
   #   library = "pipeline_lib"

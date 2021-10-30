@@ -39,7 +39,7 @@ variable "datacenter" {
 }
 variable "datastore" {
   type =  string
-  default = "antlun"
+  default = "terraform-test"
   sensitive = false
 }
 variable "folder" {
@@ -59,7 +59,7 @@ variable "iso_checksum_type" {
 }
 variable "iso_datastore" {
   type =  string
-  default = "antlun"
+  default = "terraform-test"
   sensitive = false
 }
 variable "iso_path" {

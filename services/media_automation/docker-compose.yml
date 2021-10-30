@@ -79,6 +79,7 @@ services:
         - /var/lib/media_automation/sonarr:/config
         - /mnt/media/media/tv:/tv
         - /mnt/media/downloads/completed:/downloads
+        - /mnt/media/downloads/trash:/trash
     restart: unless-stopped
 
  lidarr:
