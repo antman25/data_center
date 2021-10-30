@@ -56,7 +56,8 @@ resource vsphere_role "packer_role" {
 			"VirtualMachine.Inventory.Create",
 			"VirtualMachine.Inventory.Register",
 			"VirtualMachine.Inventory.Delete",
-			"VirtualMachine.Inventory.Unregister",				
+			"VirtualMachine.Inventory.Unregister",
+			"VirtualMachine.Inventory.CreateFromExisting",				
 
 			"VirtualMachine.Interact.ConsoleInteract",
 			"VirtualMachine.Interact.DeviceConnection",
@@ -66,8 +67,8 @@ resource vsphere_role "packer_role" {
 			"VirtualMachine.Interact.SetCDMedia",
 			"VirtualMachine.Interact.SetFloppyMedia",
 
-			"VirtualMachine.Provisioning.MarkAsTemplate",
                         "VirtualMachine.Provisioning.Clone",
+			"VirtualMachine.Provisioning.MarkAsTemplate",
 
 			"VirtualMachine.State.CreateSnapshot"
 		]
@@ -156,4 +157,13 @@ resource "vsphere_entity_permissions" cluster_perm {
   }
 }
 
-
+/*resource "vsphere_entity_permissions" datacenter_perm {
+  entity_id = data.vsphere_datacenter.dc.id
+  entity_type = "Datacenter"
+  permissions {
+    user_or_group = "antlinux\\packer-svc"
+    propagate = true
+    is_group = false
+    role_id = vsphere_role.packer_role.id
+  }
+}*/
