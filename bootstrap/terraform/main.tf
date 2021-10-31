@@ -46,7 +46,7 @@ network_interface {
 }
 disk {
   label = "${var.vm_name}-${count.index + 1}-disk"
-  size  = 25
+  size  = 50
 }
 clone {
   template_uuid = data.vsphere_virtual_machine.template.id
@@ -64,7 +64,7 @@ clone {
     }
 
     ipv4_gateway = "10.0.0.1"
-    dns_server_list = ["127.0.0.1"]
+    dns_server_list = ["127.0.0.1", "10.0.0.55"]
     dns_suffix_list = ["antlinux.local"]
   }
  }

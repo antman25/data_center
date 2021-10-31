@@ -9,7 +9,7 @@ primary_datacenter = "BootstrapDC"
 client_addr = "0.0.0.0"
 bind_addr = "0.0.0.0"
 advertise_addr = "10.0.0.50"
-data_dir = "/var/lib/consul"
+data_dir = "/mnt/scratch/appdata/consul"
 datacenter = "BootstrapDC"
 
 node_name = "MainNode"
@@ -29,6 +29,7 @@ enable_central_service_config = true
 protocol = 3
 raft_protocol = 3
 recursors = [
+  "10.0.0.55",
   "8.8.8.8",
   "8.8.4.4",
 ]

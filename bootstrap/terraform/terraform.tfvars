@@ -4,7 +4,7 @@ vm_name = "BootStrapDC"
 vm_template_name = "CentOS8-Template"
 vm_cpu = "2"
 vm_ram = "8192"
-vm_guest_id = "centos8_64Guest"
+vm_guest_id = "centos64Guest"
 # VMware vSphere configuration #
 # VMware vCenter IP/FQDN
 # vsphere_vcenter = ""
