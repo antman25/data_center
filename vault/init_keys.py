@@ -11,12 +11,13 @@ def main():
 		root_token = result['root_token']
 		print("Root Token: %s" % root_token)
 		with open("init_data/root_token","w") as f:
-			f.write(root_token + "\n")
+			f.write(root_token)
 
 		keys = result['keys']
-		output_data = { "keys" : keys }
+		output_data = { "keys" : keys, "shares" : shares, "threshold" : threshold }
 		with open("init_data/keys.json", "w") as f:
-			f.write(json.dumps(output_data))
+			j = json.dumps(output_data,sort_keys=True, indent=4)
+			f.write(j)
 
 		for key in keys:
 			print("Unseal key: %s" % key)
