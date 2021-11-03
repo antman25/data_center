@@ -138,44 +138,16 @@ def configurePKI(client):
         print("INTERMEDIATE CA Exists")
 
 
-def enableLdapAuth(client):
-    ldap_auth_path = 'company-ldap'
-    description = "Auth method for use by team members in our company's LDAP organization"
-
-    if '%s/' % ldap_auth_path not in client.sys.list_auth_methods():
-        print('Enabling the ldap auth backend at mount_point: {path}'.format(
-            path=ldap_auth_path,
-        ))
-        client.enable_auth_method(
-            backend_type='ldap',
-            description=description,
-            mount_point=ldap_auth_path,
-        )
-    print('Configuring LDAP')
-    resp = client.auth.ldap.configure(
-        user_dn='ou=people,dc=planetexpress,dc=com',
-        url='ldap://127.0.0.1:389',
-        bind_dn='cn=admin,dc=planetexpress,dc=com',
-        bind_pass='GoodNewsEveryone',
-        user_attr='uid',
-        group_attr='cn',
-        mount_point=ldap_auth_path)
-    print("Response: %s" % resp)
 
 
 def main():
     client = getClient(vault_url)
-    with open('init.json', 'r') as f:
-        data = f.read()
-    init = json.loads(data)
-    keys = init['keys']
-    root_token = init['root_token']
-    unsealVault(client, keys)
-    client.token = root_token
-    print('Vault initialize status: %s' % client.sys.is_initialized())
-    configurePKI(client)
-    enableLdapAuth(client)
+    with open('init_data/root_token', 'r') as f:
+        root_token = f.read()
 
+    client.token = root_token
+    #configurePKI(client)
+    mountPKI(client)
 
 if __name__ == '__main__':
     main()

@@ -5,7 +5,7 @@ mkdir -p /root/ca/intermediate/crl
 mkdir -p /root/ca/intermediate/csr
 mkdir -p /root/ca/intermediate/newcerts
 mkdir -p /root/ca/intermediate/private
-chmod 700 /root/ca/intermediate/private
+chmod 770 /root/ca/intermediate/private
 touch /root/ca/intermediate/index.txt
 echo 1000 > /root/ca/intermediate/serial
 echo 1000 > /root/ca/intermediate/crlnumber
