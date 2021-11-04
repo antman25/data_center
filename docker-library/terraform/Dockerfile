@@ -8,6 +8,7 @@ ENV NAMESPACE_DIR=${HOSTNAME_DIR}/hashicorp
 ENV VAULT_PROVIDER_DIR=${NAMESPACE_DIR}/vault
 ENV VSPHERE_PROVIDER_DIR=${NAMESPACE_DIR}/vsphere
 ENV LOCAL_PROVIDER_DIR=${NAMESPACE_DIR}/local
+ENV AD_PROVIDER_DIR=${NAMESPACE_DIR}/ad
 
 RUN useradd -ms /bin/bash/ terraform && \
     yum install -y unzip && \ 
@@ -28,9 +29,11 @@ RUN mkdir -p ${TERRAFORM_ROOT} && \
     mkdir -p ${VSPHERE_PROVIDER_DIR} && \
     mkdir -p ${VAULT_PROVIDER_DIR} && \
     mkdir -p ${LOCAL_PROVIDER_DIR} && \
+    mkdir -p ${AD_PROVIDER_DIR} && \
     curl -k -u packer:packer https://nexus.antlinux.local:8443/repository/generic-vendor/hashicorp/terraform-providers/terraform-provider-vsphere_2.0.2_linux_amd64.zip -o ${VSPHERE_PROVIDER_DIR}/terraform-provider-vsphere_2.0.2_linux_amd64.zip && \
     curl -k -u packer:packer https://nexus.antlinux.local:8443/repository/generic-vendor/hashicorp/terraform-providers/terraform-provider-vault_2.24.1_linux_amd64.zip -o ${VAULT_PROVIDER_DIR}/terraform-provider-vault_2.24.1_linux_amd64.zip && \
     curl -k -u packer:packer https://nexus.antlinux.local:8443/repository/generic-vendor/hashicorp/terraform-providers/terraform-provider-local_2.1.0_linux_amd64.zip -o ${LOCAL_PROVIDER_DIR}/terraform-provider-local_2.1.0_linux_amd64.zip && \
+    curl -k -u packer:packer https://nexus.antlinux.local:8443/repository/generic-vendor/hashicorp/terraform-providers/terraform-provider-ad_0.4.3_linux_amd64.zip -o ${AD_PROVIDER_DIR}/terraform-provider-ad_0.4.3_linux_amd64.zip && \
     chown -R terraform:terraform ${TERRAFORM_ROOT}
 
 

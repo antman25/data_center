@@ -7,7 +7,7 @@ resource "vault_pki_secret_backend_role" "vault-app-role" {
   key_type         = "rsa"
   key_bits         = 4096
   allowed_domains  = ["vault.antlinux.local"]
-  allow_subdomains = false
+  allow_subdomains = true
   allow_bare_domains = true
 }
 
