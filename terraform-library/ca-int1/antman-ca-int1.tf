@@ -20,3 +20,11 @@ resource "vault_pki_secret_backend_intermediate_cert_request" "antlinux_local_v1
  locality     = "Bethesda"
  province     = "MD"
 }*/
+
+resource "vault_pki_secret_backend_config_ca" "intermediate" {
+  depends_on = [vault_mount.antlinux_local_v1_ica1_v1]
+
+  backend = vault_mount.antlinux_local_v1_ica1_v1.path
+
+  pem_bundle = file("/tmp/int-full-chain.pem")
+}
