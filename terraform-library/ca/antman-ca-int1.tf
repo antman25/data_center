@@ -11,7 +11,7 @@ resource "vault_pki_secret_backend_config_ca" "intermediate" {
 
 	backend = vault_mount.antlinux_local_v1_ica1_v1.path
 
-	pem_bundle = file("/tmp/int-full-chain.pem")
+	pem_bundle = file("/etc/certs//int-full-chain.pem")
 }
 
 resource "local_file" "ca-chain" {
