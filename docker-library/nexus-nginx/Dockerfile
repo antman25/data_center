@@ -1,4 +1,4 @@
-FROM nexus.antlinux.local:8443/vendor-base/nginx:1.21.3
+FROM nginx:1.21.3
 
 #COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
