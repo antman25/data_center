@@ -18,9 +18,10 @@ source "vsphere-iso" "centos8-stage01" {
   iso_checksum         = "${var.iso_checksum_type}:${var.iso_checksum}"
   #iso_urls             = ["[${var.iso_datastore}] ${var.iso_path}"
   #                       ]
-  iso_url	       = "file:///mnt/scratch/downloads/iso/CentOS-8.2.2004-x86_64-dvd1/CentOS-8.2.2004-x86_64-dvd1.iso"
-
+  #iso_url	       = "file:///mnt/scratch/downloads/iso/CentOS-8.2.2004-x86_64-dvd1/CentOS-8.2.2004-x86_64-dvd1.iso"
+  iso_url            = "https://packer:packer@nexus.antlinux.local:8443/repository/generic-vendor/iso/centos8/CentOS-8.2.2004-x86_64-dvd1.iso"
   #iso_paths            = [ "[${var.iso_datastore}] ${var.iso_path}" ]
+  #iso_remote_path      = "[${var.iso_datastore}] packer_cache"
   iso_target_path      = "packer_test_cache"
   network_adapters {
     network      = "${var.network}"

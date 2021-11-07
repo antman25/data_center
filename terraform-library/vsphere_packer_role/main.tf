@@ -34,10 +34,18 @@ resource vsphere_role "packer_role" {
   role_privileges = [	
 			"Datastore.AllocateSpace",
 			"Datastore.Browse",
+			"Datastore.DeleteFile",
 			"Datastore.FileManagement",
+			"Datastore.Move",
+			"Datastore.Rename",
+			"Datastore.UpdateVirtualMachineFiles",
+			"Datastore.UpdateVirtualMachineMetadata",
+			
+			"Host.Config.SystemManagement",
 
 			"Folder.Create",
 			"Folder.Delete",
+			"Folder.Move",
 			"Folder.Rename",
 
 			"Network.Assign",
@@ -80,16 +88,21 @@ data "vsphere_host" "host" {
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
+data "vsphere_datastore" "datastore" {
+  name          = "terraform-test"
+  datacenter_id = "${data.vsphere_datacenter.dc.id}"
+}
 
-
-resource "vsphere_nas_datastore" "datastore" {
+/*resource "vsphere_nas_datastore" "datastore" {
   name            = "terraform-test"
   host_system_ids = [data.vsphere_host.host.id]
 
   type         = "NFS"
   remote_hosts = ["10.0.0.164"]
   remote_path  = "/data/scratch/datastore"
-}
+}*/
+
+
 
 resource "vsphere_folder" "pipeline_base_folder" {
   path          = "pipeline"
@@ -103,7 +116,7 @@ data "vsphere_network" "switch" {
 }
 
 resource "vsphere_entity_permissions" datastore_perm {
-  entity_id = vsphere_nas_datastore.datastore.id
+  entity_id = data.vsphere_datastore.datastore.id
   entity_type = "Datastore"
   permissions {
     user_or_group = "antlinux\\packer-svc"
@@ -157,13 +170,13 @@ resource "vsphere_entity_permissions" cluster_perm {
   }
 }
 
-/*resource "vsphere_entity_permissions" datacenter_perm {
+resource "vsphere_entity_permissions" datacenter_perm {
   entity_id = data.vsphere_datacenter.dc.id
   entity_type = "Datacenter"
   permissions {
     user_or_group = "antlinux\\packer-svc"
-    propagate = true
+    propagate = false
     is_group = false
     role_id = vsphere_role.packer_role.id
   }
-}*/
+}
