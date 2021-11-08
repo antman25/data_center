@@ -1,12 +1,12 @@
 node()
 {
-	GIT_COMMIT_REV_PRE = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
+	//GIT_COMMIT_REV_PRE = sh(returnStdout: true, script: "git rev-parse HEAD").trim()
 	stage('gitlab pull')
 	{
 		//checkout scm
 		checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'jenkins_ssh', url: 'http://gitlab.antlinux.local/antman/data_center.git']]])
 	}
-	GIT_COMMIT_REV_POST = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
+	GIT_COMMIT_REV_POST = sh(returnStdout: true, script: "git rev-parse HEAD").trim()
 	stage('env')
 	{
 		env
@@ -19,6 +19,22 @@ node()
 		//echo "${scmVars}"
 		echo "ANTMAN PRE: ${GIT_COMMIT_REV_PRE}"
 		echo "ANTMAN PRE: ${GIT_COMMIT_REV_POST}"
+	}
+	stage('get modified files')
+	{
+		def has_mods = false
+		try
+		{
+			def LAST_SUCCESSFUL = readFile("${WORKSPACE}/LAST_SUCCESS_HASH").trim()
+			echo "Last Successful commit hash: ${LAST_SUCCESSFUL"
+			def modified_files = sh(returnStdout: true, script: "git diff --only-names ${LAST_SUCCESSFUL}").trim()
+
+		}
+		catch
+		{
+			echo "Exception getting last commit"
+			has_mods = true
+		}
 	}
 	stage('writing git hash')
 	{
