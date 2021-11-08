@@ -22,6 +22,15 @@ node()
                                         }
                                 }
 
+        all_stages['vault'] = {
+                                        stage('Build docker-vault')
+                                        {
+                                                build job: 'build-root/docker/vault/build'
+                                        }
+                                }
+
+
+
 
 
 
