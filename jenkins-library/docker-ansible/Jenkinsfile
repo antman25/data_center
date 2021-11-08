@@ -19,5 +19,9 @@ node()
 		//echo "${scmVars}"
 		echo "ANTMAN PRE: ${GIT_COMMIT_REV_PRE}"
 		echo "ANTMAN PRE: ${GIT_COMMIT_REV_POST}"
-	}	
+	}
+	stage('writing git hash')
+	{
+		sh("echo ${GIT_COMMIT_REV_POST} > LAST_SUCCESS_HASH")
+	}
 }
