@@ -15,6 +15,16 @@ node()
 					}
 				}
 
+        all_stages['consul'] = {
+                                        stage('Build docker-consul')
+                                        {
+                                                build job: 'build-root/docker/consul/build'
+                                        }
+                                }
+
+
+
+
 	stage('Run All Builds')
 	{
 		parallel(all_stages)
