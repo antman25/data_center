@@ -1,0 +1,40 @@
+node()
+{
+	def has_mods = false
+
+	stage('gitlab pull')
+	{
+		//checkout scm
+		checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'jenkins_ssh', url: 'http://gitlab.antlinux.local/antman/data_center.git']]])
+	}
+	GIT_COMMIT_REV_POST = sh(returnStdout: true, script: "git rev-parse HEAD").trim()
+
+	stage('get modified files')
+	{
+		try
+		{
+			def LAST_SUCCESSFUL = readFile("${WORKSPACE}/LAST_SUCCESS_HASH").trim()
+			echo "Last Successful commit hash: ${LAST_SUCCESSFUL}"
+			def modified_files = sh(returnStdout: true, script: "git diff --name-only ${LAST_SUCCESSFUL}").trim()
+			echo "Modified Files:\n${modified_files}"
+			def loc = modified_files.indexOf('docker-library/docker-ansible')
+			if (loc >= 0)
+			{
+				has_mods = true
+			}
+		}
+		catch (Exception ex)
+		{
+			echo "Exception getting last commit"
+			has_mods = true
+		}
+	}
+	stage('build')
+	{
+		echo "Has Mods: ${has_mods}"
+	}
+	stage('writing git hash')
+	{
+		sh("echo ${GIT_COMMIT_REV_POST} > LAST_SUCCESS_HASH")
+	}
+}
