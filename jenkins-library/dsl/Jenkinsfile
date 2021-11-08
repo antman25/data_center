@@ -13,8 +13,8 @@ node()
                  lookupStrategy: 'SEED_JOB',
                  additionalParameters: [message: 'Hello from pipeline', credentials: 'SECRET']
         }
-	stage('Build docker-ansible')
+	stage('Run Build Jobs')
 	{
-		build job: '/build-root/docker-ansible/build'
+		build job: '/build-root/build-master'
 	}
 }
