@@ -1,6 +1,6 @@
 node()
 {
-	//GIT_COMMIT_REV_PRE = sh(returnStdout: true, script: "git rev-parse HEAD").trim()
+	GIT_COMMIT_REV_PRE = sh(returnStdout: true, script: "git rev-parse HEAD").trim()
 	stage('gitlab pull')
 	{
 		//checkout scm
