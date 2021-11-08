@@ -6,6 +6,6 @@ node()
 	}
 	stage('env')
 	{
-		env
+		sh('env')
 	}
 }
