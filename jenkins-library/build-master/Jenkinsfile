@@ -1,8 +1,15 @@
 node()
 {
-	stage('Build docker-ansible')
+	parallel
 	{
-		build job: 'build-root/docker-ansible/build'
+		stage('Build docker-ansible')
+		{
+			build job: 'build-root/docker-ansible/build'
+		}
+		stage('Build docker-terraform')
+		{
+			build job: 'build-root/docker-terraform/build'
+		}
 	}
 
 }
