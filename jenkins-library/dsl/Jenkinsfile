@@ -5,7 +5,7 @@ node()
 		checkout scm
 	}
 	
-        stage('build jobs')
+        stage('Create Jobs')
         {
                  jobDsl targets: ['jenkins-library/dsl/jobs/build_root.groovy', 'jenkins-library/dsl/jobs/docker_ansible.groovy'].join('\n'),
                  removedJobAction: 'DELETE',
@@ -13,4 +13,8 @@ node()
                  lookupStrategy: 'SEED_JOB',
                  additionalParameters: [message: 'Hello from pipeline', credentials: 'SECRET']
         }
+	stage('Build docker-ansible')
+	{
+		build job: '/build-root/docker-ansible/build'
+	}
 }
