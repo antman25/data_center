@@ -29,6 +29,14 @@ node()
                                         }
                                 }
 
+        all_stages['packer'] = {
+                                        stage('Build docker-packer')
+                                        {
+                                                build job: 'build-root/docker/packer/build'
+                                        }
+                                }
+
+
 
 
 
