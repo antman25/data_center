@@ -1,5 +1,9 @@
 node()
 {
+	stage('gitlab clone')
+	{
+		checkout scm
+	}
         stage('build jobs')
         {
                  jobDsl targets: ['jenkins-library/dsl/jobs/docker-ansible.groovy'].join('\n'),
