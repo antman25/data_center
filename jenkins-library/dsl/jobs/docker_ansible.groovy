@@ -1,6 +1,6 @@
 folder('build-root/docker-ansible')
 
-pipelineJob('docker-ansible-build') {
+pipelineJob('build-root/docker-ansible/build') {
 
   def repo = 'http://gitlab.antlinux.local/antman/data_center.git'
 
