@@ -1,0 +1,7 @@
+node()
+{
+	stage('build jobs')
+	{
+		echo "test"
+	}
+}
