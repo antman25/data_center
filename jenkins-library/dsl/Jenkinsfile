@@ -1,7 +1,11 @@
 node()
 {
-	stage('build jobs')
-	{
-		echo "test"
-	}
+        stage('build jobs')
+        {
+                 jobDsl targets: ['jobs/docker-ansible.groovy'].join('\n'),
+                 removedJobAction: 'DELETE',
+                 removedViewAction: 'DELETE',
+                 lookupStrategy: 'SEED_JOB',
+                 additionalParameters: [message: 'Hello from pipeline', credentials: 'SECRET']
+        }
 }
