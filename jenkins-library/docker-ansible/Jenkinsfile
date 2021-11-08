@@ -32,7 +32,7 @@ node()
 	stage('build')
 	{
 		echo "Has Mods: ${has_mods}"
-		sh("${WORKSPACE}/docker-library/docker-ansible/build.sh")
+		sh("${WORKSPACE}/docker-library/docker-ansible/build_jenkins.sh")
 	}
 	stage('writing git hash')
 	{
