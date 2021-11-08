@@ -27,7 +27,7 @@ node()
 		{
 			def LAST_SUCCESSFUL = readFile("${WORKSPACE}/LAST_SUCCESS_HASH").trim()
 			echo "Last Successful commit hash: ${LAST_SUCCESSFUL}"
-			def modified_files = sh(returnStdout: true, script: "git diff --only-names ${LAST_SUCCESSFUL}").trim()
+			def modified_files = sh(returnStdout: true, script: "git diff --name-only ${LAST_SUCCESSFUL}").trim()
 
 		}
 		catch (Exception ex)
