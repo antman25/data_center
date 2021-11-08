@@ -6,9 +6,15 @@ node()
 	}
 	stage('env')
 	{
+		env
 		sh('env')
 	}
-	stage("last-changes") 
+	stage('commit-hash')
+	{
+		echo "ANTMAN: Commit ${GIT_COMMIT}"
+	}	
+
+	/*stage("last-changes") 
 	{
               def publisher = LastChanges.getLastChangesPublisher "LAST_SUCCESSFUL_BUILD", "SIDE", "LINE", true, true, "", "", "", "", ""
               publisher.publishLastChanges()
@@ -21,6 +27,6 @@ node()
                   println(commitInfo.getCommitMessage())
                   println(commit.getChanges())
               }
-	}
+	*/}
 
 }
