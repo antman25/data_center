@@ -30,7 +30,7 @@ node()
 			def modified_files = sh(returnStdout: true, script: "git diff --only-names ${LAST_SUCCESSFUL}").trim()
 
 		}
-		catch
+		catch (Exception as ex)
 		{
 			echo "Exception getting last commit"
 			has_mods = true
