@@ -4,8 +4,10 @@ node()
 	{
 		checkout scm
 	}
+	
         stage('build jobs')
         {
+		 folder('build-root')
                  jobDsl targets: ['jenkins-library/dsl/jobs/docker_ansible.groovy'].join('\n'),
                  removedJobAction: 'DELETE',
                  removedViewAction: 'DELETE',
