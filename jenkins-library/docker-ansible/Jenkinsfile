@@ -1,0 +1,7 @@
+node()
+{
+	stage('gitlab pull')
+	{
+		echo 'test'
+	}
+}
