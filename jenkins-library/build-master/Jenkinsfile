@@ -1,15 +1,22 @@
 node()
 {
-//	parallel
-//	{
-		stage('Build docker-ansible')
-		{
-			build job: 'build-root/docker-ansible/build'
-		}
-		stage('Build docker-terraform')
-		{
-			build job: 'build-root/docker-terraform/build'
-		}
-//	}
+	all_stages = [:]
+	all_stages['ansible'] = {
+					stage('Build docker-ansible')
+					{
+						build job: 'build-root/docker-ansible/build'
+					}
+				}
+	
+	all_stages['terraform'] = {
+					stage('Build docker-terraform')
+					{
+						build job: 'build-root/docker-terraform/build'
+					}
+				}
 
+	stage('Run All Builds')
+	{
+		parallel(all_stages)
+	}
 }
