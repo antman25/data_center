@@ -2,14 +2,14 @@ node()
 {
 	def has_mods = false
 
-	stage('gitlab pull')
+	stage('Git Checkout')
 	{
 		//checkout scm
 		checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'jenkins_ssh', url: 'http://gitlab.antlinux.local/antman/data_center.git']]])
 	}
 	GIT_COMMIT_REV_POST = sh(returnStdout: true, script: "git rev-parse HEAD").trim()
 
-	stage('get modified files')
+	stage('Get Modified Files')
 	{
 		try
 		{
@@ -17,7 +17,7 @@ node()
 			echo "Last Successful commit hash: ${LAST_SUCCESSFUL}"
 			def modified_files = sh(returnStdout: true, script: "git diff --name-only ${LAST_SUCCESSFUL}").trim()
 			echo "Modified Files:\n${modified_files}"
-			def loc = modified_files.indexOf('docker-library/docker-ansible')
+			def loc = modified_files.indexOf('docker-library/docker/ansible')
 			if (loc >= 0)
 			{
 				has_mods = true
@@ -29,15 +29,15 @@ node()
 			has_mods = true
 		}
 	}
-	stage('build')
+	stage('Build and Publish')
 	{
 		echo "Has Mods: ${has_mods}"
 		if (has_mods == true)
 		{
-			sh("${WORKSPACE}/docker-library/docker-ansible/build_jenkins.sh")
+			sh("${WORKSPACE}/docker-library/docker/ansible/build_jenkins.sh")
 		}
 	}
-	stage('writing git hash')
+	stage('Save Commit Hash')
 	{
 		if (has_mods == true)
 		{

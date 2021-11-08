@@ -1,5 +1,8 @@
 folder('build-root')
 
+folder('build-root/docker')
+folder('build-root/packer')
+
 pipelineJob('build-root/build-master') {
 
   def repo = 'http://gitlab.antlinux.local/antman/data_center.git'

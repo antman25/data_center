@@ -4,14 +4,14 @@ node()
 	all_stages['ansible'] = {
 					stage('Build docker-ansible')
 					{
-						build job: 'build-root/docker-ansible/build'
+						build job: 'build-root/docker/ansible/build'
 					}
 				}
 	
 	all_stages['terraform'] = {
 					stage('Build docker-terraform')
 					{
-						build job: 'build-root/docker-terraform/build'
+						build job: 'build-root/docker/terraform/build'
 					}
 				}
 
