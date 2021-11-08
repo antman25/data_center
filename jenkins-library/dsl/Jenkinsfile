@@ -6,7 +6,7 @@ node()
 	}
         stage('build jobs')
         {
-                 jobDsl targets: ['jenkins-library/dsl/jobs/docker-ansible.groovy'].join('\n'),
+                 jobDsl targets: ['jenkins-library/dsl/jobs/docker_ansible.groovy'].join('\n'),
                  removedJobAction: 'DELETE',
                  removedViewAction: 'DELETE',
                  lookupStrategy: 'SEED_JOB',
