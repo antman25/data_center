@@ -11,6 +11,6 @@ node()
 	}
 	stage('commit-hash')
 	{
-		echo "ANTMAN: Commit ${GIT_COMMIT}"
+		echo "ANTMAN: Commit ${env.GIT_COMMIT}"
 	}	
 }
