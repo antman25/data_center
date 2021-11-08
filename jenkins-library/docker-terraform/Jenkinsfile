@@ -32,10 +32,16 @@ node()
 	stage('build')
 	{
 		echo "Has Mods: ${has_mods}"
-		sh("${WORKSPACE}/docker-library/docker-terraform/build.sh")
+		if (has_mods == true)
+		{
+			sh("${WORKSPACE}/docker-library/docker-terraform/build_jenkins.sh")
+		}
 	}
 	stage('writing git hash')
 	{
-		sh("echo ${GIT_COMMIT_REV_POST} > LAST_SUCCESS_HASH")
+		if (has_mods == true)
+		{
+			sh("echo ${GIT_COMMIT_REV_POST} > LAST_SUCCESS_HASH")
+		}
 	}
 }

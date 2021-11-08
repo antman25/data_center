@@ -39,6 +39,9 @@ node()
 	}
 	stage('writing git hash')
 	{
-		sh("echo ${GIT_COMMIT_REV_POST} > LAST_SUCCESS_HASH")
+		if (has_mods == true)
+		{
+			sh("echo ${GIT_COMMIT_REV_POST} > LAST_SUCCESS_HASH")
+		}
 	}
 }
