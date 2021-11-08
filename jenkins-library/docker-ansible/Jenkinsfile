@@ -4,4 +4,8 @@ node()
 	{
 		checkout scm
 	}
+	stage('env')
+	{
+		env
+	}
 }
