@@ -1,1 +1,1 @@
-folder('build-jobs')
+folder('build-root/docker-ansible')
