@@ -1,10 +1,12 @@
 node()
 {
+	GIT_COMMIT_REV_PRE = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
 	stage('gitlab pull')
 	{
 		//checkout scm
 		checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'jenkins_ssh', url: 'http://gitlab.antlinux.local/antman/data_center.git']]])
 	}
+	GIT_COMMIT_REV_POST = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
 	stage('env')
 	{
 		env
@@ -13,7 +15,9 @@ node()
 	stage('commit-hash')
 	{
 		echo "ANTMAN: env.GIT_COMMIT ${env.GIT_COMMIT}"
-		echo "ANTMAN: scmVars.GIT_COMMIT ${scmVars.GIT_COMMIT}"
-		echo "${scmVars}"
+		//echo "ANTMAN: scmVars.GIT_COMMIT ${scmVars.GIT_COMMIT}"
+		//echo "${scmVars}"
+		echo "ANTMAN PRE: ${GIT_COMMIT_REV_PRE}"
+		echo "ANTMAN PRE: ${GIT_COMMIT_REV_POST}"
 	}	
 }
