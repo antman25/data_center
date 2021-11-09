@@ -9,9 +9,12 @@ RUN useradd -ms /bin/bash/ consul && \
     unzip /tmp/consul_${CONSUL_VERSION}_linux_amd64.zip -d /usr/local/bin && \
     rm /tmp/consul_${CONSUL_VERSION}_linux_amd64.zip && \
     chmod +x /usr/local/bin/consul 
+    ln -s /usr/local/bin/consul /bin/consul
 
 USER consul:consul
 
-WORKDIR /home/consul
+
+ENTRYPOINT ["/bin/consul"]
+
 
 
