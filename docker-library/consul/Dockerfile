@@ -8,7 +8,7 @@ RUN useradd -ms /bin/bash/ consul && \
     curl -k -u packer:packer https://nexus.antlinux.local:8443/repository/generic-vendor/hashicorp/consul/consul_${CONSUL_VERSION}_linux_amd64.zip -o /tmp/consul_${CONSUL_VERSION}_linux_amd64.zip && \
     unzip /tmp/consul_${CONSUL_VERSION}_linux_amd64.zip -d /usr/local/bin && \
     rm /tmp/consul_${CONSUL_VERSION}_linux_amd64.zip && \
-    chmod +x /usr/local/bin/consul 
+    chmod +x /usr/local/bin/consul && \
     ln -s /usr/local/bin/consul /bin/consul
 
 USER consul:consul
