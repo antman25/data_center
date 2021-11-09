@@ -1,5 +1,5 @@
-ARG UBI_VERSION=ubi8/ubi:8.4-213
-FROM nexus.antlinux.local:8443/vendor-base/${UBI_VERSION}
+ARG UBI_VERSION=ubi8/ubi8:latest
+FROM nexus.antlinux.local:8443/custom-base/${UBI_VERSION}
 ENV TERRAFORM_VERSION=1.0.10
 ENV TERRAFORM_ROOT=/usr/share/terraform
 ENV PROVIDER_DIR=${TERRAFORM_ROOT}/providers

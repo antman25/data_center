@@ -1,4 +1,4 @@
-ARG UBI_VERSION=ubi8/ubi:8.4-213
+ARG UBI_VERSION=ubi8/ubi8:latest
 FROM nexus.antlinux.local:8443/vendor-base/${UBI_VERSION}
 
 ENV PACKER_VERSION=1.7.8
