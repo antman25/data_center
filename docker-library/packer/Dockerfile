@@ -9,8 +9,8 @@ RUN useradd -ms /bin/bash/ packer && \
     unzip /tmp/packer_${PACKER_VERSION}_linux_amd64.zip -d /usr/local/bin && \
     rm /tmp/packer_${PACKER_VERSION}_linux_amd64.zip && \
     chmod +x /usr/local/bin/packer && \
-    ln -s /bin/packer /usr/local/bin/packer &&
-    mkdir /packer && 
+    ln -s /bin/packer /usr/local/bin/packer && \
+    mkdir /packer && \
     chown packer:packer /packer
 
 USER packer:packer
