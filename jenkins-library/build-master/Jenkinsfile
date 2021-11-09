@@ -36,6 +36,12 @@ node()
                                         }
                                 }
 
+        all_stages['ubi8'] = {
+                                        stage('Build ubi8')
+                                        {
+                                                build job: 'build-root/docker/ubi8/build'
+                                        }
+                                }
 
 
 
