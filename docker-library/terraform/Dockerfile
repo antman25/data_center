@@ -16,6 +16,7 @@ RUN useradd -ms /bin/bash/ terraform && \
     unzip /tmp/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/local/bin && \
     rm /tmp/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
     chmod +x /usr/local/bin/terraform && \
+    ln -s /usr/local/bin/terraform /bin/terraform && \
     mkdir /terraform && \
     chown -R terraform:terraform /terraform
 
@@ -37,9 +38,9 @@ RUN mkdir -p ${TERRAFORM_ROOT} && \
     chown -R terraform:terraform ${TERRAFORM_ROOT}
 
 
-COPY resources/.terraformrc /home/terraform/.terraformrc
 
 USER terraform:terraform
+COPY resources/.terraformrc /home/terraform/.terraformrc
 
 VOLUME /terraform
 
@@ -47,4 +48,4 @@ ENV TF_LOG=TRACE
 
 WORKDIR /terraform
 
-
+ENTRYPOINT ["/bin/terraform"]
