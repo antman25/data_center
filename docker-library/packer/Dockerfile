@@ -8,10 +8,16 @@ RUN useradd -ms /bin/bash/ packer && \
     curl -k -u packer:packer https://nexus.antlinux.local:8443/repository/generic-vendor/hashicorp/packer/packer_${PACKER_VERSION}_linux_amd64.zip -o /tmp/packer_${PACKER_VERSION}_linux_amd64.zip && \
     unzip /tmp/packer_${PACKER_VERSION}_linux_amd64.zip -d /usr/local/bin && \
     rm /tmp/packer_${PACKER_VERSION}_linux_amd64.zip && \
-    chmod +x /usr/local/bin/packer 
+    chmod +x /usr/local/bin/packer && \
+    ln -s /bin/packer /usr/local/bin/packer &&
+    mkdir /packer && 
+    chown packer:packer /packer
 
 USER packer:packer
 
-WORKDIR /home/packer
+VOLUME /packer
+
+ENTRYPOINT ["/bin/packer"]
+
 
 
