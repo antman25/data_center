@@ -2,7 +2,7 @@ folder('build-root/docker/vault')
 
 pipelineJob('build-root/docker/vault/build') {
 
-  def repo = 'http://gitlab.antlinux.local/antman/data_center.git'
+  def repo = 'http://gitlab.antlinux.local:30080/antman/data_center.git'
 
   description("Pipeline for $repo")
 
