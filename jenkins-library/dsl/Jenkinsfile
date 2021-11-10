@@ -4,6 +4,10 @@ node()
 	{
 		checkout scm
 	}
+	stage('Dump ENV')
+	{
+		sh('env')
+	}
 	
         stage('Create Jobs')
         {
