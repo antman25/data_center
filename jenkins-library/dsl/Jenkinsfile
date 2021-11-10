@@ -6,7 +6,7 @@ node()
 	}
 	stage('Dump ENV')
 	{
-		sh('env')
+		sh('env | sort -n')
 	}
 	
         stage('Create Jobs')
