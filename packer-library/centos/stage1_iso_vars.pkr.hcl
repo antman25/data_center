@@ -52,3 +52,9 @@ variable "iso_checksum" {
   type = string
   sensitive = false
 }
+
+variable "kickstart_filename" {
+  type = string
+  default = "ks.cfg"
+  sensitive = false
+}

@@ -3,5 +3,6 @@
 	"repo_password" : "packer",
 	"repo_iso_filepath" :  "centos8/CentOS-8.4.2105-x86_64-dvd1.iso",
 	"os_version" : "8.4.2105",
-	"iso_checksum" : "d0f515715e370e1564f33856cb208577"
+	"iso_checksum" : "d0f515715e370e1564f33856cb208577",
+	"kickstart_filename" : "ks_centos7.cfg"
 }
