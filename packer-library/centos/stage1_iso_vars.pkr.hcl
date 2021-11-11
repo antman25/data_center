@@ -33,7 +33,7 @@ variable "guest_os_type" {
 
 variable "os" {
   type = string
-  default = "centos8"
+  default = "centos"
   sensitive = false
 }
 
@@ -57,4 +57,9 @@ variable "kickstart_filename" {
   type = string
   default = "ks.cfg"
   sensitive = false
+}
+
+variable "extra_commands" {
+  type    = list(string)
+  default = ["echo 'No Extra Commands'"]
 }

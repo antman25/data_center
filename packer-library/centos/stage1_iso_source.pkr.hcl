@@ -2,7 +2,7 @@ source "vsphere-iso" "centos_iso" {
 	CPUs                 = "${var.vm_cpu_num}"
 	RAM                  = "${var.vm_mem_size}"
 	RAM_reserve_all      = false
-	boot_command         = ["<tab><bs><bs><bs><bs><bs>text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter>"]
+	boot_command         = ["<tab><bs><bs><bs><bs><bs>text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/${var.kickstart_filename}<enter>"]
 	boot_order           = "disk,cdrom"
 	boot_wait            = "${var.boot_wait}"
 	cluster              = "${var.cluster}"
