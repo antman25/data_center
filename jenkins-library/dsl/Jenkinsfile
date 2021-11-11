@@ -18,7 +18,7 @@ node()
 				  'jenkins-library/dsl/jobs/docker_vault.groovy',
 				  'jenkins-library/dsl/jobs/docker_packer.groovy',
 				  'jenkins-library/dsl/jobs/ubi8_hardened.groovy',
-				  'jenkins-library/dsl/jobs/packer_base.groovy'].join('\n'),
+				  'jenkins-library/dsl/jobs/packer_goldenos.groovy'].join('\n'),
                  removedJobAction: 'DELETE',
                  removedViewAction: 'DELETE',
                  lookupStrategy: 'SEED_JOB',
