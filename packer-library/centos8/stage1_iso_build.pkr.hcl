@@ -8,6 +8,6 @@ build {
     scripts         = ["scripts/stage01_cleanup.sh"]
   }
   post-processor "manifest" {
-    output = "stage01-manifest.json"
+    output = "manifest/manifest-${local.vm_prefix_name}--${var.vm_stage_name}.json"
   }
 }
