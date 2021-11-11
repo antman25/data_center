@@ -1,0 +1,55 @@
+node()
+{
+	def has_mods = false
+
+	def selected_branch = params.getOrDefault('branch', 'master')
+	def repo = env.getOrDefault('repo', '')
+	def cred_id = env.getOrDefault('credential_id', '')
+	def build_cmd = env.getOrDefault('build_cmd', 'echo "Build command not set!"')
+	def build_trigger_paths = env.getOrDefault('build_trigger_paths','')
+	
+
+	stage('Git Checkout')
+	{
+		checkout([$class: 'GitSCM', 
+			branches: [[name: "${selected_branch}"]], 
+			extensions: [], 
+			userRemoteConfigs: [[credentialsId: "${cred_id}", url: "${repo}"]]])
+	}
+	
+	GIT_COMMIT_REV_POST = sh(returnStdout: true, script: "git rev-parse HEAD").trim()
+
+	stage('Get Modified Files')
+	{
+		try
+		{
+			def PREV_COMMIT = readFile("${WORKSPACE}/PREV_COMMIT").trim()
+			echo "Last commit hash: ${PREV_COMMIT}"
+
+			def modified_files = sh(returnStdout: true, script: "git diff --name-only ${LAST_SUCCESSFUL}").trim()
+			echo "Modified Files:\n${modified_files}"
+			def loc = modified_files.indexOf('docker-library/consul')
+			if (loc >= 0)
+			{
+				has_mods = true
+			}
+		}
+		catch (Exception ex)
+		{
+			echo "Exception getting last commit"
+			has_mods = true
+		}
+	}
+	stage('Build and Publish')
+	{
+		echo "Has Mods: ${has_mods}"
+		if (has_mods == true)
+		{
+			sh("${build_cmd}")
+		}
+	}
+	stage('Save Commit Hash')
+	{
+		sh("echo ${GIT_COMMIT_REV_POST} > LAST_SUCCESS_HASH")
+	}
+}

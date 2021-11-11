@@ -16,13 +16,10 @@ source "vsphere-iso" "centos8" {
 	http_directory       = "http"
 	insecure_connection  = "true"
 	iso_checksum         = "${var.iso_checksum_type}:${var.iso_checksum}"
-	#iso_urls             = ["[${var.iso_datastore}] ${var.iso_path}"
-	#                       ]
-	#iso_url	       = "file:///mnt/scratch/downloads/iso/CentOS-8.2.2004-x86_64-dvd1/CentOS-8.2.2004-x86_64-dvd1.iso"
-	iso_url		     = "https://packer:packer@nexus.antlinux.local:8443/repository/generic-vendor/iso/centos8/CentOS-8.2.2004-x86_64-dvd1.iso"
+	
+	iso_url		     = "${locals.full_iso_url}"
 
-	#iso_paths            = [ "[${var.iso_datastore}] ${var.iso_path}" ]
-	iso_target_path      = "packer_test_cache"
+	iso_target_path      = "packer_cache"
 	network_adapters {
 		network      = "${var.network}"
 		network_card = "vmxnet3"
@@ -39,11 +36,7 @@ source "vsphere-iso" "centos8" {
 	}
 	username       = "${var.vsphere_user}"
 	vcenter_server = "${var.vsphere_server}"
-	vm_name        = "CentOS8-Stage01"
+	vm_name        = "${var.vm_name}"
 	resource_pool  = "cluster"
-	export {
-		force = true
-		output_directory = "./output_vsphere"
-	}
 }
 
