@@ -1,4 +1,4 @@
-source "vsphere-iso" "centos8_iso" {
+source "vsphere-iso" "centos_iso" {
 	CPUs                 = "${var.vm_cpu_num}"
 	RAM                  = "${var.vm_mem_size}"
 	RAM_reserve_all      = false
