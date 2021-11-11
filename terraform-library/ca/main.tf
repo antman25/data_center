@@ -1,6 +1,6 @@
 provider "vault" {
 	address = "http://vault.antlinux.local:8200"
-	token = "${var.vault_token}"
+	token = var.vault_token
 }
 
 
