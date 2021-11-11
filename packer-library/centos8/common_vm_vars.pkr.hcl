@@ -42,11 +42,13 @@ variable "vm_cpu_num" {
   default = 1
   sensitive = false
 }
+
 variable "vm_mem_size" {
   type = number
   default = 4096
   sensitive = false
 }
+
 variable "vm_disk_size" {
   type =  number
   default = 25600
@@ -58,6 +60,5 @@ variable "boot_wait" {
   default = "15s"
   sensitive = false
 }
-
 
 

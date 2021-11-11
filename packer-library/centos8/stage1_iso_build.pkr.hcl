@@ -1,7 +1,7 @@
 
 build {
-  name = "centos8"
-  sources = ["source.vsphere-iso.centos8-stage01"]
+  name = "stage01"
+  sources = ["source.vsphere-iso.centos8_iso"]
 
   provisioner "shell" {
     execute_command = "echo 'packer'|{{.Vars}} sudo -S -E bash '{{.Path}}'"

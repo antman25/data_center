@@ -25,6 +25,12 @@ variable "repo_iso_filepath" {
   sensitive = false
 }
 
+variable "guest_os_type" {
+  type = string
+  default = "centos64Guest"
+  sensitive = false
+}
+
 variable "os" {
   type = string
   default = "centos8"

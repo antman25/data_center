@@ -1,7 +1,7 @@
-source "vsphere-iso" "centos8" {
+source "vsphere-iso" "centos8_iso" {
 	CPUs                 = "${var.vm_cpu_num}"
 	RAM                  = "${var.vm_mem_size}"
-	RAM_reserve_all      = true
+	RAM_reserve_all      = false
 	boot_command         = ["<tab><bs><bs><bs><bs><bs>text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter>"]
 	boot_order           = "disk,cdrom"
 	boot_wait            = "${var.boot_wait}"
@@ -11,13 +11,13 @@ source "vsphere-iso" "centos8" {
 	datacenter           = "${var.datacenter}"
 	datastore            = "${var.datastore}"
 	disk_controller_type = ["pvscsi"]
-	folder               = "${var.folder}"
-	guest_os_type        = "centos64Guest"
+	folder               = "${local.vm_path}"
+	guest_os_type        = "${var.guest_os_type}"
 	http_directory       = "http"
 	insecure_connection  = "true"
 	iso_checksum         = "${var.iso_checksum_type}:${var.iso_checksum}"
 	
-	iso_url		     = "${locals.full_iso_url}"
+	iso_url	      = "${local.full_iso_url}"
 
 	iso_target_path      = "packer_cache"
 	network_adapters {
@@ -36,7 +36,7 @@ source "vsphere-iso" "centos8" {
 	}
 	username       = "${var.vsphere_user}"
 	vcenter_server = "${var.vsphere_server}"
-	vm_name        = "${var.vm_name}"
+	vm_name        = "${var.vm_stage_name[0]}"
 	resource_pool  = "cluster"
 }
 
