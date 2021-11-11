@@ -1,0 +1,4 @@
+packer build -only=vmware-iso win2019-gui.json #Windows Server 2019 w/ GUI
+packer build -only=vmware-iso win2019-core.json #Windows Server 2019 Core
+packer build -only=vmware-iso win2019-gui_uefi.json #Windows Server 2019 w/ GUI using UEFI
+packer build -only=vmware-iso win2019-core_uefi.json #Windows Server 2019 Core using UEFI
