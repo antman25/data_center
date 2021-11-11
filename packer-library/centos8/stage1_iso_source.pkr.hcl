@@ -36,7 +36,7 @@ source "vsphere-iso" "centos8_iso" {
 	}
 	username       = "${var.vsphere_user}"
 	vcenter_server = "${var.vsphere_server}"
-	vm_name        = "${var.vm_stage_name[0]}"
+	vm_name        = "${local.vm_prefix_name}--${var.vm_stage_name[0]}"
 	resource_pool  = "cluster"
 }
 
