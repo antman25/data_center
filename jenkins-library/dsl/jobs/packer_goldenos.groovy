@@ -1,4 +1,4 @@
-folder('build-root/packer/golden-os/')
+folder('build-root/packer/golden-os')
 folder('build-root/packer/golden-os/centos8')
 folder('build-root/packer/golden-os/centos8/CentOS-8.2.2004')
 folder('build-root/packer/golden-os/centos8/CentOS-8.4.2105')
