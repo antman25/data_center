@@ -43,7 +43,7 @@ node("DOCKER")
                     -e BUILD_BRANCH=${BUILD_BRANCH} \
                     -v ${WORKSPACE}/packer-library/centos:/packer \
                     nexus.antlinux.local:8443/custom-base/hashicorp/packer:latest \
-                    build -timestamp-ui -on-error=cleanup -force \
+                    build -timestamp-ui -on-error=abort -force \
                     -var-file=vars/common_vsphere/default.json \
                     -var-file=vars/common_vm/default.json \
                     -var-file=${var_filepath} \
