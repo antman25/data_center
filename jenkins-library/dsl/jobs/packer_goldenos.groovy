@@ -39,6 +39,8 @@ pipelineJob('build-root/packer/golden-baseos/centos7/CentOS-7.9.2009/build') {
   }
   environmentVariables {
     env('var_filepath', 'vars/stage1_iso/centos7-7.9.2009.json')
+    env('common_triggers', "packer-library/centos/common_vm/")
+    env('stage1_triggers', "packer-library/centos/ks/ks_centos8.cfg, vars/stage1_iso/centos7-7.9.2009.json")
     keepBuildVariables(true)
   }
   definition {
@@ -68,9 +70,9 @@ pipelineJob('build-root/packer/golden-baseos/centos8/CentOS-8.2.2004/build') {
     stringParam('BUILD_BRANCH', 'main', 'build this branch')
   }
   environmentVariables {
-    env('var_filepath', 'vars/stage1_iso/centos7-8.2.2004.json')
+    env('var_filepath', 'vars/stage1_iso/centos8-8.2.2004.json')
     env('common_triggers', "packer-library/centos/common_vm/")
-    env('stage1_triggers', "packer-library/centos/ks/ks_centos8.cfg, vars/stage1_iso/centos7-8.2.2004.json")
+    env('stage1_triggers', "packer-library/centos/ks/ks_centos8.cfg, vars/stage1_iso/centos8-8.2.2004.json")
     keepBuildVariables(true)
   }
 
@@ -101,6 +103,8 @@ pipelineJob('build-root/packer/golden-baseos/centos8/CentOS-8.4.2105/build') {
   }
   environmentVariables {
     env('var_filepath', 'vars/stage1_iso/centos8-8.4.2105.json')
+    env('common_triggers', "packer-library/centos/common_vm/")
+    env('stage1_triggers', "packer-library/centos/ks/ks_centos8.cfg, vars/stage1_iso/centos8-8.4.2105.json")
     keepBuildVariables(true)
   }
   definition {
