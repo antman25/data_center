@@ -38,7 +38,7 @@ pipelineJob('build-root/packer/golden-baseos/centos7/CentOS-7.9.2009/build') {
     stringParam('BUILD_BRANCH', 'main', 'build this branch')
   }
   environmentVariables {
-    env('var_filepath', 'vars/stage1_iso/centos7-7.9.2009.pkr.hcl')
+    env('var_filepath', 'vars/stage1_iso/centos7-7.9.2009.hcl')
     env('common_triggers', "packer-library/centos/common_vm/")
     env('stage1_triggers', "packer-library/centos/ks/ks_centos8.cfg, vars/stage1_iso/centos7-7.9.2009.json")
     keepBuildVariables(true)
