@@ -38,12 +38,6 @@ node()
                                         }
                                 }
 
-        all_stages['docker_ubi8'] = {
-                                        stage('Build ubi8-hardened')
-                                        {
-                                                build job: 'build-root/docker/ubi8/build'
-                                        }
-                                }
 
         /*all_stages['packer_CentOS-7.9.2009'] = {
                                                     stage('Build packer-CentOS-7.9.2009')
@@ -73,7 +67,12 @@ node()
         print(params)
         print ("gitlab_trigger_branch = ${gitlab_trigger_branch}")
     }
-	stage('Run All Builds')
+    stage('Build docker-ubi8-hardened')
+    {
+            build job: 'build-root/docker/ubi8/build'
+    }
+
+	stage('Build All Custom Images')
 	{
 		parallel(all_stages)
 	}
