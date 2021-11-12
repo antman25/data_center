@@ -4,7 +4,7 @@ node()
 
 	stage("Git Checkout")
 	{
-	    dir("$WORKSPACE")
+	    dir("${WORKSPACE}")
 	    {
 	        checkout([$class: 'GitSCM', branches: [[name: build_branch]], extensions: [], userRemoteConfigs: [[credentialsId: 'jenkins_ssh', url: 'http://gitlab.antlinux.local:30080/antman/data_center.git']]])
 	    }
