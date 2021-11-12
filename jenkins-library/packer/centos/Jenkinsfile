@@ -4,7 +4,7 @@ node("DOCKER")
     def has_mods = false
     def var_filepath = env.getEnvironment()["var_filepath"]
     def build_node_ip = sh(returnStdout: true, script: 'hostname -I | awk \'{ print $1 }\'').trim()
-    currentBuild.displayName = "Branch: ${build_branch}"
+    currentBuild.displayName = "Build ID: ${BUILD_NUMBER}\nBranch: ${build_branch}"
     ws("/mnt/scratch/appdata/jenkins-workspace")
     {
 
