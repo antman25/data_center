@@ -64,7 +64,7 @@ variable "extra_commands" {
   default = ["echo 'No Extra Commands'"]
 }
 
-variables "http_ip"
+variables "http_ip" {
   type = string
   sensitive = false
 }
