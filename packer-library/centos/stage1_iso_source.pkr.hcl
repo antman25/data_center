@@ -28,7 +28,7 @@ source "vsphere-iso" "centos_iso" {
 		network_card = "vmxnet3"
  	}
 	password         = "${var.vsphere_password}"
-	shutdown_command = "echo 'packer '|sudo -S /sbin/halt -h -p"
+	shutdown_command = "echo 'packer '|sudo -S shutdown -P now"
 	ssh_username     = "${var.ssh_username}"
 	ssh_password     = "${var.ssh_password}"
 	ssh_timeout      = "30m"
