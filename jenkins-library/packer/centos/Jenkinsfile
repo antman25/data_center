@@ -45,7 +45,7 @@ node("DOCKER")
                         -e VSPHERE_PASSWORD=${vsphere_password} \
                         -v ${WORKSPACE}/packer-library/centos:/packer \
                         nexus.antlinux.local:8443/custom-base/hashicorp/packer:latest \
-                        build -timestamp-ui -on-error=cleanup -force \
+                        build -color=false -timestamp-ui -on-error=cleanup -force \
                         -var-file=vars/common_vm/default.json \
                         -var-file=${var_filepath} \
                         -only="stage01.vsphere-iso.centos_iso" /packer
