@@ -1,6 +1,7 @@
 node()
 {
-    def gitlab_trigger_branch = env.getEnvironment().getOrDefault("gitlabSourceBranch", "master")
+
+    def gitlab_trigger_branch = params.getOrDefault("BUILD_BRANCH", "main")
 	all_stages = [:]
 	all_stages['ansible'] = {
 					stage('Build docker-ansible')
@@ -71,4 +72,9 @@ node()
 	{
 		parallel(all_stages)
 	}
+
+	properties([ 	disableConcurrentBuilds(),
+    			gitLabConnection(gitLabConnection: 'gitlab1', jobCredentialId: ''),
+    			parameters([string(defaultValue: 'main', name: 'BUILD_BRANCH')])
+    			])
 }
