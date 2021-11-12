@@ -46,6 +46,7 @@ node("DOCKER")
             withCredentials([string(credentialsId: 'vsphere-password', variable: 'vsphere_password')]) {
                 sh '''docker run \
                         --pull always \
+                        --network host \
                         -e BUILD_BRANCH=${BUILD_BRANCH} \
                         -e VSPHERE_PASSWORD=${vsphere_password} \
                         -v ${WORKSPACE}/packer-library/centos:/packer \
