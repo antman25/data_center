@@ -2,6 +2,8 @@ node("DOCKER")
 {
     def build_branch = params.getOrDefault("BUILD_BRANCH","main")
     def has_mods = false
+    def var_filepath = env.getEnvironment()["var_filepath"]
+
     ws("/mnt/scratch/appdata/jenkins-workspace")
     {
 
@@ -44,7 +46,7 @@ node("DOCKER")
                     build -timestamp-ui -on-error=cleanup -force \
                     -var-file=vars/common_vsphere/default.json \
                     -var-file=vars/common_vm/default.json \
-                    -var-file=${env.var_filepath} \
+                    -var-file=${var_filepath} \
                     -only="stage01.vsphere-iso.centos_iso" /packer
             '''
         }
