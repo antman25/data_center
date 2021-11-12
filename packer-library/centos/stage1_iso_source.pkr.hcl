@@ -42,5 +42,7 @@ source "vsphere-iso" "centos_iso" {
 	vcenter_server = "${var.vsphere_server}"
 	vm_name        = "${local.vm_prefix_name}--${var.vm_stage_name[0]}"
 	resource_pool  = "cluster"
+
+	ip_wait_timeout = "5m"
 }
 
