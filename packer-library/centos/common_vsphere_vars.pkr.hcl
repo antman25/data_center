@@ -11,5 +11,6 @@ variable "vsphere_user" {
 }
 variable "vsphere_password" {
   type =  string
+  default = env("VSPHERE_PASSWORD")
   sensitive = true
 }

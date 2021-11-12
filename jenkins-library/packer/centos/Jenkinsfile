@@ -39,16 +39,18 @@ node("DOCKER")
 
         stage("Stage01 - ISO")
         {
-            sh '''docker run --pull always \
-                    -e BUILD_BRANCH=${BUILD_BRANCH} \
-                    -v ${WORKSPACE}/packer-library/centos:/packer \
-                    nexus.antlinux.local:8443/custom-base/hashicorp/packer:latest \
-                    build -timestamp-ui -on-error=abort -force \
-                    -var-file=vars/common_vsphere/default.json \
-                    -var-file=vars/common_vm/default.json \
-                    -var-file=${var_filepath} \
-                    -only="stage01.vsphere-iso.centos_iso" /packer
-            '''
+            withCredentials([string(credentialsId: 'vsphere-password', variable: 'VSPHERE_PASSWORD')]) {
+                sh '''docker run --pull always \
+                        -e BUILD_BRANCH=${BUILD_BRANCH} \
+                        -v ${WORKSPACE}/packer-library/centos:/packer \
+                        nexus.antlinux.local:8443/custom-base/hashicorp/packer:latest \
+                        build -timestamp-ui -on-error=abort -force \
+                        -var-file=vars/common_vsphere/default.json \
+                        -var-file=vars/common_vm/default.json \
+                        -var-file=${var_filepath} \
+                        -only="stage01.vsphere-iso.centos_iso" /packer
+                '''
+            }
         }
 
         stage ("Save Commit SHA")

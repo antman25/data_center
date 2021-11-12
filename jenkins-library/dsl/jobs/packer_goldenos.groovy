@@ -69,6 +69,8 @@ pipelineJob('build-root/packer/golden-baseos/centos8/CentOS-8.2.2004/build') {
   }
   environmentVariables {
     env('var_filepath', 'vars/stage1_iso/centos7-8.2.2004.json')
+    env('common_triggers', "packer-library/centos/common_vm/")
+    env('stage1_triggers', "packer-library/centos/ks/ks_centos8.cfg, vars/stage1_iso/centos7-8.2.2004.json")
     keepBuildVariables(true)
   }
 
