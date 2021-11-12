@@ -7,7 +7,6 @@ node("DOCKER")
     currentBuild.displayName = "Build ID: ${BUILD_NUMBER}\nBranch: ${build_branch}"
     ws("/mnt/scratch/appdata/jenkins-workspace")
     {
-
         stage("Git Checkout")
         {
             checkout([$class: 'GitSCM', branches: [[name: build_branch]], extensions: [], userRemoteConfigs: [[credentialsId: 'jenkins_ssh', url: 'http://gitlab.antlinux.local:30080/antman/data_center.git']]])
