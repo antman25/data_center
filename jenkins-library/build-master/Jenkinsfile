@@ -8,43 +8,61 @@ node()
 					}
 				}
 	
-	all_stages['terraform'] = {
+	all_stages['docker_terraform'] = {
 					stage('Build docker-terraform')
 					{
 						build job: 'build-root/docker/terraform/build'
 					}
 				}
 
-        all_stages['consul'] = {
+        all_stages['docker_consul'] = {
                                         stage('Build docker-consul')
                                         {
                                                 build job: 'build-root/docker/consul/build'
                                         }
                                 }
 
-        all_stages['vault'] = {
+        all_stages['docker_vault'] = {
                                         stage('Build docker-vault')
                                         {
                                                 build job: 'build-root/docker/vault/build'
                                         }
                                 }
 
-        all_stages['packer'] = {
+        all_stages['docker_packer'] = {
                                         stage('Build docker-packer')
                                         {
                                                 build job: 'build-root/docker/packer/build'
                                         }
                                 }
 
-        all_stages['ubi8'] = {
-                                        stage('Build ubi8')
+        all_stages['docker_ubi8'] = {
+                                        stage('Build ubi8-hardened')
                                         {
                                                 build job: 'build-root/docker/ubi8/build'
                                         }
                                 }
 
+        all_stages['packer_CentOS-7.9.2009'] = {
+                                                    stage('Build packer-CentOS-7.9.2009')
+                                                    {
+                                                            build job: 'build-root/packer/golden-baseos/centos7/CentOS-7.9.2009/build'
+                                                    }
+                                                }
 
+        all_stages['packer_CentOS-8.2.2004'] = {
+                                                    stage('Build packer-CentOS-8.2.2004')
+                                                    {
+                                                            build job: 'build-root/packer/golden-baseos/centos8/CentOS-8.2.2004/build'
+                                                    }
+                                                }
 
+        all_stages['packer_CentOS-8.4.2105'] = {
+                                                    stage('Build packer-CentOS-8.4.2105')
+                                                    {
+                                                            build job: 'build-root/packer/golden-baseos/centos8/CentOS-8.4.2105/build'
+                                                    }
+                                                }
 
 
 
