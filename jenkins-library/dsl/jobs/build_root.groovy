@@ -8,7 +8,9 @@ pipelineJob('build-root/build-master') {
   def repo = 'http://gitlab.antlinux.local:30080/antman/data_center.git'
 
   description("Pipeline for $repo")
-
+  parameters {
+    stringParam('BUILD_BRANCH', 'main', 'build this branch')
+  }
   definition {
     cpsScm {
       scm {
