@@ -2,33 +2,33 @@ node("DOCKER")
 {
     def build_branch = params.getOrDefault("BUILD_BRANCH","main")
 
-	stage("Git Checkout")
-	{
-	    dir("${WORKSPACE}")
-	    {
-	        checkout([$class: 'GitSCM', branches: [[name: build_branch]], extensions: [], userRemoteConfigs: [[credentialsId: 'jenkins_ssh', url: 'http://gitlab.antlinux.local:30080/antman/data_center.git']]])
-	    }
+    ws("/tmp/workspace/build-root/packer/golden-baseos/centos8/CentOS-8.2.2004/build/test")
+    {
 
-	}
+        stage("Git Checkout")
+        {
+            checkout([$class: 'GitSCM', branches: [[name: build_branch]], extensions: [], userRemoteConfigs: [[credentialsId: 'jenkins_ssh', url: 'http://gitlab.antlinux.local:30080/antman/data_center.git']]])
+        }
 
-	stage ("ENV dump")
-	{
-	    sh('env | sort -n')
-	    //print(env.getEnvironment())
-	    print(params)
-	}
+        stage ("ENV dump")
+        {
+            sh('env | sort -n')
+            //print(env.getEnvironment())
+            print(params)
+        }
 
 
-	stage("Stage01 - ISO")
-	{
-	    sh '''docker run -v ${WORKSPACE}/packer-library/centos:/packer  nexus.antlinux.local:8443/custom-base/hashicorp/packer:latest \
-	            build -timestamp-ui -on-error=ask -force \
-                -var-file=vars/common_vsphere/default.json \
-                -var-file=vars/common_vm/default.json \
-                -var-file=vars/stage1_iso/centos7-7.9.2009.json \
-                -only="stage01.vsphere-iso.centos_iso" /packer
-        '''
-	}
+        stage("Stage01 - ISO")
+        {
+            sh '''docker run -v ${WORKSPACE}/packer-library/centos:/packer  nexus.antlinux.local:8443/custom-base/hashicorp/packer:latest \
+                    build -timestamp-ui -on-error=ask -force \
+                    -var-file=vars/common_vsphere/default.json \
+                    -var-file=vars/common_vm/default.json \
+                    -var-file=vars/stage1_iso/centos7-7.9.2009.json \
+                    -only="stage01.vsphere-iso.centos_iso" /packer
+            '''
+        }
+    }
 	
 
 	properties([ 	disableConcurrentBuilds(), 
