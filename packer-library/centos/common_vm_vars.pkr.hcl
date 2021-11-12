@@ -57,7 +57,7 @@ variable "vm_disk_size" {
 
 variable "boot_wait" {
   type =  string
-  default = "15s"
+  default = "20s"
   sensitive = false
 }
 
