@@ -70,6 +70,7 @@ node()
     stage ('Print ENV')
     {
         sh('env')
+        print(params)
         print ("gitlab_trigger_branch = ${gitlab_trigger_branch}")
     }
 	stage('Run All Builds')
