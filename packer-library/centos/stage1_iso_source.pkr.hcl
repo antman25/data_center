@@ -5,7 +5,10 @@ source "vsphere-iso" "centos_iso" {
 	boot_command        = [var.boot_command]
 
 	boot_order           = "disk,cdrom"
-	floppy_files        = ["ks/${var.kickstart_filename}"]
+	//floppy_files       = ["ks/${var.kickstart_filename}"]
+	http_content         = {
+                               "/ks.cfg"     = file("ks/${var.kickstart_filename}")
+                           }
 	boot_wait            = "${var.boot_wait}"
 	cluster              = "${var.cluster}"
 	convert_to_template  = "false"
@@ -29,7 +32,7 @@ source "vsphere-iso" "centos_iso" {
 	shutdown_command = "echo 'packer '|sudo -S shutdown -P now"
 	ssh_username     = "${var.ssh_username}"
 	ssh_password     = "${var.ssh_password}"
-	ssh_timeout      = "30m"
+	ssh_timeout      = "10m"
 
 	storage {
 		disk_size             = "${var.vm_disk_size}"
