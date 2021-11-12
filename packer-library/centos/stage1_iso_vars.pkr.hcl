@@ -63,3 +63,8 @@ variable "extra_commands" {
   type    = list(string)
   default = ["echo 'No Extra Commands'"]
 }
+
+variables "http_ip"
+  type = string
+  sensitive = false
+}
