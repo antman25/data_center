@@ -1,4 +1,4 @@
-node()
+node("DOCKER")
 {
     def build_branch = params.getOrDefault("BUILD_BRANCH","main")
 
