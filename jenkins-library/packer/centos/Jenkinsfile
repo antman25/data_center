@@ -1,5 +1,6 @@
 node()
 {
+    def build_branch = params.getOrDefault("BUILD_BRANCH","master")
 
 	stage("Git Checkout")
 	{
@@ -8,18 +9,20 @@ node()
 
 	stage ("ENV dump")
 	{
-	    sh('env')
-	    print(env.getEnvironment())
+	    sh('env | sort -n')
+	    //print(env.getEnvironment())
+	    print(params)
 	}
-    def trigger_branch = env.getEnvironment().getOrDefault("gitlabSourceBranch","master")
+
 
 	stage("Branch Test")
 	{
-	    echo "Trigger Branch: ${trigger_branch}"
+	    echo "Trigger Branch: ${build_branch}"
 	}
 	
 
 	properties([ 	disableConcurrentBuilds(), 
-			gitLabConnection(gitLabConnection: 'gitlab1', jobCredentialId: '')
+			gitLabConnection(gitLabConnection: 'gitlab1', jobCredentialId: ''),
+			parameters([string(defaultValue: 'master', name: 'BUILD_BRANCH')])
 			])
 }
