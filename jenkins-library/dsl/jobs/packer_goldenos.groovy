@@ -68,7 +68,7 @@ pipelineJob('build-root/packer/golden-baseos/centos8/CentOS-8.2.2004/build') {
     stringParam('BUILD_BRANCH', 'main', 'build this branch')
   }
   environmentVariables {
-    env('var_filepath', 'vars/stage1_iso/centos7-7.9.2009.json')
+    env('var_filepath', 'vars/stage1_iso/centos7-8.2.2004.json')
     keepBuildVariables(true)
   }
 
