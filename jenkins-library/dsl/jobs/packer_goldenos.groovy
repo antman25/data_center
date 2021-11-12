@@ -5,7 +5,9 @@ folder('build-root/packer/golden-baseos/winsvr2019/winsvr2019-JAN2021')
 pipelineJob('build-root/packer/golden-baseos/winsvr2019/winsvr2019-JAN2021/build') {
 
   def repo = 'http://gitlab.antlinux.local:30080/antman/data_center.git'
-
+  throttleConcurrentBuilds {
+    maxTotal(1)
+  }
   description("Pipeline for $repo")
   parameters {
     stringParam('BUILD_BRANCH', 'main', 'build this branch')
@@ -32,7 +34,9 @@ folder('build-root/packer/golden-baseos/centos7/CentOS-7.9.2009')
 pipelineJob('build-root/packer/golden-baseos/centos7/CentOS-7.9.2009/build') {
 
   def repo = 'http://gitlab.antlinux.local:30080/antman/data_center.git'
-
+  throttleConcurrentBuilds {
+    maxTotal(1)
+  }
   description("Pipeline for $repo")
   parameters {
     stringParam('BUILD_BRANCH', 'main', 'build this branch')
@@ -64,7 +68,9 @@ folder('build-root/packer/golden-baseos/centos8/CentOS-8.2.2004')
 pipelineJob('build-root/packer/golden-baseos/centos8/CentOS-8.2.2004/build') {
 
   def repo = 'http://gitlab.antlinux.local:30080/antman/data_center.git'
-
+  throttleConcurrentBuilds {
+    maxTotal(1)
+  }
   description("Pipeline for $repo")
   parameters {
     stringParam('BUILD_BRANCH', 'main', 'build this branch')
@@ -96,7 +102,9 @@ folder('build-root/packer/golden-baseos/centos8/CentOS-8.4.2105')
 pipelineJob('build-root/packer/golden-baseos/centos8/CentOS-8.4.2105/build') {
 
   def repo = 'http://gitlab.antlinux.local:30080/antman/data_center.git'
-
+  throttleConcurrentBuilds {
+    maxTotal(1)
+  }
   description("Pipeline for $repo")
   parameters {
     stringParam('BUILD_BRANCH', 'main', 'build this branch')
