@@ -50,12 +50,14 @@ node("DOCKER")
                     -only="stage01.vsphere-iso.centos_iso" /packer
             '''
         }
+
+        stage ("Save Commit SHA")
+        {
+            sh("echo ${current_git_commit} > PREV_GIT_COMMIT")
+        }
     }
 
-    stage ("Save Commit SHA")
-    {
-        sh("echo ${current_git_commit} > PREV_GIT_COMMIT")
-    }
+
 	
 
 	properties([ 	disableConcurrentBuilds(), 
