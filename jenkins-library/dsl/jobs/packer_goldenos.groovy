@@ -2,13 +2,6 @@ folder('build-root/packer/golden-baseos')
 folder('build-root/packer/golden-baseos/winsvr2019')
 folder('build-root/packer/golden-baseos/winsvr2019/winsvr2019-JAN2021')
 
-folder('build-root/packer/golden-baseos/centos7')
-folder('build-root/packer/golden-baseos/centos7/CentOS-7.9.2009')
-
-folder('build-root/packer/golden-baseos/centos8')
-folder('build-root/packer/golden-baseos/centos8/CentOS-8.2.2004')
-folder('build-root/packer/golden-baseos/centos8/CentOS-8.4.2105')
-
 pipelineJob('build-root/packer/golden-baseos/winsvr2019/winsvr2019-JAN2021/build') {
 
   def repo = 'http://gitlab.antlinux.local:30080/antman/data_center.git'
@@ -31,6 +24,9 @@ pipelineJob('build-root/packer/golden-baseos/winsvr2019/winsvr2019-JAN2021/build
 }
 
 
+folder('build-root/packer/golden-baseos/centos7')
+folder('build-root/packer/golden-baseos/centos7/CentOS-7.9.2009')
+
 pipelineJob('build-root/packer/golden-baseos/centos7/CentOS-7.9.2009/build') {
 
   def repo = 'http://gitlab.antlinux.local:30080/antman/data_center.git'
@@ -52,6 +48,8 @@ pipelineJob('build-root/packer/golden-baseos/centos7/CentOS-7.9.2009/build') {
   }
 }
 
+folder('build-root/packer/golden-baseos/centos8')
+folder('build-root/packer/golden-baseos/centos8/CentOS-8.2.2004')
 
 pipelineJob('build-root/packer/golden-baseos/centos8/CentOS-8.2.2004/build') {
 
@@ -59,10 +57,10 @@ pipelineJob('build-root/packer/golden-baseos/centos8/CentOS-8.2.2004/build') {
 
   description("Pipeline for $repo")
 
-   environmentVariables {
-        env('ONE', '1')
-        keepBuildVariables(true)
-    }
+  environmentVariables {
+    env('ONE', '1')
+    keepBuildVariables(true)
+  }
 
   definition {
     cpsScm {
@@ -78,6 +76,8 @@ pipelineJob('build-root/packer/golden-baseos/centos8/CentOS-8.2.2004/build') {
     }
   }
 }
+
+folder('build-root/packer/golden-baseos/centos8/CentOS-8.4.2105')
 
 pipelineJob('build-root/packer/golden-baseos/centos8/CentOS-8.4.2105/build') {
 
