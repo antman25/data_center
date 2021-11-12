@@ -6,6 +6,7 @@ source "vsphere-iso" "centos_iso" {
 
 	boot_order           = "disk,cdrom"
 	//floppy_files       = ["ks/${var.kickstart_filename}"]
+	http_ip              = "${var.http_ip}"
 	http_content         = {
                                "/ks.cfg"     = file("ks/${var.kickstart_filename}")
                            }
