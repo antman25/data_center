@@ -61,4 +61,9 @@ variable "boot_wait" {
   sensitive = false
 }
 
+variable "boot_command" {
+  type = string
+  sensitive = false
+}
+
 
