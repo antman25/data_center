@@ -11,7 +11,7 @@ node()
 	    sh('env')
 	    print(env)
 	}
-    def trigger_branch = env.getOrDefault("gitlabSourceBranch","master")
+    def trigger_branch = env.getEnvironment().getOrDefault("gitlabSourceBranch","master")
 
 	stage("Branch Test")
 	{
