@@ -3,7 +3,7 @@ node()
 
 	stage('Download Repo')
 	{
-		checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/antman25/data_center.git']]])
+		checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/antman25/data_center.git']]])
 	}
 	stage('Env Dump')
 	{

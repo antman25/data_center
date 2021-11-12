@@ -1,9 +1,9 @@
 node()
 {
-	def trigger_branch = env.getOrDefault("gitlabSourceBranch","master")
+	def trigger_branch = env.getOrDefault("gitlabSourceBranch","main")
 	stage("Git Checkout")
 	{
-		checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'jenkins_ssh', url: 'http://gitlab.antlinux.local:30080/antman/data_center.git']]])
+		checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'jenkins_ssh', url: 'http://gitlab.antlinux.local:30080/antman/data_center.git']]])
 	}
 
 	stage ("ENV dump")

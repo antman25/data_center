@@ -1,10 +1,10 @@
 node()
 {
-    def build_branch = params.getOrDefault("BUILD_BRANCH","master")
+    def build_branch = params.getOrDefault("BUILD_BRANCH","main")
 
 	stage("Git Checkout")
 	{
-		checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'jenkins_ssh', url: 'http://gitlab.antlinux.local:30080/antman/data_center.git']]])
+		checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'jenkins_ssh', url: 'http://gitlab.antlinux.local:30080/antman/data_center.git']]])
 	}
 
 	stage ("ENV dump")
@@ -23,6 +23,6 @@ node()
 
 	properties([ 	disableConcurrentBuilds(), 
 			gitLabConnection(gitLabConnection: 'gitlab1', jobCredentialId: ''),
-			parameters([string(defaultValue: 'master', name: 'BUILD_BRANCH')])
+			parameters([string(defaultValue: 'main', name: 'BUILD_BRANCH')])
 			])
 }

@@ -14,7 +14,7 @@ pipelineJob('build-root/build-master') {
       scm {
         git {
           remote { url(repo) }
-          branches('master')
+          branches('main')
           scriptPath('jenkins-library/build-master/Jenkinsfile')
           extensions { }  // required as otherwise it may try to tag the repo, which you may not want
         }

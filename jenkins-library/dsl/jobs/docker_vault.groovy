@@ -11,7 +11,7 @@ pipelineJob('build-root/docker/vault/build') {
       scm {
         git {
           remote { url(repo) }
-          branches('master')
+          branches('main')
           scriptPath('jenkins-library/docker/vault/Jenkinsfile')
           extensions { }  // required as otherwise it may try to tag the repo, which you may not want
         }
