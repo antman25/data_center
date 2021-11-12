@@ -37,6 +37,10 @@ pipelineJob('build-root/packer/golden-baseos/centos7/CentOS-7.9.2009/build') {
   parameters {
     stringParam('BUILD_BRANCH', 'main', 'build this branch')
   }
+  environmentVariables {
+    env('var_filepath', 'vars/stage1_iso/centos7-7.9.2009.json')
+    keepBuildVariables(true)
+  }
   definition {
     cpsScm {
       scm {
@@ -64,7 +68,7 @@ pipelineJob('build-root/packer/golden-baseos/centos8/CentOS-8.2.2004/build') {
     stringParam('BUILD_BRANCH', 'main', 'build this branch')
   }
   environmentVariables {
-    env('ONE', '1')
+    env('var_filepath', 'vars/stage1_iso/centos7-7.9.2009.json')
     keepBuildVariables(true)
   }
 
@@ -92,6 +96,10 @@ pipelineJob('build-root/packer/golden-baseos/centos8/CentOS-8.4.2105/build') {
   description("Pipeline for $repo")
   parameters {
     stringParam('BUILD_BRANCH', 'main', 'build this branch')
+  }
+  environmentVariables {
+    env('var_filepath', 'vars/stage1_iso/centos8-8.4.2105.json')
+    keepBuildVariables(true)
   }
   definition {
     cpsScm {

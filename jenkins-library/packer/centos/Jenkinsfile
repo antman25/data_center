@@ -1,7 +1,7 @@
 node("DOCKER")
 {
     def build_branch = params.getOrDefault("BUILD_BRANCH","main")
-
+    def has_mods = false
     ws("/mnt/scratch/appdata/jenkins-workspace")
     {
 
@@ -9,6 +9,7 @@ node("DOCKER")
         {
             checkout([$class: 'GitSCM', branches: [[name: build_branch]], extensions: [], userRemoteConfigs: [[credentialsId: 'jenkins_ssh', url: 'http://gitlab.antlinux.local:30080/antman/data_center.git']]])
         }
+        def current_git_commit = sh(returnStdout: true, script: "git rev-parse HEAD").trim()
 
         stage ("ENV dump")
         {
@@ -17,10 +18,25 @@ node("DOCKER")
             print(params)
         }
 
+        stage('Get Modified Files')
+        {
+            try
+            {
+                def prev_git_commit = readFile("${WORKSPACE}/PREV_GIT_COMMIT").trim()
+                echo "Last Successful commit hash: ${prev_git_commit}"
+                def modified_files = sh(returnStdout: true, script: "git diff --name-only ${prev_git_commit}").trim()
+                echo "Modified Files:\n${modified_files}"
+                has_mods = true
+            }
+            catch (Exception ex)
+            {
+                echo "Exception getting last commit"
+                has_mods = true
+            }
+        }
 
         stage("Stage01 - ISO")
         {
-            sh 'docker login nexus.antlinux.local:8443 -u packer -p packer'
             sh '''docker run --pull always \
                     -e BUILD_BRANCH=${BUILD_BRANCH} \
                     -v ${WORKSPACE}/packer-library/centos:/packer \
@@ -28,10 +44,15 @@ node("DOCKER")
                     build -timestamp-ui -on-error=cleanup -force \
                     -var-file=vars/common_vsphere/default.json \
                     -var-file=vars/common_vm/default.json \
-                    -var-file=vars/stage1_iso/centos7-7.9.2009.json \
+                    -var-file=${env.var_filepath} \
                     -only="stage01.vsphere-iso.centos_iso" /packer
             '''
         }
+    }
+
+    stage ("Save Commit SHA")
+    {
+        sh("echo ${current_git_commit} > PREV_GIT_COMMIT")
     }
 	
 
