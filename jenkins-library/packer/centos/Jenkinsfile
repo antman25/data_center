@@ -3,7 +3,7 @@ node("DOCKER")
     def build_branch = params.getOrDefault("BUILD_BRANCH","main")
     def has_mods = false
     def var_filepath = env.getEnvironment()["var_filepath"]
-    def build_node_ip = sh(returnStdout: true, script: 'hostname -I | awk \'{ print $1 }\'').trim()
+
     currentBuild.displayName = "Build ID: ${BUILD_NUMBER}"
     currentBuild.description = "Branch: ${build_branch}"
 
@@ -20,7 +20,6 @@ node("DOCKER")
             sh('env | sort -n')
             //print(env.getEnvironment())
             print(params)
-            print ("Build Number: ${BUILD_NUMBER}\nBuild Node IP: ${build_node_ip}")
         }
 
         stage('Get Modified Files')
