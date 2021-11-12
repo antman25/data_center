@@ -22,6 +22,7 @@ node("DOCKER")
         {
             sh 'docker login nexus.antlinux.local:8443 -u packer -p packer'
             sh '''docker run --pull always \
+                    -e BUILD_BRANCH=${BUILD_BRANCH}
                     -v ${WORKSPACE}/packer-library/centos:/packer \
                     nexus.antlinux.local:8443/custom-base/hashicorp/packer:latest \
                     build -timestamp-ui -on-error=cleanup -force \
