@@ -17,8 +17,7 @@ node()
 
 	stage("Stage01 - ISO")
 	{
-	    sh
-	    '''docker run -v ${WORKSPACE}/packer-library/centos:/packer  nexus.antlinux.local:8443/custom-base/hashicorp/packer:latest \
+	    sh '''docker run -v ${WORKSPACE}/packer-library/centos:/packer  nexus.antlinux.local:8443/custom-base/hashicorp/packer:latest \
 	            packer build -timestamp-ui -on-error=ask -force \
                 -var-file=vars/common_vsphere/default.json \
                 -var-file=vars/common_vm/default.json \
