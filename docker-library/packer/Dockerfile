@@ -17,8 +17,7 @@ RUN useradd -ms /bin/bash/ packer && \
 USER packer:packer
 WORKDIR /packer
 VOLUME /packer
-CMD ["/bin/bash"]
-#ENTRYPOINT ["/bin/packer"]
+ENTRYPOINT ["/bin/packer"]
 
 
 
