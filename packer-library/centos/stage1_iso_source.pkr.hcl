@@ -6,7 +6,7 @@ source "vsphere-iso" "centos_iso" {
 	boot_command        = ["<tab> text ks=hd:fd0:/${var.kickstart_file_name}<enter><wait10><esc><wait>"]
 
 	boot_order           = "disk,cdrom"
-	floppy_files        = ["http/${var.kickstart_file_name}""]
+	floppy_files        = ["http/${var.kickstart_file_name}"]
 	boot_wait            = "${var.boot_wait}"
 	cluster              = "${var.cluster}"
 	convert_to_template  = "false"
