@@ -67,7 +67,11 @@ node()
                                                 }
 
 
-
+    stage ('Print ENV')
+    {
+        sh('env')
+        print ("gitlab_trigger_branch = ${gitlab_trigger_branch}")
+    }
 	stage('Run All Builds')
 	{
 		parallel(all_stages)
