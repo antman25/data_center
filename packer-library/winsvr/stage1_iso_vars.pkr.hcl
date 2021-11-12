@@ -27,13 +27,13 @@ variable "repo_iso_filepath" {
 
 variable "guest_os_type" {
   type = string
-  default = "centos64Guest"
+  default = "windows9Server64Guest"
   sensitive = false
 }
 
 variable "os" {
   type = string
-  default = "centos"
+  default = "winsvr"
   sensitive = false
 }
 
@@ -51,15 +51,4 @@ variable "iso_checksum_type" {
 variable "iso_checksum" {
   type = string
   sensitive = false
-}
-
-variable "kickstart_filename" {
-  type = string
-  default = "ks.cfg"
-  sensitive = false
-}
-
-variable "extra_commands" {
-  type    = list(string)
-  default = ["echo 'No Extra Commands'"]
 }

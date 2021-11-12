@@ -28,15 +28,6 @@ variable "network" {
   sensitive = false
 }
 
-variable "ssh_username" {
-  type =  string
-  sensitive = false
-}
-variable "ssh_password" {
-  type =  string
-  sensitive = true
-}
-
 variable "vm_cpu_num" {
   type =  number
   default = 1

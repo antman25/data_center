@@ -1,8 +1,7 @@
-source "vsphere-iso" "centos_iso" {
+source "vsphere-iso" "winsvr_iso" {
 	CPUs                 = "${var.vm_cpu_num}"
 	RAM                  = "${var.vm_mem_size}"
 	RAM_reserve_all      = false
-	boot_command         = ["<tab><bs><bs><bs><bs><bs>text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/${var.kickstart_filename}<enter>"]
 	boot_order           = "disk,cdrom"
 	boot_wait            = "${var.boot_wait}"
 	cluster              = "${var.cluster}"
@@ -26,6 +25,7 @@ source "vsphere-iso" "centos_iso" {
  	}
 	password         = "${var.vsphere_password}"
 	shutdown_command = "echo 'packer '|sudo -S /sbin/halt -h -p"
+	communicator	 = "winrm"
 	ssh_username     = "${var.ssh_username}"
 	ssh_password     = "${var.ssh_password}"
 	ssh_timeout      = "30m"
