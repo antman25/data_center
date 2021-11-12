@@ -39,7 +39,7 @@ pipelineJob('build-root/packer/golden-baseos/centos7/CentOS-7.9.2009/build') {
         git {
           remote { url(repo) }
           branches('master')
-          scriptPath('jenkins-library/packer/base/Jenkinsfile')
+          scriptPath('jenkins-library/packer/centos/Jenkinsfile')
           extensions { }  // required as otherwise it may try to tag the repo, which you may not want
         }
 
