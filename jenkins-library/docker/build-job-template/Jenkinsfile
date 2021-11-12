@@ -2,7 +2,7 @@ node()
 {
 	def has_mods = false
 
-	def selected_branch = params.getOrDefault('branch', 'master')
+	def selected_branch = params.getOrDefault('branch', 'main')
 	def repo = env.getOrDefault('repo', '')
 	def cred_id = env.getOrDefault('credential_id', '')
 	def build_cmd = env.getOrDefault('build_cmd', 'echo "Build command not set!"')

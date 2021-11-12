@@ -1,6 +1,6 @@
 node()
 {
-    def gitlab_trigger_branch = env.getEnvironment().getOrDefault("gitlabSourceBranch", "master")
+    def gitlab_trigger_branch = env.getEnvironment().getOrDefault("gitlabSourceBranch", "main")
 	stage('gitlab clone')
 	{
 		checkout scm
@@ -8,6 +8,7 @@ node()
 	stage('Dump ENV')
 	{
 		sh('env | sort -n')
+		print("Gitlab Trigger Branch: ${gitlab_trigger_branch}")
 	}
 
     stage('Create Jobs')
