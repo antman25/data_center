@@ -6,6 +6,4 @@ iso_checksum = "8f8c832372b4b6d84076847b8d99b2ad"
 kickstart_filename = "ks_centos7.cfg"
 boot_command = "<tab> text ks=hd:fd0:/ks_centos7.cfg<enter><wait10><esc><wait>"
 extra_commands = [	"yum clean all",
-                    "dd if=/dev/zero of=/EMPTY bs=1M",
-                    "rm -f /EMPTY",
                     "sync"]
