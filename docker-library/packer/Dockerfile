@@ -2,6 +2,7 @@ ARG UBI_VERSION=ubi8/ubi8:latest
 FROM nexus.antlinux.local:8443/custom-base/${UBI_VERSION}
 
 ENV PACKER_VERSION=1.7.8
+ENV PACKER_LOG=1
 
 RUN useradd -ms /bin/bash/ packer && \
     yum install -y unzip && \ 
