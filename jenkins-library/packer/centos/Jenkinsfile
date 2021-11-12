@@ -3,6 +3,7 @@ node("DOCKER")
     def build_branch = params.getOrDefault("BUILD_BRANCH","main")
     def has_mods = false
     def var_filepath = env.getEnvironment()["var_filepath"]
+    def build_node_ip = sh(returnStdout: true, script: "hostname -i").trim()
 
     ws("/mnt/scratch/appdata/jenkins-workspace")
     {
@@ -18,6 +19,7 @@ node("DOCKER")
             sh('env | sort -n')
             //print(env.getEnvironment())
             print(params)
+            print ("Build Node IP: ${build_node_ip}")
         }
 
         stage('Get Modified Files')
@@ -48,6 +50,7 @@ node("DOCKER")
                         build -color=false -timestamp-ui -on-error=cleanup -force \
                         -var-file=vars/common_vm/default.json \
                         -var-file=${var_filepath} \
+                        -var http_ip=${build_node_ip} \
                         -only="stage01.vsphere-iso.centos_iso" /packer
                 '''
 
