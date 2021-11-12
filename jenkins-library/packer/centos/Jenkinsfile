@@ -15,9 +15,16 @@ node()
 	}
 
 
-	stage("Branch Test")
+	stage("Stage01 - ISO")
 	{
-	    echo "Trigger Branch: ${build_branch}"
+	    sh
+	    '''docker run -v ${WORKSPACE}/packer-library/centos:/packer  nexus.antlinux.local:8443/custom-base/hashicorp/packer:latest \
+	            packer build -timestamp-ui -on-error=ask -force \
+                -var-file=vars/common_vsphere/default.json \
+                -var-file=vars/common_vm/default.json \
+                -var-file=vars/stage1_iso/centos7-7.9.2009.json \
+                -only="stage01.vsphere-iso.centos_iso" .
+        '''
 	}
 	
 
