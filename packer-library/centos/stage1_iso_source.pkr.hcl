@@ -2,7 +2,7 @@ source "vsphere-iso" "centos_iso" {
 	CPUs                 = "${var.vm_cpu_num}"
 	RAM                  = "${var.vm_mem_size}"
 	RAM_reserve_all      = false
-	boot_command        = ["<tab> text ks=hd:fd0:/${var.kickstart_filename}<enter><wait10><esc><wait>"]
+	boot_command        = [var.boot_command]
 
 	boot_order           = "disk,cdrom"
 	floppy_files        = ["ks/${var.kickstart_filename}"]
