@@ -53,6 +53,12 @@ variable "iso_checksum" {
   sensitive = false
 }
 
+variable "kickstart_filename" {
+  type = string
+  default = "ks.cfg"
+  sensitive = false
+}
+
 variable "extra_commands" {
   type    = list(string)
   default = ["echo 'No Extra Commands'"]
