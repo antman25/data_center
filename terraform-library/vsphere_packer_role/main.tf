@@ -60,6 +60,7 @@ resource vsphere_role "packer_role" {
 			"VirtualMachine.Config.Memory",
 			"VirtualMachine.Config.Resource",
 			"VirtualMachine.Config.Settings",
+			"VirtualMachine.Config.RemoveDisk",
 
 			"VirtualMachine.Inventory.Create",
 			"VirtualMachine.Inventory.Register",

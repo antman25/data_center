@@ -2,4 +2,4 @@ bashrc
 .terraform
 terraform.tfstate
 terraform.tfstate.backup
-config/
+vars/
