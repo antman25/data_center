@@ -9,7 +9,7 @@ node()
 	stage ("ENV dump")
 	{
 	    sh('env')
-	    print(env)
+	    print(env.getEnvironment())
 	}
     def trigger_branch = env.getEnvironment().getOrDefault("gitlabSourceBranch","master")
 
