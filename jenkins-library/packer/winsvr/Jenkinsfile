@@ -1,0 +1,24 @@
+node()
+{
+	def trigger_branch = env.getOrDefault("gitlabSourceBranch","master")
+	stage("Git Checkout")
+	{
+		checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'jenkins_ssh', url: 'http://gitlab.antlinux.local:30080/antman/data_center.git']]])
+	}
+
+	stage ("ENV dump")
+	{
+	    sh('env')
+	}
+
+
+	stage("Branch Test")
+	{
+	    echo "Trigger Branch: ${trigger_branch}"
+	}
+	
+
+	properties([ 	disableConcurrentBuilds(), 
+			gitLabConnection(gitLabConnection: 'gitlab1', jobCredentialId: '')
+			])
+}

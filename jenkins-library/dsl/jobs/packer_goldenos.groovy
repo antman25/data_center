@@ -14,7 +14,7 @@ pipelineJob('build-root/packer/golden-baseos/winsvr2019/winsvr2019-JAN2021/build
         git {
           remote { url(repo) }
           branches('master')
-          scriptPath('jenkins-library/packer/base/Jenkinsfile')
+          scriptPath('jenkins-library/packer/winsvr/Jenkinsfile')
           extensions { }  // required as otherwise it may try to tag the repo, which you may not want
         }
 
@@ -68,7 +68,7 @@ pipelineJob('build-root/packer/golden-baseos/centos8/CentOS-8.2.2004/build') {
         git {
           remote { url(repo) }
           branches('master')
-          scriptPath('jenkins-library/packer/baseos/centos8/Jenkinsfile')
+          scriptPath('jenkins-library/packer/centos/Jenkinsfile')
           extensions { }  // required as otherwise it may try to tag the repo, which you may not want
         }
 
@@ -91,7 +91,7 @@ pipelineJob('build-root/packer/golden-baseos/centos8/CentOS-8.4.2105/build') {
         git {
           remote { url(repo) }
           branches('master')
-          scriptPath('jenkins-library/packer/base/Jenkinsfile')
+          scriptPath('jenkins-library/packer/centos/Jenkinsfile')
           extensions { }  // required as otherwise it may try to tag the repo, which you may not want
         }
 
