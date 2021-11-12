@@ -24,7 +24,7 @@ node("DOCKER")
             sh '''docker run --pull always \
                     -v ${WORKSPACE}/packer-library/centos:/packer \
                     nexus.antlinux.local:8443/custom-base/hashicorp/packer:latest \
-                    build -timestamp-ui -on-error=ask -force \
+                    build -timestamp-ui -on-error=cleanup -force \
                     -var-file=vars/common_vsphere/default.json \
                     -var-file=vars/common_vm/default.json \
                     -var-file=vars/stage1_iso/centos7-7.9.2009.json \
