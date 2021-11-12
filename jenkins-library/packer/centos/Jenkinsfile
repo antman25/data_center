@@ -2,7 +2,7 @@ node("DOCKER")
 {
     def build_branch = params.getOrDefault("BUILD_BRANCH","main")
 
-    ws("/tmp/workspace/build-root/packer/golden-baseos/centos8/CentOS-8.2.2004/build/test")
+    ws("/mnt/scratch/appdata/jenkins-workspace")
     {
 
         stage("Git Checkout")
