@@ -4,7 +4,8 @@ FROM nexus.antlinux.local:8443/custom-base/${UBI_VERSION}
 ENV PACKER_VERSION=1.7.8
 ENV PACKER_LOG=1
 
-RUN useradd -ms /bin/bash/ packer && \
+RUN groupap -g 1001 packer && \
+    useradd -r -u 1001 -m -s /sbin/nologin -g packer packer && \
     yum install -y unzip && \ 
     curl -k -u packer:packer https://nexus.antlinux.local:8443/repository/generic-vendor/hashicorp/packer/packer_${PACKER_VERSION}_linux_amd64.zip -o /tmp/packer_${PACKER_VERSION}_linux_amd64.zip && \
     unzip /tmp/packer_${PACKER_VERSION}_linux_amd64.zip -d /usr/local/bin && \
