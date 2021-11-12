@@ -15,7 +15,7 @@ RUN useradd -ms /bin/bash/ packer && \
     chown packer:packer /packer
 
 USER packer:packer
-
+WORKDIR /packer
 VOLUME /packer
 CMD ["/bin/bash"]
 #ENTRYPOINT ["/bin/packer"]
