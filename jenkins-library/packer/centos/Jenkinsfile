@@ -38,24 +38,29 @@ node("DOCKER")
                 has_mods = true
             }
         }
-
-        stage("Stage01 - ISO")
+        stage("Build Pipeline")
         {
-            //                        -var http_ip=${build_node_ip} \
-            withCredentials([string(credentialsId: 'vsphere-password', variable: 'vsphere_password')]) {
-                sh '''docker run \
-                        --pull always \
-                        --network host \
-                        -e BUILD_BRANCH=${BUILD_BRANCH} \
-                        -e VSPHERE_PASSWORD=${vsphere_password} \
-                        -v ${WORKSPACE}/packer-library/centos:/packer \
-                        nexus.antlinux.local:8443/custom-base/hashicorp/packer:latest \
-                        build -color=false -timestamp-ui -on-error=cleanup -force \
-                        -var-file=vars/common_vm/default.json \
-                        -var-file=${var_filepath} \
-                        -only="stage01.vsphere-iso.centos_iso" /packer
-                '''
+            lock ('VSPHERE-SERVER')
+            {
+                stage("Stage01 - ISO")
+                {
+                    //                        -var http_ip=${build_node_ip} \
+                    withCredentials([string(credentialsId: 'vsphere-password', variable: 'vsphere_password')]) {
+                        sh '''docker run \
+                                --pull always \
+                                --network host \
+                                -e BUILD_BRANCH=${BUILD_BRANCH} \
+                                -e VSPHERE_PASSWORD=${vsphere_password} \
+                                -v ${WORKSPACE}/packer-library/centos:/packer \
+                                nexus.antlinux.local:8443/custom-base/hashicorp/packer:latest \
+                                build -color=false -timestamp-ui -on-error=cleanup -force \
+                                -var-file=vars/common_vm/default.json \
+                                -var-file=${var_filepath} \
+                                -only="stage01.vsphere-iso.centos_iso" /packer
+                        '''
 
+                    }
+                }
             }
         }
 
