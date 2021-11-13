@@ -1,3 +1,15 @@
 firewall-cmd --permanent --zone=public --add-port=30000/tcp
 firewall-cmd --reload
 
+url = ldap://WIN-KOLSF2LC6S2.antlinux.local:389
+root dn = dc=antlinux,dc=local
+user search base = <blank>
+user search filter = (&(objectClass=user)(sAMAccountName={0}))
+group search base = cn=users,cn=builtin
+group search filter = (& (cn={0}) (| (objectclass=groupOfNames) (objectclass=groupOfUniqueNames) (objectclass=posixGroup)))
+parse user attribute for list of ldap groups
+ - group membership attribute = memberOf
+
+manager dn = cn=administrator,cn=users,dc=antlinux,dc=local
+display name ldap attr = displayname
+
