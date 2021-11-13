@@ -34,6 +34,19 @@ folder('build-root/packer/golden-baseos/centos7/CentOS-7.9.2009')
 pipelineJob('build-root/packer/golden-baseos/centos7/CentOS-7.9.2009/build') {
 
   def repo = 'http://gitlab.antlinux.local:30080/antman/data_center.git'
+
+  triggers {
+    gitlabPush {
+      buildOnMergeRequestEvents(false)
+      buildOnPushEvents(true)
+      enableCiSkip(false)
+      setBuildDescription(true)
+      rebuildOpenMergeRequest('never')
+      includeBranches('main')
+
+    }
+  }
+
   throttleConcurrentBuilds {
     maxTotal(1)
   }
