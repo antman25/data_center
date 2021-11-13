@@ -68,8 +68,8 @@ node("DOCKER")
 
 	
 
-	properties([ 	disableConcurrentBuilds(), 
+	/*properties([ 	disableConcurrentBuilds(),
 			gitLabConnection(gitLabConnection: 'gitlab1', jobCredentialId: ''),
 			parameters([string(defaultValue: 'main', name: 'BUILD_BRANCH')])
-			])
+			])*/
 }
