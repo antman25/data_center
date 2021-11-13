@@ -17,7 +17,7 @@ pipelineJob('build-root/packer/golden-baseos/winsvr2019/winsvr2019-JAN2021/build
 
     }
   }
-  concurrentBuild(false)
+
   throttleConcurrentBuilds {
     maxTotal(1)
     maxPerNode(1)
@@ -60,7 +60,7 @@ pipelineJob('build-root/packer/golden-baseos/centos7/CentOS-7.9.2009/build') {
 
     }
   }
-  concurrentBuild(false)
+
   throttleConcurrentBuilds {
     maxTotal(1)
     maxPerNode(1)
@@ -107,7 +107,7 @@ pipelineJob('build-root/packer/golden-baseos/centos8/CentOS-8.2.2004/build') {
 
     }
   }
-  concurrentBuild(false)
+
   throttleConcurrentBuilds {
     maxTotal(1)
     maxPerNode(1)
@@ -155,7 +155,7 @@ pipelineJob('build-root/packer/golden-baseos/centos8/CentOS-8.4.2105/build') {
 
     }
   }
-  concurrentBuild(false)
+
   throttleConcurrentBuilds {
     maxTotal(1)
     maxPerNode(1)
