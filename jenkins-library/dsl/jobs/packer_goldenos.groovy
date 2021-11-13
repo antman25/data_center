@@ -81,6 +81,17 @@ folder('build-root/packer/golden-baseos/centos8/CentOS-8.2.2004')
 pipelineJob('build-root/packer/golden-baseos/centos8/CentOS-8.2.2004/build') {
 
   def repo = 'http://gitlab.antlinux.local:30080/antman/data_center.git'
+  triggers {
+    gitlabPush {
+      buildOnMergeRequestEvents(false)
+      buildOnPushEvents(true)
+      enableCiSkip(false)
+      setBuildDescription(true)
+      rebuildOpenMergeRequest('never')
+      includeBranches('main')
+
+    }
+  }
   throttleConcurrentBuilds {
     maxTotal(1)
   }
@@ -115,6 +126,18 @@ folder('build-root/packer/golden-baseos/centos8/CentOS-8.4.2105')
 pipelineJob('build-root/packer/golden-baseos/centos8/CentOS-8.4.2105/build') {
 
   def repo = 'http://gitlab.antlinux.local:30080/antman/data_center.git'
+
+  triggers {
+    gitlabPush {
+      buildOnMergeRequestEvents(false)
+      buildOnPushEvents(true)
+      enableCiSkip(false)
+      setBuildDescription(true)
+      rebuildOpenMergeRequest('never')
+      includeBranches('main')
+
+    }
+  }
   throttleConcurrentBuilds {
     maxTotal(1)
   }
