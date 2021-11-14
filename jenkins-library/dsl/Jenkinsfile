@@ -16,7 +16,7 @@ node()
 	{
 	    //updateGitlabCommitStatus name: 'build', state: 'pending'
 	    echo ("build start test")
-	    sh('sleep 120')
+	    sh('sleep 60')
 	    echo ("build start end")
 	    //updateGitlabCommitStatus name: 'build', state: 'success'
 	}
