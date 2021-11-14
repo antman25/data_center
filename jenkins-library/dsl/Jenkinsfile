@@ -1,17 +1,26 @@
 node()
 {
-    def gitlab_trigger_branch = env.getEnvironment().getOrDefault("gitlabSourceBranch", "main")
+    def gitlab_trigger_branch = env.getEnvironment().getOrDefault("BRANCH_NAME", "main")
 	stage('gitlab clone')
 	{
 		checkout scm
 	}
 	stage('Dump ENV')
 	{
+
 		sh('env | sort -n')
-		print("Gitlab Trigger Branch: ${gitlab_trigger_branch}")
+		print("Gitlab Trigger Branch: ${BRANCH_NAME}")
 	}
 
-    stage('Create Jobs')
+	stage ('Fake Build')
+	{
+	    updateGitlabCommitStatus name: 'build', state: 'pending'
+	    echo ("build test")
+	    updateGitlabCommitStatus name: 'build', state: 'success'
+	}
+
+
+    /*stage('Create Jobs')
     {
          jobDsl targets: ['jenkins-library/dsl/jobs/build_root.groovy',
           'jenkins-library/dsl/jobs/docker_ansible.groovy',
@@ -24,11 +33,11 @@ node()
          removedJobAction: 'DELETE',
          removedViewAction: 'DELETE',
          lookupStrategy: 'SEED_JOB',
-         additionalParameters: [BUILD_BRANCH: gitlab_trigger_branch]
-    }
+         additionalParameters: [BUILD_BRANCH: "${BRANCH_NAME}", DSL_ROOT: ""]
+    }*/
 
-	stage('Run Build Jobs')
+	/*stage('Run Build Jobs')
 	{
 		build job: '/build-root/build-master', parameters: [[$class: 'StringParameterValue', name: 'BUILD_BRANCH', value: gitlab_trigger_branch]]
-	}
+	}*/
 }
