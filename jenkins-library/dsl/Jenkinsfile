@@ -14,9 +14,9 @@ node()
 
 	stage ('Fake Build')
 	{
-	    updateGitlabCommitStatus name: 'build', state: 'pending'
+	    //updateGitlabCommitStatus name: 'build', state: 'pending'
 	    echo ("build test")
-	    updateGitlabCommitStatus name: 'build', state: 'success'
+	    //updateGitlabCommitStatus name: 'build', state: 'success'
 	}
 
 
