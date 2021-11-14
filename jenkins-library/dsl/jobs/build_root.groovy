@@ -1,3 +1,4 @@
+folder("/build-root")
 folder("/build-root/${BUILD_BRANCH}")
 
 folder("/build-root/${BUILD_BRANCH}/docker")
