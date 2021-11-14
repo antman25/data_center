@@ -1,7 +1,7 @@
 folder("/build-root/${BUILD_BRANCH}")
 
 folder("/build-root/${BUILD_BRANCH}/docker")
-folder(""/build-root/${BUILD_BRANCH}/packer")
+folder("/build-root/${BUILD_BRANCH}/packer")
 
 pipelineJob("/build-root/${BUILD_BRANCH}/build-master") {
 
