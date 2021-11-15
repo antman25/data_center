@@ -33,8 +33,8 @@ node()
               'jenkins-library/dsl/jobs/ubi8_hardened.groovy',
               'jenkins-library/dsl/jobs/packer_goldenos.groovy'
     */
-         jobDsl targets: ['jenkins-library/dsl/jobs/build_root.groovy'
-                            'jenkins-library/dsl/jobs/ubi8_hardened.groovy',
+         jobDsl targets: ['jenkins-library/dsl/jobs/build_root.groovy',
+                            'jenkins-library/dsl/jobs/ubi8_hardened.groovy'
           ].join('\n'),
          removedJobAction: 'DELETE',
          removedViewAction: 'DELETE',
