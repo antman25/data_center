@@ -1,6 +1,7 @@
 node()
 {
-    def gitlab_trigger_branch = env.getEnvironment().getOrDefault("BRANCH_NAME", "main")
+    def gitlab_trigger_branch = params.getOrDefault("BUILD_BRANCH", "main")
+    def job_root_path = params.getOrDefault("JOB_ROOT_PATH", "main")
 	stage('gitlab clone')
 	{
 		checkout scm
@@ -9,7 +10,7 @@ node()
 	{
 
 		sh('env | sort -n')
-		print("Gitlab Trigger Branch: ${BRANCH_NAME}")
+		print("Gitlab Trigger Branch: ${params.BUILD_BRANCH}")
 	}
 
 	/*stage ('Fake Build')
@@ -37,7 +38,7 @@ node()
          removedJobAction: 'DELETE',
          removedViewAction: 'DELETE',
          lookupStrategy: 'SEED_JOB',
-         additionalParameters: [BUILD_BRANCH: "${BRANCH_NAME}", DSL_ROOT: ""]
+         additionalParameters: [BUILD_BRANCH: gitlab_trigger_branch, JOB_ROOT: "${job_root_path}"]
     }
 
 	/*stage('Run Build Jobs')
