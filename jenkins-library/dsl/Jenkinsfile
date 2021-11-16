@@ -1,15 +1,14 @@
 node()
 {
-    def gitlab_trigger_branch = env.getEnvironment().getOrDefault("BRANCH_NAME", "main")
+    def gitlab_trigger_branch = params.getOrDefault("BRANCH_NAME", "main")
 	stage('gitlab clone')
 	{
 		checkout scm
 	}
 	stage('Dump ENV')
 	{
-
 		sh('env | sort -n')
-		print("Gitlab Trigger Branch: ${BRANCH_NAME}")
+		print("Gitlab Trigger Branch: ${params.BRANCH_NAME}")
 	}
 
 	/*stage ('Fake Build')
