@@ -5,7 +5,7 @@ node()
 	stage('Git Checkout')
 	{
 		//checkout scm
-		checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'jenkins_ssh', url: 'http://gitlab.antlinux.local:30080/antman/ubi8.git']]])
+		checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'jenkins_ssh', url: 'http://gitlab.antlinux.local:30080/antman/ubi8.git']]])
 	}
 	GIT_COMMIT_REV_POST = sh(returnStdout: true, script: "git rev-parse HEAD").trim()
 
