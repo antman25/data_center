@@ -38,11 +38,11 @@ node()
          removedJobAction: 'DELETE',
          removedViewAction: 'DELETE',
          lookupStrategy: 'SEED_JOB',
-         additionalParameters: [BUILD_BRANCH: "${BRANCH_NAME}",  JOB_ROOT: "${job_root_path}"]
+         additionalParameters: [BUILD_BRANCH: gitlab_trigger_branch,  JOB_ROOT: job_root_path]
     }
 
-	/*stage('Run Build Jobs')
+	stage('Run Build Jobs')
 	{
-		build job: '/build-root/build-master', parameters: [[$class: 'StringParameterValue', name: 'BUILD_BRANCH', value: gitlab_trigger_branch]]
-	}*/
+		build job: 'build-master', parameters: [[$class: 'StringParameterValue', name: 'BUILD_BRANCH', value: gitlab_trigger_branch]]
+	}
 }
