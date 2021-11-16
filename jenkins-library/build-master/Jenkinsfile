@@ -69,7 +69,7 @@ node()
     }
     stage('Build docker-ubi8-hardened')
     {
-            build job: 'build-root/docker/ubi8/build'
+            build job: 'docker/ubi8/build'
     }
 
 	stage('Build All')
