@@ -1,4 +1,4 @@
-folder("${JOB_ROOT}/docker/consul'")
+folder("${JOB_ROOT}/docker/consul")
 
 pipelineJob("${JOB_ROOT}/docker/consul/build") {
 
