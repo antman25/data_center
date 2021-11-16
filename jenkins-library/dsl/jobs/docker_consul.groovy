@@ -1,6 +1,6 @@
 folder("${JOB_ROOT}/docker/consul'")
 
-pipelineJob("${JOB_ROOT}/docker/consul/build'") {
+pipelineJob("${JOB_ROOT}/docker/consul/build") {
 
   def repo = 'http://gitlab.antlinux.local:30080/antman/data_center.git'
 
