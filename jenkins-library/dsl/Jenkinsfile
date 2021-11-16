@@ -1,6 +1,5 @@
 node()
 {
-    def gitlab_trigger_branch = params.getOrDefault("BRANCH_NAME", "main")
     def gitlab_trigger_branch = params.getOrDefault("BUILD_BRANCH", "main")
     def job_root_path = params.getOrDefault("JOB_ROOT_PATH", "main")
 	stage('gitlab clone')
