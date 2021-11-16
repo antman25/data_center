@@ -6,35 +6,35 @@ node()
 	all_stages['ansible'] = {
 					stage('Build docker-ansible')
 					{
-						build job: "${JOB_ROOT}/docker/ansible/build"
+						build job: "docker/ansible/build"
 					}
 				}
 	
 	all_stages['docker_terraform'] = {
 					stage('Build docker-terraform')
 					{
-						build job: "${JOB_ROOT}/docker/terraform/build"
+						build job: "docker/terraform/build"
 					}
 				}
 
         all_stages['docker_consul'] = {
                                         stage('Build docker-consul')
                                         {
-                                                build job: "${JOB_ROOT}/docker/consul/build"
+                                                build job: "docker/consul/build"
                                         }
                                 }
 
         all_stages['docker_vault'] = {
                                         stage('Build docker-vault')
                                         {
-                                                build job: "${JOB_ROOT}/docker/vault/build"
+                                                build job: "docker/vault/build"
                                         }
                                 }
 
         all_stages['docker_packer'] = {
                                         stage('Build docker-packer')
                                         {
-                                                build job: "${JOB_ROOT}/docker/packer/build"
+                                                build job: "docker/packer/build"
                                         }
                                 }
 
@@ -42,21 +42,21 @@ node()
         all_stages['packer_CentOS-7.9.2009'] = {
                                                     stage('Build packer-CentOS-7.9.2009')
                                                     {
-                                                            build job: "${JOB_ROOT}/packer/golden-baseos/centos7/CentOS-7.9.2009/build", parameters: [[$class: 'StringParameterValue', name: 'BUILD_BRANCH', value: gitlab_trigger_branch]]
+                                                            build job: "packer/golden-baseos/centos7/CentOS-7.9.2009/build", parameters: [[$class: 'StringParameterValue', name: 'BUILD_BRANCH', value: gitlab_trigger_branch]]
                                                     }
                                                 }
 
         all_stages['packer_CentOS-8.2.2004'] = {
                                                     stage('Build packer-CentOS-8.2.2004')
                                                     {
-                                                            build job: "${JOB_ROOT}/packer/golden-baseos/centos8/CentOS-8.2.2004/build", parameters: [[$class: 'StringParameterValue', name: 'BUILD_BRANCH', value: gitlab_trigger_branch]]
+                                                            build job: "packer/golden-baseos/centos8/CentOS-8.2.2004/build", parameters: [[$class: 'StringParameterValue', name: 'BUILD_BRANCH', value: gitlab_trigger_branch]]
                                                     }
                                                 }
 
         all_stages['packer_CentOS-8.4.2105'] = {
                                                     stage('Build packer-CentOS-8.4.2105')
                                                     {
-                                                            build job: "${JOB_ROOT}/packer/golden-baseos/centos8/CentOS-8.4.2105/build", parameters: [[$class: 'StringParameterValue', name: 'BUILD_BRANCH', value: gitlab_trigger_branch]]
+                                                            build job: "packer/golden-baseos/centos8/CentOS-8.4.2105/build", parameters: [[$class: 'StringParameterValue', name: 'BUILD_BRANCH', value: gitlab_trigger_branch]]
                                                     }
                                                 }
 
@@ -80,17 +80,17 @@ node()
 
 	/*stage('Build packer-CentOS-7.9.2009')
     {
-            build job: "${JOB_ROOT}/packer/golden-baseos/centos7/CentOS-7.9.2009/build', parameters: [[$class: 'StringParameterValue', name: 'BUILD_BRANCH', value: gitlab_trigger_branch]]
+            build job: "packer/golden-baseos/centos7/CentOS-7.9.2009/build', parameters: [[$class: 'StringParameterValue', name: 'BUILD_BRANCH', value: gitlab_trigger_branch]]
     }
 
     stage('Build packer-CentOS-8.2.2004')
     {
-            build job: "${JOB_ROOT}/packer/golden-baseos/centos8/CentOS-8.2.2004/build', parameters: [[$class: 'StringParameterValue', name: 'BUILD_BRANCH', value: gitlab_trigger_branch]]
+            build job: "packer/golden-baseos/centos8/CentOS-8.2.2004/build', parameters: [[$class: 'StringParameterValue', name: 'BUILD_BRANCH', value: gitlab_trigger_branch]]
     }
 
     stage('Build packer-CentOS-8.4.2105')
     {
-            build job: "${JOB_ROOT}/packer/golden-baseos/centos8/CentOS-8.4.2105/build', parameters: [[$class: 'StringParameterValue', name: 'BUILD_BRANCH', value: gitlab_trigger_branch]]
+            build job: "packer/golden-baseos/centos8/CentOS-8.4.2105/build', parameters: [[$class: 'StringParameterValue', name: 'BUILD_BRANCH', value: gitlab_trigger_branch]]
     }*/
 
 	/*properties([ 	disableConcurrentBuilds(),
