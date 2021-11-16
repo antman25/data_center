@@ -38,7 +38,7 @@ node()
          removedJobAction: 'DELETE',
          removedViewAction: 'DELETE',
          lookupStrategy: 'SEED_JOB',
-         additionalParameters: [BUILD_BRANCH: "${BRANCH_NAME}", DSL_ROOT: ""]
+         additionalParameters: [BUILD_BRANCH: "${BRANCH_NAME}",  JOB_ROOT: "${job_root_path}"]
     }
 
 	/*stage('Run Build Jobs')
