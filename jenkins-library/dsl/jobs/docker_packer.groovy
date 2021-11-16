@@ -1,6 +1,6 @@
-folder('build-root/docker/packer')
+folder("${JOB_ROOT}/docker/packer")
 
-pipelineJob('build-root/docker/packer/build') {
+pipelineJob("${JOB_ROOT}/docker/packer/build") {
 
   def repo = 'http://gitlab.antlinux.local:30080/antman/data_center.git'
 
