@@ -45,7 +45,6 @@ node()
     }
 
 
-
             /*all_stages['packer_CentOS-7.9.2009'] = {
                                                         stage('Build packer-CentOS-7.9.2009')
                                                         {
