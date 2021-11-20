@@ -1,8 +1,8 @@
-folder("${JOB_ROOT}/packer/golden-baseos")
-folder("${JOB_ROOT}/packer/golden-baseos/winsvr2019")
-folder("${JOB_ROOT}/packer/golden-baseos/winsvr2019/winsvr2019-JAN2021")
+folder("packer/golden-baseos")
+folder("packer/golden-baseos/winsvr2019")
+folder("packer/golden-baseos/winsvr2019/winsvr2019-JAN2021")
 
-pipelineJob("${JOB_ROOT}/packer/golden-baseos/winsvr2019/winsvr2019-JAN2021/build") {
+pipelineJob("packer/golden-baseos/winsvr2019/winsvr2019-JAN2021/build") {
 
   def repo = 'http://gitlab.antlinux.local:30080/antman/data_center.git'
 
@@ -41,10 +41,10 @@ pipelineJob("${JOB_ROOT}/packer/golden-baseos/winsvr2019/winsvr2019-JAN2021/buil
 }
 
 
-folder("${JOB_ROOT}/packer/golden-baseos/centos7")
-folder("${JOB_ROOT}/packer/golden-baseos/centos7/CentOS-7.9.2009")
+folder("packer/golden-baseos/centos7")
+folder("packer/golden-baseos/centos7/CentOS-7.9.2009")
 
-pipelineJob("${JOB_ROOT}/packer/golden-baseos/centos7/CentOS-7.9.2009/build") {
+pipelineJob("packer/golden-baseos/centos7/CentOS-7.9.2009/build") {
 
   def repo = 'http://gitlab.antlinux.local:30080/antman/data_center.git'
 
@@ -88,10 +88,10 @@ pipelineJob("${JOB_ROOT}/packer/golden-baseos/centos7/CentOS-7.9.2009/build") {
   }
 }
 
-folder("${JOB_ROOT}/packer/golden-baseos/centos8")
-folder("${JOB_ROOT}/packer/golden-baseos/centos8/CentOS-8.2.2004")
+folder("packer/golden-baseos/centos8")
+folder("packer/golden-baseos/centos8/CentOS-8.2.2004")
 
-pipelineJob("${JOB_ROOT}/packer/golden-baseos/centos8/CentOS-8.2.2004/build") {
+pipelineJob("packer/golden-baseos/centos8/CentOS-8.2.2004/build") {
 
   def repo = 'http://gitlab.antlinux.local:30080/antman/data_center.git'
   triggers {
@@ -137,7 +137,7 @@ pipelineJob("${JOB_ROOT}/packer/golden-baseos/centos8/CentOS-8.2.2004/build") {
   }
 }
 
-folder("${JOB_ROOT}/packer/golden-baseos/centos8/CentOS-8.4.2105")
+folder("packer/golden-baseos/centos8/CentOS-8.4.2105")
 
 pipelineJob("${JOB_ROOT}/packer/golden-baseos/centos8/CentOS-8.4.2105/build") {
 
