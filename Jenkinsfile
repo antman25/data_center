@@ -44,4 +44,5 @@ node()
         build job: "packer/golden-baseos/centos8/CentOS-8.4.2105/build", parameters: [[$class: 'StringParameterValue', name: 'BUILD_BRANCH', value: source_branch]]
     }
 
+
 }
