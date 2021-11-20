@@ -46,7 +46,7 @@ node("DOCKER")
                 {
                     //                        -var http_ip=${build_node_ip} \
                     withCredentials([string(credentialsId: 'vsphere-password', variable: 'vsphere_password')]) {
-                        sh '''docker run \
+                        sh """docker run \
                                 --pull always \
                                 --network host \
                                 -e BUILD_BRANCH=${params.BUILD_BRANCH} \
@@ -57,7 +57,7 @@ node("DOCKER")
                                 -var-file=vars/common_vm/default.json \
                                 -var-file=${var_filepath} \
                                 -only="stage01.vsphere-iso.centos_iso" /packer
-                        '''
+                        """
 
                     }
                 }
