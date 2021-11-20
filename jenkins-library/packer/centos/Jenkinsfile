@@ -49,7 +49,7 @@ node("DOCKER")
                         sh '''docker run \
                                 --pull always \
                                 --network host \
-                                -e BUILD_BRANCH=${BUILD_BRANCH} \
+                                -e BUILD_BRANCH=${params.BUILD_BRANCH} \
                                 -e VSPHERE_PASSWORD=${vsphere_password} \
                                 -v ${WORKSPACE}/packer-library/centos:/packer \
                                 nexus.antlinux.local:8443/custom-base/hashicorp/packer:latest \
