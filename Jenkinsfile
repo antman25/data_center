@@ -20,7 +20,7 @@ node()
     {
 
          jobDsl targets: ['jenkins-library/dsl/jobs/build_root.groovy',
-                            'jenkins-library/dsl/jobs/build_goldenos.groovy'].join('\n'),
+                            'jenkins-library/dsl/jobs/packer_goldenos.groovy'].join('\n'),
          removedJobAction: 'DELETE',
          removedViewAction: 'DELETE',
          lookupStrategy: 'SEED_JOB',
