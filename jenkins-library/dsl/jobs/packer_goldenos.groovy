@@ -139,7 +139,7 @@ pipelineJob("packer/golden-baseos/centos8/CentOS-8.2.2004/build") {
 
 folder("packer/golden-baseos/centos8/CentOS-8.4.2105")
 
-pipelineJob("${JOB_ROOT}/packer/golden-baseos/centos8/CentOS-8.4.2105/build") {
+pipelineJob("packer/golden-baseos/centos8/CentOS-8.4.2105/build") {
 
   def repo = 'http://gitlab.antlinux.local:30080/antman/data_center.git'
 
