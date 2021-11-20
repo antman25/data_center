@@ -6,19 +6,6 @@ pipelineJob("packer/golden-baseos/winsvr2019/winsvr2019-JAN2021/build") {
 
   def repo = 'http://gitlab.antlinux.local:30080/antman/data_center.git'
 
-  triggers {
-    gitlabPush {
-      buildOnMergeRequestEvents(false)
-      buildOnPushEvents(true)
-      enableCiSkip(false)
-      setBuildDescription(true)
-      rebuildOpenMergeRequest('never')
-      includeBranches('main')
-
-    }
-  }
-
-
   description("Pipeline for $repo")
 
   definition {
@@ -43,19 +30,6 @@ folder("packer/golden-baseos/centos7/CentOS-7.9.2009")
 pipelineJob("packer/golden-baseos/centos7/CentOS-7.9.2009/build") {
 
   def repo = 'http://gitlab.antlinux.local:30080/antman/data_center.git'
-
-  triggers {
-    gitlabPush {
-      buildOnMergeRequestEvents(false)
-      buildOnPushEvents(true)
-      enableCiSkip(false)
-      setBuildDescription(true)
-      rebuildOpenMergeRequest('never')
-      includeBranches('main')
-
-    }
-  }
-
 
   description("Pipeline for $repo")
 
@@ -86,18 +60,6 @@ folder("packer/golden-baseos/centos8/CentOS-8.2.2004")
 pipelineJob("packer/golden-baseos/centos8/CentOS-8.2.2004/build") {
 
   def repo = 'http://gitlab.antlinux.local:30080/antman/data_center.git'
-  triggers {
-    gitlabPush {
-      buildOnMergeRequestEvents(false)
-      buildOnPushEvents(true)
-      enableCiSkip(false)
-      setBuildDescription(true)
-      rebuildOpenMergeRequest('never')
-      includeBranches('main')
-
-    }
-  }
-
 
   description("Pipeline for $repo")
   parameters {
@@ -130,18 +92,6 @@ folder("packer/golden-baseos/centos8/CentOS-8.4.2105")
 pipelineJob("packer/golden-baseos/centos8/CentOS-8.4.2105/build") {
 
   def repo = 'http://gitlab.antlinux.local:30080/antman/data_center.git'
-
-  triggers {
-    gitlabPush {
-      buildOnMergeRequestEvents(false)
-      buildOnPushEvents(true)
-      enableCiSkip(false)
-      setBuildDescription(true)
-      rebuildOpenMergeRequest('never')
-      includeBranches('main')
-
-    }
-  }
 
 
   description("Pipeline for $repo")
