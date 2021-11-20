@@ -96,7 +96,7 @@ pipelineJob("packer/golden-baseos/centos8/CentOS-8.4.2105/build") {
 
   description("Pipeline for $repo")
   parameters {
-    stringParam('BUILD_BRANCH', 'main', 'build this branch')
+    stringParam('BUILD_BRANCH', '', 'build this branch')
   }
   environmentVariables {
     env('var_filepath', 'vars/stage1_iso/centos8-8.4.2105.hcl')
