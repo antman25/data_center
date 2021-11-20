@@ -77,7 +77,7 @@ pipelineJob("packer/golden-baseos/centos8/CentOS-8.2.2004/build") {
       scm {
         git {
           remote { url(repo) }
-          branches("${BUILD_BRANCH}")
+          branches("${SOURCE_BRANCH}")
           scriptPath('jenkins-library/packer/centos/Jenkinsfile')
           extensions { }  // required as otherwise it may try to tag the repo, which you may not want
         }
@@ -109,7 +109,7 @@ pipelineJob("packer/golden-baseos/centos8/CentOS-8.4.2105/build") {
       scm {
         git {
           remote { url(repo) }
-          branches("${BUILD_BRANCH}")
+          branches("${SOURCE_BRANCH}")
           scriptPath('jenkins-library/packer/centos/Jenkinsfile')
           extensions { }  // required as otherwise it may try to tag the repo, which you may not want
         }
