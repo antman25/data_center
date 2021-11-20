@@ -19,7 +19,8 @@ node()
     stage ('Run Job DSL')
     {
 
-         jobDsl targets: ['jenkins-library/dsl/jobs/build_root.groovy'].join('\n'),
+         jobDsl targets: ['jenkins-library/dsl/jobs/build_root.groovy',
+                            'jenkins-library/dsl/jobs/build_goldenos.groovy'].join('\n'),
          removedJobAction: 'DELETE',
          removedViewAction: 'DELETE',
          lookupStrategy: 'SEED_JOB',
