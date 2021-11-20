@@ -62,9 +62,9 @@ pipelineJob("packer/golden-baseos/centos8/CentOS-8.2.2004/build") {
   def repo = 'http://gitlab.antlinux.local:30080/antman/data_center.git'
 
   description("Pipeline for $repo")
-  parameters {
+  /*parameters {
     stringParam('SOURCE_BRANCH', 'main', 'build this branch')
-  }
+  }*/
   environmentVariables {
     env('var_filepath', 'vars/stage1_iso/centos8-8.2.2004.hcl')
     env('common_triggers', "packer-library/centos/common_vm/")
@@ -95,9 +95,9 @@ pipelineJob("packer/golden-baseos/centos8/CentOS-8.4.2105/build") {
 
 
   description("Pipeline for $repo")
-  parameters {
-    stringParam('SOURCE_BRANCH', 'main', 'build this branch')
-  }
+  /*parameters {
+    stringParam('BUILD_BRANCH', '', 'build this branch')
+  }*/
   environmentVariables {
     env('var_filepath', 'vars/stage1_iso/centos8-8.4.2105.hcl')
     env('common_triggers', "packer-library/centos/common_vm/")
