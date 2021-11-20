@@ -96,7 +96,7 @@ pipelineJob("packer/golden-baseos/centos8/CentOS-8.4.2105/build") {
 
   description("Pipeline for $repo")
   parameters {
-    stringParam('SOURCE_BRANCH', 'main', 'build this branch')
+    stringParam('BUILD_BRANCH', 'main', 'build this branch')
   }
   environmentVariables {
     env('var_filepath', 'vars/stage1_iso/centos8-8.4.2105.hcl')
@@ -109,7 +109,7 @@ pipelineJob("packer/golden-baseos/centos8/CentOS-8.4.2105/build") {
       scm {
         git {
           remote { url(repo) }
-          branches("${SOURCE_BRANCH}")
+          branches("${BUILD_BRANCH}")
           scriptPath('jenkins-library/packer/centos/Jenkinsfile')
           extensions { }  // required as otherwise it may try to tag the repo, which you may not want
         }
