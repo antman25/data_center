@@ -20,7 +20,13 @@ node()
     {
 
          jobDsl targets: ['jenkins-library/dsl/jobs/build_root.groovy',
-                            'jenkins-library/dsl/jobs/packer_goldenos.groovy'].join('\n'),
+                        'jenkins-library/dsl/jobs/ubi8_hardened.groovy',
+                        'jenkins-library/dsl/jobs/docker_ansible.groovy',
+                          'jenkins-library/dsl/jobs/docker_terraform.groovy',
+                          'jenkins-library/dsl/jobs/docker_consul.groovy',
+                          'jenkins-library/dsl/jobs/docker_vault.groovy',
+                          'jenkins-library/dsl/jobs/docker_packer.groovy',
+                          'jenkins-library/dsl/jobs/packer_goldenos.groovy'].join('\n'),
          removedJobAction: 'DELETE',
          removedViewAction: 'DELETE',
          lookupStrategy: 'SEED_JOB',

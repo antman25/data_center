@@ -1,6 +1,6 @@
-folder("${JOB_ROOT}/docker/terraform")
+folder("docker/terraform")
 
-pipelineJob("${JOB_ROOT}/docker/terraform/build") {
+pipelineJob("docker/terraform/build") {
 
   def repo = 'http://gitlab.antlinux.local:30080/antman/data_center.git'
 
@@ -11,7 +11,7 @@ pipelineJob("${JOB_ROOT}/docker/terraform/build") {
       scm {
         git {
           remote { url(repo) }
-          branches("${BUILD_BRANCH}")
+          branches("${SOURCE_BRANCH}")
           scriptPath('jenkins-library/docker/terraform/Jenkinsfile')
           extensions { }  // required as otherwise it may try to tag the repo, which you may not want
         }
