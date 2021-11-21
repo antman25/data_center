@@ -21,25 +21,25 @@ source "vsphere-iso" "centos_iso" {
 	insecure_connection  = "true"
 	iso_checksum         = "${var.iso_checksum_type}:${var.iso_checksum}"
 	
-	iso_url	      = "${local.full_iso_url}"
+	iso_url	      = local.full_iso_url
 
 	iso_target_path      = "packer_cache"
 	network_adapters {
-		network      = "${var.network}"
+		network      = var.network
 		network_card = "vmxnet3"
  	}
-	password         = "${var.vsphere_password}"
+	password         = var.vsphere_password
 	shutdown_command = "echo 'packer '|sudo -S shutdown -P now"
-	ssh_username     = "${var.ssh_username}"
-	ssh_password     = "${var.ssh_password}"
+	ssh_username     = var.ssh_username
+	ssh_password     = var.ssh_password
 	ssh_timeout      = "10m"
 
 	storage {
 		disk_size             = "${var.vm_disk_size}"
 		disk_thin_provisioned = true
 	}
-	username       = "${var.vsphere_user}"
-	vcenter_server = "${var.vsphere_server}"
+	username       = var.vsphere_user
+	vcenter_server = var.vsphere_server
 	vm_name        = "${local.vm_prefix_name}--${var.vm_stage_name[0]}"
 	resource_pool  = "cluster"
 

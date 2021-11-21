@@ -17,3 +17,14 @@ variable "vm_stage_name" {
              "Stage3-stig"]
   sensitive = false
 }
+
+variable "os" {
+  type = string
+  default = "centos"
+  sensitive = false
+}
+
+variable "os_version" {
+  type = string
+  sensitive = false
+}

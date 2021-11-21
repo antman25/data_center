@@ -45,19 +45,8 @@ node("DOCKER")
                 stage("Stage01 - ISO")
                 {
                     //                        -var http_ip=${build_node_ip} \
-                    withCredentials([string(credentialsId: 'vsphere-password', variable: 'vsphere_password')]) {
-                        sh """docker run \
-                                --pull always \
-                                --network host \
-                                -e BUILD_BRANCH=${params.BUILD_BRANCH} \
-                                -e VSPHERE_PASSWORD=${vsphere_password} \
-                                -v ${WORKSPACE}/packer-library/centos:/packer \
-                                nexus.antlinux.local:8443/custom-base/hashicorp/packer:latest \
-                                build -color=false -timestamp-ui -on-error=cleanup -force \
-                                -var-file=vars/common_vm/default.json \
-                                -var-file=${var_filepath} \
-                                -only="stage01.vsphere-iso.centos_iso" /packer
-                        """
+                    withCredentials([string(credentialsId: 'vsphere-password', variable: 'VSPHERE_PASSWORD')]) {
+                        sh "cd packer-library/centos/scripts && ./build_stage01.sh ${var_filepath}"
 
                     }
                 }
@@ -70,7 +59,20 @@ node("DOCKER")
         }
     }
 
-
+    /*
+    sh """docker run \
+                                    --pull always \
+                                    --network host \
+                                    -e BUILD_BRANCH=${params.BUILD_BRANCH} \
+                                    -e VSPHERE_PASSWORD=${vsphere_password} \
+                                    -v ${WORKSPACE}/packer-library/centos:/packer \
+                                    nexus.antlinux.local:8443/custom-base/hashicorp/packer:latest \
+                                    build -color=false -timestamp-ui -on-error=cleanup -force \
+                                    -var-file=vars/common_vm/default.json \
+                                    -var-file=${var_filepath} \
+                                    -only="stage01.vsphere-iso.centos_iso" /packer
+                            """
+    */
 	
 
 	/*properties([ 	disableConcurrentBuilds(),
