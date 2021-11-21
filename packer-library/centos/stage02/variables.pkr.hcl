@@ -1,3 +1,31 @@
+variable "vm_cpu_num" {
+  type =  number
+  default = 1
+  sensitive = false
+}
+
+variable "vm_mem_size" {
+  type = number
+  default = 4096
+  sensitive = false
+}
+
+variable "vm_disk_size" {
+  type =  number
+  default = 25600
+  sensitive = false
+}
+
+variable "boot_wait" {
+  type =  string
+  default = "10s"
+  sensitive = false
+}
+
+variable "boot_command" {
+  type = string
+  sensitive = false
+}
 
 variable "repo_username" {
   type =  string

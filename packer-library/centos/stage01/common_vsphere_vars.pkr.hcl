@@ -1,0 +1,1 @@
+../common/common_vsphere_vars.pkr.hcl

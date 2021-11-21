@@ -1,0 +1,1 @@
+../common/common_local_vars.pkr.hcl

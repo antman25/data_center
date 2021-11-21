@@ -1,0 +1,1 @@
+../common/common_build_vars.pkr.hcl
