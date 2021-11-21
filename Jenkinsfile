@@ -76,7 +76,7 @@ node()
             build job: 'docker/ubi8/build'
     }
 
-    stage('Build All')
+    stage('Build Docker Images')
     {
         parallel(all_stages)
     }
