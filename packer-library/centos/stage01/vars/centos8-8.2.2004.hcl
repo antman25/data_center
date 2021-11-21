@@ -1,5 +1,7 @@
 repo_username = "packer"
 repo_password = "packer"
+ssh_username = "packer"
+ssh_password = "packer"
 repo_iso_filepath =  "centos8/CentOS-8.2.2004-x86_64-dvd1.iso"
 os_version = "8.2.2004"
 iso_checksum = "47dc26d76e566280cc47437fd2466134"
