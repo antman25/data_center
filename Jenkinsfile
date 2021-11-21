@@ -78,7 +78,9 @@ node()
 
     stage('Build Docker Images')
     {
-        parallel(all_stages)
+        withEnv(["TEST_VAR=${source_branch}"]) {
+            parallel(all_stages)
+        }
     }
 
     stage('Build packer-CentOS-7.9.2009')
