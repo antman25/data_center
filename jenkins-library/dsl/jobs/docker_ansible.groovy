@@ -1,6 +1,6 @@
-folder("${JOB_ROOT}/docker/ansible")
+folder("docker/ansible")
 
-pipelineJob("${JOB_ROOT}/docker/ansible/build") {
+pipelineJob("docker/ansible/build") {
 
   def repo = 'http://gitlab.antlinux.local:30080/antman/data_center.git'
 
@@ -11,7 +11,7 @@ pipelineJob("${JOB_ROOT}/docker/ansible/build") {
       scm {
         git {
           remote { url(repo) }
-          branches("${BUILD_BRANCH}")
+          branches("${SOURCE_BRANCH}")
           scriptPath('jenkins-library/docker/ansible/Jenkinsfile')
           extensions { }  // required as otherwise it may try to tag the repo, which you may not want
         }
