@@ -46,7 +46,7 @@ node("DOCKER")
                 {
                     //                        -var http_ip=${build_node_ip} \
                     withCredentials([string(credentialsId: 'vsphere-password', variable: 'VSPHERE_PASSWORD')]) {
-                        sh "cd packer-library/centos/scripts && ./build_stage01_centos7.sh"
+                        sh "cd packer-library/centos/scripts && ./build_stage01 ${var_filepath}"
 
                     }
                 }
