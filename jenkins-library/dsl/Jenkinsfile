@@ -44,6 +44,8 @@ node()
 
 	stage('Run Build Jobs')
 	{
-		build job: 'build-master', parameters: [[$class: 'StringParameterValue', name: 'BUILD_BRANCH', value: gitlab_trigger_branch]]
+	    withEnv(["TEST_VAR=${gitlab_trigger_branch}"]) {
+		    build job: 'build-master', parameters: [[$class: 'StringParameterValue', name: 'BUILD_BRANCH', value: gitlab_trigger_branch]]
+        }
 	}
 }
