@@ -35,6 +35,52 @@ node()
 
     all_stages = [:]
 
+    all_stages = [:]
+    all_stages['ansible'] = {
+        stage('Build docker-ansible')
+        {
+            build job: "docker/ansible/build"
+        }
+    }
+
+    all_stages['docker_terraform'] = {
+        stage('Build docker-terraform')
+        {
+            build job: "docker/terraform/build"
+        }
+    }
+
+    all_stages['docker_consul'] = {
+            stage('Build docker-consul')
+            {
+                    build job: "docker/consul/build"
+            }
+    }
+
+    all_stages['docker_vault'] = {
+            stage('Build docker-vault')
+            {
+                    build job: "docker/vault/build"
+            }
+    }
+
+    all_stages['docker_packer'] = {
+            stage('Build docker-packer')
+            {
+                    build job: "docker/packer/build"
+            }
+    }
+
+    stage('Build docker-ubi8-hardened')
+    {
+            build job: 'docker/ubi8/build'
+    }
+
+    stage('Build All')
+    {
+        parallel(all_stages)
+    }
+
     stage('Build packer-CentOS-7.9.2009')
     {
         build job: "packer/golden-baseos/centos7/CentOS-7.9.2009/build", parameters: [[$class: 'StringParameterValue', name: 'BUILD_BRANCH', value: source_branch]]
