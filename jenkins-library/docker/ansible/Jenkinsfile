@@ -2,6 +2,13 @@ node()
 {
 	def has_mods = false
 
+	stage("ENV Dump")
+	{
+	    sh("env | sort -n")
+	    print("Params: ${params}")
+	}
+
+
 	stage('Git Checkout')
 	{
 		//checkout scm
