@@ -43,30 +43,5 @@ node()
     {
         build job: "packer/golden-baseos/centos8/CentOS-8.4.2105/build", parameters: [[$class: 'StringParameterValue', name: 'BUILD_BRANCH', value: source_branch]]
     }
-            /*all_stages['packer_CentOS-7.9.2009'] = {
-                                                        stage('Build packer-CentOS-7.9.2009')
-                                                        {
-                                                                build job: "packer/golden-baseos/centos7/CentOS-7.9.2009/build", parameters: [[$class: 'StringParameterValue', name: 'BUILD_BRANCH', value: source_branch]]
-                                                        }
-                                                    }
 
-            all_stages['packer_CentOS-8.2.2004'] = {
-                                                        stage('Build packer-CentOS-8.2.2004')
-                                                        {
-                                                                build job: "packer/golden-baseos/centos8/CentOS-8.2.2004/build", parameters: [[$class: 'StringParameterValue', name: 'BUILD_BRANCH', value: source_branch]]
-                                                        }
-                                                    }
-
-            all_stages['packer_CentOS-8.4.2105'] = {
-                                                        stage('Build packer-CentOS-8.4.2105')
-                                                        {
-                                                                build job: "packer/golden-baseos/centos8/CentOS-8.4.2105/build", parameters: [[$class: 'StringParameterValue', name: 'BUILD_BRANCH', value: source_branch]]
-                                                        }
-                                                    }
-
-
-    	stage('Build All Jobs')
-    	{
-    		parallel(all_stages)
-    	}*/
 }
