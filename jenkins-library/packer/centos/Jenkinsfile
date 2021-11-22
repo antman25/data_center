@@ -29,19 +29,27 @@ node("DOCKER")
                 def prev_git_commit = readFile("${WORKSPACE}/PREV_GIT_COMMIT").trim()
                 echo "Last Successful commit hash: ${prev_git_commit}"
                 def modified_files = sh(returnStdout: true, script: "git diff --name-only ${prev_git_commit}").trim()
-                echo "Modified Files:\n${modified_files}"
+                //echo "Modified Files:\n${modified_files}"
 
                 def trigger_path_split = trigger_paths.split(";")
-                trigger_path_split.each {
-                    print("Trigger Path: ${it}")
-                }
+
                 def modified_files_lines = modified_files.split('\n')
-                modified_files_lines.each {
-                    print("Modified file: ${it}")
+
+                trigger_path_split.each { cur_trigger_path ->
+                    print("Current Trigger Path: ${cur_trigger_path}")
+                    modified_files_lines.each { modified_path ->
+                        print("Current Modified File Path: ${modified_files}")
+                        if (modified_path.contains(cur_trigger_path) == true)
+                        {
+                            print("!!! ^^^ Trigger Build ^^^ !!!")
+                            has_mods = true
+                        }
+                    }
                 }
 
 
-                has_mods = true
+
+
             }
             catch (Exception ex)
             {
