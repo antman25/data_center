@@ -1,7 +1,7 @@
 #!/bin/bash
 cp ${PWD}/../../common/* ${PWD}/../stage02 && \
 mkdir -p ${PWD}/../stage02/output && \
-chown 777 ${PWD}/../stage02/output && \
+chmod 777 ${PWD}/../stage02/output && \
 docker run \
       --pull always \
       --network host \
