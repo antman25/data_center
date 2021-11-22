@@ -50,6 +50,15 @@ node("DOCKER")
 
                     }
                 }
+
+                stage("Stage01 - Base OS Config")
+                {
+                    //                        -var http_ip=${build_node_ip} \
+                    withCredentials([string(credentialsId: 'vsphere-password', variable: 'VSPHERE_PASSWORD')]) {
+                        sh "cd packer-library/centos/scripts && ./build_stage02.sh ${var_filepath}"
+
+                    }
+                }
             }
         }
 
