@@ -19,8 +19,8 @@ source "vsphere-clone" "centos8-stage02" {
 
     insecure_connection = true
 
-    /*export {
+    export {
       force = true
-      output_directory = "."
-    }*/
+      output_directory = "/packer"
+    }
 }
