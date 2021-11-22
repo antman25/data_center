@@ -38,18 +38,14 @@ node("DOCKER")
                 trigger_path_split.each { cur_trigger_path ->
                     print("Current Trigger Path: ${cur_trigger_path}")
                     modified_files_lines.each { modified_path ->
-                        print("Current Modified File Path: ${modified_files}")
-                        if (modified_path.contains(cur_trigger_path) == true)
+                        print("Current Modified File Path: ${modified_path}")
+                        if (modified_path.trim().contains(cur_trigger_path.trim()) == true)
                         {
                             print("!!! ^^^ Trigger Build ^^^ !!!")
                             has_mods = true
                         }
                     }
                 }
-
-
-
-
             }
             catch (Exception ex)
             {
@@ -63,24 +59,26 @@ node("DOCKER")
             {
                 stage("Stage01 - ISO")
                 {
-                    //                        -var http_ip=${build_node_ip} \
-                    withCredentials([string(credentialsId: 'vsphere-password', variable: 'VSPHERE_PASSWORD')]) {
-                        withEnv(["BUILD_BRANCH=${build_branch}"])
-                        {
-                            sh "cd packer-library/centos/golden/scripts && ./build_stage01.sh ${var_filepath}"
+                    if (has_mods == true)
+                    {
+                        withCredentials([string(credentialsId: 'vsphere-password', variable: 'VSPHERE_PASSWORD')]) {
+                            withEnv(["BUILD_BRANCH=${build_branch}"])
+                            {
+                                sh "cd packer-library/centos/golden/scripts && ./build_stage01.sh ${var_filepath}"
+                            }
                         }
-
-
                     }
                 }
 
                 stage("Stage02 - Base OS Config")
                 {
-                    //                        -var http_ip=${build_node_ip} \
-                    withCredentials([string(credentialsId: 'vsphere-password', variable: 'VSPHERE_PASSWORD')]) {
-                        withEnv(["BUILD_BRANCH=${build_branch}"])
-                        {
-                            sh "cd packer-library/centos/golden/scripts && ./build_stage02.sh ${var_filepath}"
+                    if (has_mods == true)
+                    {
+                        withCredentials([string(credentialsId: 'vsphere-password', variable: 'VSPHERE_PASSWORD')]) {
+                            withEnv(["BUILD_BRANCH=${build_branch}"])
+                            {
+                                sh "cd packer-library/centos/golden/scripts && ./build_stage02.sh ${var_filepath}"
+                            }
                         }
                     }
                 }
