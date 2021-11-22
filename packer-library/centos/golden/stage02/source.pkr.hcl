@@ -18,4 +18,9 @@ source "vsphere-clone" "centos8-stage02" {
     RAM_reserve_all      = true
 
     insecure_connection = true
+
+    export {
+      force = true
+      output_directory = "/packer/output"
+    }
 }
