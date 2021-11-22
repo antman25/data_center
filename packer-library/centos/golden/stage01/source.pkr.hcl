@@ -21,7 +21,7 @@ source "vsphere-iso" "centos_iso" {
 	insecure_connection  = "true"
 	iso_checksum         = "${var.iso_checksum_type}:${var.iso_checksum}"
 	
-	iso_url	      = local.full_iso_url
+	iso_url	      =  "${var.repo_scheme}://${var.repo_username}:${var.repo_password}@${var.repo_iso_base_url}${var.repo_iso_filepath}"
 
 	iso_target_path      = "packer_cache"
 	network_adapters {

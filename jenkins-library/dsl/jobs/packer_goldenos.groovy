@@ -35,8 +35,7 @@ pipelineJob("packer/golden-baseos/centos7/CentOS-7.9.2009/build") {
 
   environmentVariables {
     env('var_filepath', 'vars/centos7-7.9.2009.hcl')
-    env('common_triggers', "packer-library/centos/common_vm/")
-    env('stage1_triggers', "packer-library/centos/ks/ks_centos8.cfg, vars/stage1_iso/centos7-7.9.2009.hcl")
+    env('triggers', "packer-library/centos/common/; packer-library/centos/golden/scripts/; packer-library/centos/golden/; ")
     keepBuildVariables(true)
   }
   definition {
@@ -67,8 +66,7 @@ pipelineJob("packer/golden-baseos/centos8/CentOS-8.2.2004/build") {
   }*/
   environmentVariables {
     env('var_filepath', 'vars/centos8-8.2.2004.hcl')
-    env('common_triggers', "packer-library/centos/common_vm/")
-    env('stage1_triggers', "packer-library/centos/ks/ks_centos8.cfg, vars/stage1_iso/centos8-8.2.2004.hcl")
+    env('triggers', "packer-library/centos/common/; packer-library/centos/golden/scripts/; packer-library/centos/golden/; ")
     keepBuildVariables(true)
   }
 
@@ -100,8 +98,7 @@ pipelineJob("packer/golden-baseos/centos8/CentOS-8.4.2105/build") {
   }*/
   environmentVariables {
     env('var_filepath', 'vars/centos8-8.4.2105.hcl')
-    env('common_triggers', "packer-library/centos/common_vm/")
-    env('stage1_triggers', "packer-library/centos/ks/ks_centos8.cfg, vars/stage1_iso/centos8-8.4.2105.hcl")
+    env('triggers', "packer-library/centos/common/; packer-library/centos/golden/scripts/; packer-library/centos/golden/; ")
     keepBuildVariables(true)
   }
   definition {
