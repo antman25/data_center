@@ -1,5 +1,5 @@
 #!/bin/bash
-cp ${PWD}/../common/* ${PWD}/../stage02 && \
+cp ${PWD}/../../common/* ${PWD}/../stage02 && \
 docker run \
       --pull always \
       --network host \
