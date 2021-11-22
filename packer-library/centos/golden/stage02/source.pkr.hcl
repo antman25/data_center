@@ -21,6 +21,6 @@ source "vsphere-clone" "centos8-stage02" {
 
     export {
       force = true
-      output_directory = "./output_vsphere"
+      output_directory = "."
     }
 }
