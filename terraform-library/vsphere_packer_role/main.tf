@@ -79,7 +79,8 @@ resource vsphere_role "packer_role" {
                         "VirtualMachine.Provisioning.Clone",
 			"VirtualMachine.Provisioning.MarkAsTemplate",
 
-			"VirtualMachine.State.CreateSnapshot"
+			"VirtualMachine.State.CreateSnapshot",
+			"VApp.Export"
 		]
 }
 
