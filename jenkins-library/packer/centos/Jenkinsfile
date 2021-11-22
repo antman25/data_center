@@ -30,6 +30,17 @@ node("DOCKER")
                 echo "Last Successful commit hash: ${prev_git_commit}"
                 def modified_files = sh(returnStdout: true, script: "git diff --name-only ${prev_git_commit}").trim()
                 echo "Modified Files:\n${modified_files}"
+                def trigger_paths = env.getOrDefault("triggers", "")
+                def trigger_path_split = trigger_paths.split(";")
+                trigger_path_split.each {
+                    print("Trigger Path: ${it}")
+                }
+                def modified_files_lines = modified_files.split('\n')
+                modified_files_lines.each {
+                    print("Modified file: ${it}")
+                }
+
+
                 has_mods = true
             }
             catch (Exception ex)
@@ -48,7 +59,7 @@ node("DOCKER")
                     withCredentials([string(credentialsId: 'vsphere-password', variable: 'VSPHERE_PASSWORD')]) {
                         withEnv(["BUILD_BRANCH=${build_branch}"])
                         {
-                            sh "cd packer-library/centos/scripts && ./build_stage01.sh ${var_filepath}"
+                            sh "cd packer-library/centos/golden/scripts && ./build_stage01.sh ${var_filepath}"
                         }
 
 
@@ -61,7 +72,7 @@ node("DOCKER")
                     withCredentials([string(credentialsId: 'vsphere-password', variable: 'VSPHERE_PASSWORD')]) {
                         withEnv(["BUILD_BRANCH=${build_branch}"])
                         {
-                            sh "cd packer-library/centos/scripts && ./build_stage02.sh ${var_filepath}"
+                            sh "cd packer-library/centos/golden/scripts && ./build_stage02.sh ${var_filepath}"
                         }
                     }
                 }
