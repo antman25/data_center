@@ -91,7 +91,6 @@ node("DOCKER")
         }
     }
 
-
     /*
     sh """docker run \
                                     --pull always \
