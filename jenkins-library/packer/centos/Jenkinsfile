@@ -90,7 +90,6 @@ node("DOCKER")
             sh("echo ${current_git_commit} > PREV_GIT_COMMIT")
         }
     }
-
     /*
     sh """docker run \
                                     --pull always \
