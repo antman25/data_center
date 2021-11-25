@@ -5,6 +5,7 @@ node()
     {
         print("TEst Build Status Sent")
     }
+
     stage('ENV')
     {
         print("Params = ${params}")
