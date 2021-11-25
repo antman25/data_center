@@ -104,7 +104,6 @@ node("DOCKER")
                                     -only="stage01.vsphere-iso.centos_iso" /packer
                             """
     */
-	
 
 	/*properties([ 	disableConcurrentBuilds(),
 			gitLabConnection(gitLabConnection: 'gitlab1', jobCredentialId: ''),
