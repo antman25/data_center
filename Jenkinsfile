@@ -1,6 +1,10 @@
 node()
 {
     def source_branch = env.getEnvironment().getOrDefault("SOURCE_BRANCH", "main")
+    gitlabCommitStatus(name: "test")
+    {
+        print("TEst Build Status Sent")
+    }
     stage('ENV')
     {
         print("Params = ${params}")
