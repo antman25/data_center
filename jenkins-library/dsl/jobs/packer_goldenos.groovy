@@ -13,7 +13,7 @@ pipelineJob("packer/golden-baseos/winsvr2019/winsvr2019-JAN2021/build") {
       scm {
         git {
           remote { url(repo) }
-          branches("${SOURCE_BRANCH}")
+          branches("${gitlabSourceBranch}")
           scriptPath('jenkins-library/packer/winsvr/Jenkinsfile')
           extensions { }  // required as otherwise it may try to tag the repo, which you may not want
         }
@@ -43,7 +43,7 @@ pipelineJob("packer/golden-baseos/centos7/CentOS-7.9.2009/build") {
       scm {
         git {
           remote { url(repo) }
-          branches("${SOURCE_BRANCH}")
+          branches("${gitlabSourceBranch}")
           scriptPath('jenkins-library/packer/centos/Jenkinsfile')
           extensions { }  // required as otherwise it may try to tag the repo, which you may not want
         }
@@ -75,7 +75,7 @@ pipelineJob("packer/golden-baseos/centos8/CentOS-8.2.2004/build") {
       scm {
         git {
           remote { url(repo) }
-          branches("${SOURCE_BRANCH}")
+          branches("${gitlabSourceBranch}")
           scriptPath('jenkins-library/packer/centos/Jenkinsfile')
           extensions { }  // required as otherwise it may try to tag the repo, which you may not want
         }
@@ -106,7 +106,7 @@ pipelineJob("packer/golden-baseos/centos8/CentOS-8.4.2105/build") {
       scm {
         git {
           remote { url(repo) }
-          branches("${SOURCE_BRANCH}")
+          branches("${gitlabSourceBranch}")
           scriptPath('jenkins-library/packer/centos/Jenkinsfile')
           extensions { }  // required as otherwise it may try to tag the repo, which you may not want
         }
