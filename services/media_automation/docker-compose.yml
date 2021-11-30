@@ -78,38 +78,7 @@ services:
     volumes:
         - /var/lib/media_automation/sonarr:/config
         - /mnt/media/media/tv:/tv
-        - /mnt/media/downloads/completed:/downloads
+        - /mnt/media/downloads/completed:/data/completed
         - /mnt/media/downloads/trash:/trash
     restart: unless-stopped
 
- lidarr:
-    image: linuxserver/lidarr
-    network_mode: "service:transmission-openvpn"
-    container_name: lidarr
-    environment:
-        - PUID=1000
-        - PGID=100
-        - TZ=America/Denver
-        - UMASK_SET=022 #optional
-    volumes:
-        - /var/lib/media_automation/lidarr:/config
-        - /mnt/media/media/music:/music
-        - /mnt/media/downloads/completed:/downloads
-    restart: unless-stopped
-
- lazylibrarian:
-    image: linuxserver/lazylibrarian
-    network_mode: "service:transmission-openvpn"
-    container_name: lazylibrarian
-    environment:
-        - PUID=1000
-        - PGID=100
-         - TZ=America/Denver
-        #- DOCKER_MODS=linuxserver/calibre-web:calibre #optional
-    volumes:
-        - /mnt/media/appdata/lazylibrarian:/config
-        - /mnt/media/downloads/completed:/downloads
-        - /mnt/media/media/ebooks:/books
-    restart: unless-stopped
-
- 
