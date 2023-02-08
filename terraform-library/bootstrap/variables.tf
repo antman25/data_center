@@ -21,7 +21,6 @@ description = "VMWare vSphere datacenter"
 variable "vsphere_cluster" {
 type = string
 description = "VMWare vSphere cluster"
-default = ""
 }
 variable "vsphere_template_folder" {
 type = string

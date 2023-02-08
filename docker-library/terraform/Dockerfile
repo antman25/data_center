@@ -10,6 +10,7 @@ ENV VSPHERE_PROVIDER_DIR=${NAMESPACE_DIR}/vsphere
 ENV LOCAL_PROVIDER_DIR=${NAMESPACE_DIR}/local
 ENV AD_PROVIDER_DIR=${NAMESPACE_DIR}/ad
 
+
 RUN useradd -ms /bin/bash/ terraform && \
     yum install -y unzip && \ 
     curl -k -u packer:packer https://nexus.antlinux.local:8443/repository/generic-vendor/hashicorp/terraform/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -o /tmp/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \

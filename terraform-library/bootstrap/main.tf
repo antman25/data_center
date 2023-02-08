@@ -28,7 +28,7 @@ data "vsphere_network" "network" {
 }
 
 data "vsphere_virtual_machine" "template" {
-    name = "/${var.vsphere_datacenter}/vm/${var.vsphere_template_folder}/${var.vm_template_name}"
+    name = "/${var.vsphere_datacenter}/vm/pipeline/base_template/${var.vm_template_name}"
     datacenter_id = data.vsphere_datacenter.dc.id
 }
 
