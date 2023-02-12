@@ -4,20 +4,12 @@
 
 docker rm -f bitbucket-postgres
 docker rm -f bitbucket
-docker rm -f jenkins
+docker rm -f jira
 
 docker network rm myBitbucketNetwork
 
 
 docker network create --driver bridge --subnet=172.50.0.0/16 myBitbucketNetwork
-
-docker run --network=myBitbucketNetwork --ip=172.50.1.3 -d \
-           --name="jenkins" \
-           -p 8080:8080 \
-           -p 50000:50000 \
-           -v /mnt/scratch/volumes/jenkins:/var/jenkins_home \
-           jenkins/jenkins:2.389
-
 
 docker run --network=myBitbucketNetwork --ip=172.50.1.2 -d \
     --name="bitbucket-postgres" \
@@ -39,3 +31,9 @@ docker run --network=myBitbucketNetwork --ip=172.50.1.1 -d \
     --name="bitbucket" \
     -d -p 7990:7990 -p 7999:7999 \
     atlassian/bitbucket
+
+docker run --network=myBitbucketNetwork --ip=172.50.1.3 -d \
+     --name="jira" \
+     -v /mnt/scratch/volumes/jira:/var/atlassian/application-data/jira \
+     -p 8080:8080 \
+     atlassian/jira-software

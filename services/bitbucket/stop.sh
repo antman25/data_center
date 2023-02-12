@@ -1,3 +1,3 @@
 #!/bin/bash
-docker stop --time=120 nexus
-docker rm nexus
+docker rm -f bitbucket-postgres
+docker rm -f bitbucket
