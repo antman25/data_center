@@ -1,0 +1,8 @@
+ldap
+kubernetes client
+Kubernetes CLI Plugin??
+job dsl
+bitbucket branch source
+vault
+matrix auth
+stage view
