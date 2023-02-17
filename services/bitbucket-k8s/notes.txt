@@ -2,8 +2,13 @@ helm repo add atlassian-data-center https://atlassian.github.io/data-center-helm
 helm install my-bitbucket atlassian-data-center/bitbucket --version 1.9.1 -f test_setup.yaml
 
 kubectl create ns bitbucket
+
 kubectl create -n bitbucket secret generic postgres-cred --from-literal=username=atlbitbucket --from-literal=password=password
 kubectl create -n bitbucket secret generic bitbucket-key --from-file=license-key=/mnt/scratch/private/atlassian/bitbucket.key
 kubectl create -n bitbucket secret generic admin-cred --from-literal=username=admin --from-literal=password=password --from-literal=displayName=admin --from-literal=emailAddress=admin@antlinux.local
+kubectl create -n bitbucket secret generic elasticsearch-cred --from-literal=username=bitbucket-svc --from-literal=password=password
+
 helm install -n bitbucket bitbucket atlassian-data-center/bitbucket --version 1.9.1 -f /mnt/scratch/projects/data_center/services/bitbucket-k8s/test_setup.yaml
 helm upgrade --install -n bitbucket bitbucket atlassian-data-center/bitbucket --version 1.9.1 -f /mnt/scratch/projects/data_center/services/bitbucket-k8s/test_setup.yaml
+
+kubectl port-forward -n bitbucket svc/bitbucket 7990:80

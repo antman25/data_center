@@ -430,7 +430,7 @@ ingress:
   # this hostname will be routed by the Ingress Resource to the appropriate backend
   # Service.
   #
-  host: http://10.0.0.222
+  host: localhost:7990
 
   # -- The base path for the Ingress Resource. For example '/bitbucket'. Based on a
   # 'ingress.host' value of 'company.k8s.com' this would result in a URL of
