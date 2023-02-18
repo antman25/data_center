@@ -1,0 +1,1 @@
+helm repo add mattermost https://helm.mattermost.com

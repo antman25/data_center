@@ -1,0 +1,16 @@
+helm repo add atlassian-data-center https://atlassian.github.io/data-center-helm-charts
+helm install my-bitbucket atlassian-data-center/bitbucket --version 1.9.1 -f test_setup.yaml
+
+kubectl create ns jira
+
+
+kubectl create -n jira secret generic jira-key --from-file=license-key=/mnt/scratch/private/atlassian/jira.key
+kubectl create -n jira secret generic admin-cred --from-literal=username=admin --from-literal=password=password --from-literal=displayName=admin --from-literal=emailAddress=admin@antlinux.local
+kubectl create -n jira secret generic elasticsearch-cred --from-literal=username=bitbucket-svc --from-literal=password=password
+
+
+kubectl create -n jira secret generic postgres-cred --from-literal=username=atljira --from-literal=password=password
+
+helm upgrade --install -n jira jira atlassian-data-center/jira -f /mnt/scratch/projects/data_center/services/jira-k8s/test_setup.yaml
+
+

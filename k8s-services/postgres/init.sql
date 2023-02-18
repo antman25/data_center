@@ -1,0 +1,13 @@
+CREATE ROLE atlbitbucket WITH LOGIN PASSWORD 'password' VALID UNTIL 'infinity';
+CREATE DATABASE bitbucket with ENCODING='UTF8' OWNER=atlbitbucket CONNECTION LIMIT=-1;
+
+CREATE ROLE atljira WITH LOGIN PASSWORD 'password' VALID UNTIL 'infinity';
+CREATE DATABASE jira with ENCODING='UTF8' OWNER=atljira CONNECTION LIMIT=-1;
+
+CREATE ROLE atlconfluence WITH LOGIN PASSWORD 'password' VALID UNTIL 'infinity';
+CREATE DATABASE confluence with ENCODING='UTF8' OWNER=atlconfluence CONNECTION LIMIT=-1;
+
+
+
+CREATE ROLE mattermost WITH LOGIN PASSWORD 'password' VALID UNTIL 'infinity';
+CREATE DATABASE mattermost with ENCODING='UTF8' OWNER=mattermost CONNECTION LIMIT=-1;

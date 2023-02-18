@@ -1,0 +1,13 @@
+helm repo add atlassian-data-center https://atlassian.github.io/data-center-helm-charts
+
+kubectl create ns confluence
+
+
+kubectl create -n confluence secret generic postgres-cred --from-literal=username=atlconfluence --from-literal=password=password
+kubectl create -n confluence secret generic confluence-key --from-file=license-key=/mnt/scratch/private/atlassian/confluence.key
+kubectl create -n confluence secret generic admin-cred --from-literal=username=admin --from-literal=password=password --from-literal=displayName=admin --from-literal=emailAddress=admin@antlinux.local
+kubectl create -n confluence secret generic elasticsearch-cred --from-literal=username=bitbucket-svc --from-literal=password=password
+
+helm upgrade --install -n confluence confluence atlassian-data-center/confluence /mnt/scratch/projects/data_center/services/confluence-k8s/test_setup.yaml
+
+

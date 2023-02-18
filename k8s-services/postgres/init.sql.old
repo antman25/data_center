@@ -1,0 +1,26 @@
+CREATE USER atlbitbucket;
+CREATE USER atljira;
+CREATE USER atlconfluence;
+
+CREATE DATABASE bitbucket;
+CREATE DATABASE jira;
+CREATE DATABASE confluence;
+
+GRANT ALL PRIVILEGES ON DATABASE bitbucket TO atlbitbucket;
+GRANT ALL PRIVILEGES ON DATABASE jira TO atljira;
+GRANT ALL PRIVILEGES ON DATABASE confluence TO atlconfluence;
+
+ALTER USER atlbitbucket PASSWORD 'password';
+ALTER USER atljira PASSWORD 'password';
+ALTER USER atlconfluence PASSWORD 'password';
+
+GRANT ALL ON SCHEMA public to atlbitbucket;
+GRANT ALL ON SCHEMA public to atljira;
+GRANT ALL ON SCHEMA public to atlconfluence;
+
+postgres=# GRANT USAGE ON SCHEMA public TO atlbitbucket;
+GRANT
+postgres=# GRANT USAGE ON SCHEMA public TO atljira;
+GRANT
+postgres=# GRANT USAGE ON SCHEMA public TO atlconfluence;
+GRANT

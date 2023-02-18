@@ -1,0 +1,18 @@
+helm repo add elastic https://helm.elastic.co
+kubectl create ns elasticsearch
+
+helm upgrade --install -n elasticsearch elasticsearch elastic/elasticsearch -f /mnt/scratch/projects/data_center/services/elasticsearch-k8s/test_setup.yaml
+
+kubectl port-forward -n longhorn-system svc/elasticsearch-master 9200:9200
+
+curl -u elastic:password -k -X POST "https://localhost:9200/_security/user/bitbucket-svc?pretty" -H 'Content-Type: application/json' -d'
+{
+  "password" : "password",
+  "roles" : [ "admin" ],
+  "full_name" : "admin",
+  "email" : "admin@admin.org",
+  "metadata" : {
+    "intelligence" : 7
+  }
+}
+'
