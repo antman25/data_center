@@ -747,7 +747,7 @@ server:
   # contains best practices and recommendations for selecting suitable
   # hardware sizes for your Consul servers.
   # @type: string
-  storageClass: null
+  storageClass: longhorn-retain
 
   # This will enable/disable Connect (https://consul.io/docs/connect). Setting this to true
   # _will not_ automatically secure pod communication, this
@@ -1469,7 +1469,7 @@ dns:
   # Used to control the type of service created. For
   # example, setting this to "LoadBalancer" will create an external load
   # balancer (for supported K8S installations)
-  type: ClusterIP
+  type: LoadBalancer
 
   # Set a predefined cluster IP for the DNS service.
   # Useful if you need to reference the DNS service's IP
@@ -1509,7 +1509,7 @@ ui:
 
     # The service type to register.
     # @type: string
-    type: null
+    type: LoadBalancer
 
     # Set the port value of the UI service.
     port:
