@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: vault-issuer
+spec:
+  vault:
+    server: http://vault.vault:8200
+    path: antlinux-local/v1/ica1/v1/sign/vault-app-role
+    auth:
+      kubernetes:
+        mountPath: /v1/auth/kubernetes
+        role: cert-manager-role
+        secretRef:
+          name: issuer-token
+          key: token

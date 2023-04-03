@@ -67,8 +67,8 @@ image:
 
 service:
   ui:
-    type: LoadBalancer
-    loadBalancerIP: "10.0.0.40"
+    type: ClusterIP
+    loadBalancerIP: ""
     nodePort: null
   manager:
     type: ClusterIP
@@ -78,9 +78,9 @@ service:
 
 persistence:
   defaultClass: true
-  defaultFsType: ext4
+  defaultFsType: xfs
   defaultMkfsParams: ""
-  defaultClassReplicaCount: 3
+  defaultClassReplicaCount: 1
   defaultDataLocality: disabled # best-effort otherwise
   reclaimPolicy: Delete
   migratable: false
@@ -274,18 +274,18 @@ ingress:
 
   ## Add ingressClassName to the Ingress
   ## Can replace the kubernetes.io/ingress.class annotation on v1.18+
-  ingressClassName: ~
+  ingressClassName: nginx
 
   host: longhorn.antlinux.local
 
   ## Set this to true in order to enable TLS on the ingress record
-  tls: false
+  tls: true
 
   ## Enable this in order to enable that the backend service will be connected at port 443
-  secureBackends: false
+  secureBackends: true
 
   ## If TLS is set to true, you must declare what secret will store the key/certificate for TLS
-  tlsSecret: longhorn.local-tls
+  tlsSecret: longhorn-antlinux-local-tls
 
   ## If ingress is enabled you can set the default ingress path
   ## then you can access the UI by using the following full path {{host}}+{{path}}
@@ -313,9 +313,9 @@ ingress:
   ##
   ## It is also possible to create and manage the certificates outside of this helm chart
   ## Please see README.md for more information
-  # - name: longhorn.local-tls
-  #   key:
-  #   certificate:
+  #  - name: longhorn-antlinux-local-tls
+  #    key: tls.key
+  #    certificate: tls.crt
 
 #  For Kubernetes < v1.25, if your cluster enables Pod Security Policy admission controller,
 #  set this to `true` to ship longhorn-psp which allow privileged Longhorn pods to start

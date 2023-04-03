@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: longhorn-antlinux-local
+  namespace: longhorn-system
+spec:
+  secretName: longhorn-antlinux-local-tls
+  issuerRef:
+    name: vault-issuer
+  commonName: longhorn.antlinux.local
+  dnsNames:
+  - longhorn.antlinux.local

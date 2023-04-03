@@ -131,7 +131,10 @@ controller:
   # but risks potentially imbalanced traffic spreading.
   serviceExternalTrafficPolicy:
   # Jenkins controller service annotations
-  serviceAnnotations: {}
+  serviceAnnotations: 
+    vault.hashicorp.com/agent-inject: 'true'
+    vault.hashicorp.com/role: 'jenkins-vault-plugin'
+    vault.hashicorp.com/bitbucket-plugin-creds.txt: 'secrets/jenkins/bitbucket-plugin'
   # Jenkins controller custom labels
   statefulSetLabels: {}
   #   foo: bar
@@ -449,7 +452,7 @@ controller:
   updateStrategy: {}
 
   ingress:
-    enabled: false
+    enabled: true
     # Override for the default paths that map requests to the backend
     paths: []
     # - backend:
@@ -473,7 +476,7 @@ controller:
     # Set this path to jenkinsUriPrefix above or use annotations to rewrite path
     # path: "/jenkins"
     # configures the hostname e.g. jenkins.example.com
-    hostName:
+    hostName: jenkins.antlinux.local
     tls:
     # - secretName: jenkins.cluster.local
     #   hosts:

@@ -1,1 +1,28 @@
-helm repo add hashicorp https://helm.releases.hashicorp.com
+vault auth enable kubernetes
+
+vault write auth/kubernetes/config \
+    kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443"
+
+
+vault kv put secrets/jenkins/bitbucket-plugin username="jenkins" password='password'
+vault kv get secrets/jenkins/bitbucket-plugin
+
+vault policy write jenkins-vault-plugin - <<EOF
+path "secrets/jenkins/bitbucket-plugin" {
+  capabilities = ["read"]
+}
+EOF
+
+
+vault write auth/kubernetes/role/jenkins-vault-plugin \
+    bound_service_account_names=vault-plugin-svc \
+    bound_service_account_namespaces=jenkins \
+    policies=jenkins-vault-plugin \
+    ttl=24h
+
+kubectl create sa -n jenkins vault-plugin-svc
+
+annotations:
+  vault.hashicorp.com/agent-inject: 'true'
+  vault.hashicorp.com/role: 'jenkins-vault-plugin'
+  vault.hashicorp.com/bitbucket-plugin-creds.txt: 'secrets/jenkins/bitbucket-plugin'
