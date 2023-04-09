@@ -80,7 +80,7 @@ ingress:
   enabled: true
   # Used to create an Ingress record.
   hosts:
-    - name: sonarqube.antlinux.local
+    - name: sonarqube.antlinux.org
       # Different clouds or configurations might need /* as the default path
       path: /
       # For additional control over serviceName and servicePort
@@ -102,9 +102,9 @@ ingress:
   #  traffic-type: internal
   tls: 
   # Secrets must be manually created in the namespace. To generate a self-signed certificate (and private key) and then create the secret in the cluster please refer to official documentation available at https://kubernetes.github.io/ingress-nginx/user-guide/tls/#tls-secrets
-    - secretName: sonarqube-antlinux-local-tls
+    - secretName: sonarqube-antlinux-org-tls
       hosts:
-        - sonarqube.antlinux.local
+        - sonarqube.antlinux.org
 
 route:
   enabled: false

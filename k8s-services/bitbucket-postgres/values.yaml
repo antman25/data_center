@@ -1,0 +1,15 @@
+postgresql:
+  image:
+    registry: docker.io
+    repository: bitnami/postgresql
+    tag: 13.6.0
+  primary:
+    podAnnotations:
+      vault.hashicorp.com/agent-inject: "true"
+      vault.hashicorp.com/role: "bitbucket"
+      vault.hashicorp.com/auth-path: "auth/kubernetes"
+      vault.hashicorp.com/agent-inject-secret-test-raw: "secrets/passwords/bitbucket/postgres"  
+      vault.hashicorp.com/agent-inject-template-test.txt: |
+        {{- with secret "secrets/passwords/bitbucket/postgres" -}}
+        postgres://{{ .Data.username }}:{{ .Data.password }}@postgres:5432/mydb?sslmode=disable
+        {{- end }}

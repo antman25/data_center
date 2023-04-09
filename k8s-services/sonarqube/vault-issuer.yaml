@@ -6,7 +6,7 @@ metadata:
 spec:
   vault:
     server: http://vault.vault:8200
-    path: antlinux-local/v1/ica1/v1/sign/sonarqube-app-role
+    path: antlinux-org/v1/ica1/v1/sign/sonarqube-app-role
     auth:
       kubernetes:
         mountPath: /v1/auth/kubernetes

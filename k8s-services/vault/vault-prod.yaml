@@ -12,7 +12,7 @@ global:
   #   - name: image-pull-secret
 
   # TLS for end-to-end encrypted transport
-  tlsDisable: false
+  tlsDisable: true
 
   # External vault server address for the injector and CSI provider to use.
   # Setting this will disable deployment of a vault server.
@@ -109,7 +109,7 @@ injector:
     # To block pod creation while the webhook is unavailable, set the policy to `Fail` below.
     # See https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#failure-policy
     #
-    failurePolicy: Ignore
+    failurePolicy: Fail
 
     # matchPolicy specifies the approach to accepting changes based on the rules of
     # the MutatingWebhookConfiguration.
@@ -193,7 +193,7 @@ injector:
     # private key to serve the injector webhook. If this is null, then the
     # injector will default to its automatic management mode that will assign
     # a service account to the injector to generate its own certificates.
-    secretName: vault-antlinux-local-tls
+    secretName: 
 
     # caBundle is a base64-encoded PEM-encoded certificate bundle for the CA
     # that signed the TLS certificate that the webhook serves. This must be set
@@ -385,7 +385,7 @@ server:
     # configure the ingress to point to the Vault active service.
     activeService: true
     hosts:
-      - host: vault.antlinux.local
+      - host: vault.antlinux.org
         paths: []
     ## Extra paths to prepend to the host configuration. This is useful when working with annotation based services.
     extraPaths: []
@@ -396,9 +396,9 @@ server:
     #       port:
     #         number: use-annotation
     tls: 
-      - secretName: vault-antlinux-local-tls
+      - secretName: vault-antlinux-org-tls
         hosts:
-          - vault.antlinux.local
+          - vault.antlinux.org
 
   # OpenShift only - create a route to expose the service
   # By default the created route will be of type passthrough
