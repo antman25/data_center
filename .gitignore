@@ -136,3 +136,5 @@ dmypy.json
 /bootstrap/terraform/.terraform/plugins/registry.terraform.io/hashicorp/vsphere/1.24.2/linux_amd64/terraform-provider-vsphere_v1.24.2_x4
 /bootstrap/terraform/.terraform/
 /data_center.iml
+*.tfstate.*
+*.terraform*

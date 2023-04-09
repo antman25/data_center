@@ -5,6 +5,28 @@ resource "vault_mount" "secrets" {
   description = "KV Version 2 secret engine mount"
 }
 
+
+resource "vault_kv_secret_v2" "bitbucket-postres" {
+  mount                      = vault_mount.secrets.path
+  name                       = "passwords/bitbucket/postgres"
+  cas                        = 1
+  delete_all_versions        = true
+  data_json                  = jsonencode(
+  {
+    username       = "atlbitbucket",
+    password       = "password"
+  }
+  )
+  custom_metadata {
+    max_versions = 5
+    data = {
+      foo = "vault@example.com",
+      bar = "12345"
+    }
+  }
+}
+
+
 resource "vault_kv_secret_v2" "jenkins-adm" {
   mount                      = vault_mount.secrets.path
   name                       = "service/jenkins/admin"
@@ -13,7 +35,7 @@ resource "vault_kv_secret_v2" "jenkins-adm" {
   data_json                  = jsonencode(
   {
     username       = "admin",
-    password       = "qwe123QWE!@#"
+    password       = "password"
   }
   )
   custom_metadata {
