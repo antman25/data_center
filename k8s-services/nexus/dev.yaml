@@ -6,7 +6,7 @@ deploymentStrategy: Recreate
 image:
   # Sonatype Official Public Image
   repository: sonatype/nexus3
-  tag: 3.47.1
+  tag: 3.51.0
   pullPolicy: IfNotPresent
 imagePullSecrets:
 # for image registries that require login, specify the name of the existing
@@ -16,10 +16,10 @@ imagePullSecrets:
 nexus:
   docker:
     enabled: true
-    registries:
-      - host: nexus.antlinux.local
+    registries: 
+      - host: docker.antlinux.org
         port: 5000
-        secretName: registry-secret
+        secretName: nexus-antlinux-org-tls
   env:
     # minimum recommended memory settings for a small, person instance from
     # https://help.sonatype.com/repomanager3/product-information/system-requirements
@@ -110,13 +110,14 @@ ingress:
   enabled: true
   ingressClassName: nginx
   annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    nginx.org/client-max-body-size: "0"
   hostPath: /
-  hostRepo: repo.demo
-  # tls:
-  #   - secretName: nexus-local-tls
-  #     hosts:
-  #       - repo.demo
+  hostRepo: nexus.antlinux.org
+  tls:
+    - secretName: nexus-antlinux-org-tls
+      hosts:
+        - nexus.antlinux.org
+        - nexus.antlinux.local
 
 
 service:
@@ -124,7 +125,7 @@ service:
   enabled: true
   labels: {}
   annotations: {}
-  type: LoadBalancer
+  type: ClusterIP
 
 
 route:
@@ -153,7 +154,7 @@ persistence:
   # existingClaim:
   # annotations:
   #  "helm.sh/resource-policy": keep
-  storageClass: longhorn-retain
+  # storageClass: "-"
   storageSize: 8Gi
   # If PersistentDisk already exists you can create a PV for it by including the 2 following keypairs.
   # pdName: nexus-data-disk
@@ -182,3 +183,4 @@ serviceAccount:
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
+
