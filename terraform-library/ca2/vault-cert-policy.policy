@@ -1,25 +1,31 @@
-path "antlinux-local/v1/ica1/v1*" { 
+path "antlinux-org/v1/ica1/v1*" { 
 	capabilities = ["read", "list"] 
 }
-path "antlinux-local/v1/ica1/v1/sign/vault-app-role" { 
+path "antlinux-org/v1/ica1/v1/sign/vault-app-role" { 
 	capabilities = ["create", "update"] 
 }
-path "antlinux-local/v1/ica1/v1/issue/vault-app-role" { 
+path "antlinux-org/v1/ica1/v1/issue/vault-app-role" { 
 	capabilities = ["create"] 
 }
 
-path "antlinux-local/v1/ica1/v1/sign/sonarqube-app-role" {
+path "antlinux-org/v1/ica1/v1/sign/sonarqube-app-role" {
         capabilities = ["create", "update"]
 }
-path "antlinux-local/v1/ica1/v1/issue/sonarqube-app-role" {
+path "antlinux-org/v1/ica1/v1/issue/sonarqube-app-role" {
         capabilities = ["create"]
 }
 
-path "antlinux-local/v1/ica1/v1/sign/longhorn-app-role" {
+path "antlinux-org/v1/ica1/v1/sign/longhorn-app-role" {
         capabilities = ["create", "update"]
 }
-path "antlinux-local/v1/ica1/v1/issue/longhorn-app-role" {
+path "antlinux-org/v1/ica1/v1/issue/longhorn-app-role" {
         capabilities = ["create"]
 }
 
+path "antlinux-org/v1/ica1/v1/sign/nexus-app-role" {
+        capabilities = ["create", "update"]
+}
+path "antlinux-org/v1/ica1/v1/issue/nexus-app-role" {
+        capabilities = ["create"]
+}
 

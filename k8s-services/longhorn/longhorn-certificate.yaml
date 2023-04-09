@@ -10,3 +10,4 @@ spec:
   commonName: longhorn.antlinux.local
   dnsNames:
   - longhorn.antlinux.local
+  - longhorn.antlinux.org
