@@ -1,0 +1,10 @@
+path "antlinux-org/v1/ica1/v1*" { 
+	capabilities = ["read", "list"] 
+}
+path "antlinux-org/v1/ica1/v1/sign/cert-manager-app-role" { 
+	capabilities = ["create", "update"] 
+}
+path "antlinux-org/v1/ica1/v1/issue/cert-manager-app-role" { 
+	capabilities = ["create"] 
+}
+
