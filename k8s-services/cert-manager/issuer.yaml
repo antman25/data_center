@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: vault-issuer
+spec:
+  vault:
+    server: http://vault.vault:8200
+    path: antlinux-org/v1/ica1/v1/sign/cert-manager-app-role
+    auth:
+      kubernetes:
+        mountPath: /v1/auth/kubernetes
+        role: cert-manager-role
+        secretRef:
+          name: issuer-token
+          key: token
