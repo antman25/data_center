@@ -1,0 +1,90 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "fecru.fullname" . }}
+  labels:
+    {{- include "fecru.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  serviceName: {{ include "fecru.fullname" . }}
+  selector:
+    matchLabels:
+      {{- include "fecru.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "fecru.selectorLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "fecru.serviceAccountName" . }}
+      terminationGracePeriodSeconds: {{ .Values.shutdown.terminationGracePeriodSeconds }}
+      {{- if .Values.securityContextEnabled }}
+      {{- with .Values.securityContext }}
+      securityContext:
+        {{/* this condition will be removed in v2.0.0 */}}
+        {{- if and .enabled .gid }}
+        fsGroup: {{ .gid }}
+        {{- else }}
+        {{ toYaml . | nindent 8 }}
+        {{- if not .fsGroup }}
+        fsGroup: 2002
+        {{- end }}
+        {{- end }}
+      {{- end }}
+      {{- end }}
+      initContainers: []
+      containers:
+        - name: cruicible
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.ports.http }}
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              port: {{ .Values.ports.http }}
+              path: {{ .Values.service.contextPath }}
+            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+            failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
+          {{- with .Values.containerSecurityContext}}
+          securityContext:
+          {{- toYaml . | nindent 12}}
+          {{- end}}
+          {{- with .Values.resources.container }}
+          resources:
+          {{- toYaml . | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+            - name: local-home
+              mountPath: "/atlassian/data/crucible"
+          env:
+            - name: FISHEYE_OPTS
+              value: "-Dfecru.configure.from.env.variables=true"
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.topologySpreadConstraints }}
+      topologySpreadConstraints:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if .Values.schedulerName }}
+      schedulerName: {{ .Values.schedulerName  | quote }}
+      {{- end }}
+      volumes:
+        - name: local-home
+          mountPath: "/atlassian/data/crucible"
+  {{ include "fecru.volumeClaimTemplates" . | nindent 2 }}
